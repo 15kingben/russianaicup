@@ -19,7 +19,7 @@ GUI = False
 if GUI and NUM_WORKERS > 2:
     print("Uh oh")
     exit()
-RESTORE_INTERVAL = 5 #seconds
+RESTORE_INTERVAL = 25 #seconds
 NUM_ITERATIONS = int(1e9)
 MODEL_PATH = "models/policycb"
 
@@ -295,8 +295,14 @@ def learn(env_function):
     train_step = tf.train.AdamOptimizer(1e-5, epsilon=1e-5).minimize(total_loss)
 
     sess = tf.Session()
-    sess.run(tf.global_variables_initializer())
-    saver.save(sess, MODEL_PATH)
+    try:
+        sess.run(tf.global_variables_initializer())
+        saver.restore(sess, MODEL_PATH)
+        print("restoring:", MODEL_PATH, "from old session")
+    except:
+        sess.run(tf.global_variables_initializer())
+        saver.save(sess, MODEL_PATH)
+        print("created new session")
     last_save_time = time()
 
     info_queues = {}

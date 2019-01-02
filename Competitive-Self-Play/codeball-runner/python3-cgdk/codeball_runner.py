@@ -7,10 +7,11 @@ import subprocess
 import math
 
 codeball_directory = "/home/ben/russianaicup/codeball2018-linux/codeball2018"
-CODEBALL_GOAL_REWARD = 20000
-CODEBALL_DIS_BALL_REWARD = 1
-CODEBALL_BALL_GOAL_REWARD = 2
+CODEBALL_GOAL_REWARD = 1
+CODEBALL_DIS_BALL_REWARD = 0
+CODEBALL_BALL_GOAL_REWARD = 0
 CODEBALL_MAX_TICK_LIMIT = 5000 # 20000
+CODEBALL_TIMEOUT_REWARD = 1
 def d(x1, x2, x3, y1, y2, y3):
     return math.sqrt((y1-x1)**2 + (x2-y2)**2 + (x3-y3)**2)
 
@@ -125,8 +126,8 @@ class CodeballRunner:
                     we_scored = True
         if has_scored:
             print("ZOMG someone scored")
-            with open("poop.txt", 'w') as f:
-                f.write("poop")
+            with open("poop.txt", 'a') as f:
+                f.write("poop\n")
             self.done = True
             m = 1 if (team == 1) == we_scored else -1
 
@@ -136,8 +137,8 @@ class CodeballRunner:
             self.done = True
         elif game.current_tick > CODEBALL_MAX_TICK_LIMIT:
             self.done = True
-            self.reward1 = -5000
-            self.reward2 = -5000
+            self.reward1 = -1*CODEBALL_TIMEOUT_REWARD
+            self.reward2 = -1*CODEBALL_TIMEOUT_REWARD
         else:
             # distance ball goal
             mindus = 100000; mindthem = 100000
