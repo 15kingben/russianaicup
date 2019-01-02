@@ -25,7 +25,7 @@ class MyStrategy:
         for robot in game.robots:
             if robot.is_teammate and robot.id != myId:
                 otherId = robot.id
-        self.isLowPlayer = myId if myId < otherId else otherId
+        self.lowPlayer = myId if myId < otherId else otherId
 
     def inputAction(self, action, act_tup, is_low):
         offset = 0

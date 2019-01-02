@@ -74,7 +74,7 @@ class ContinuousPolicy(object):
                     pol_hidden,
                     hidden_size,
                     name="pol_hidden{}".format(i+1),
-                    kernel_initializer=initializer(1.0)
+                    kernel_initializer=initializer(.01)
                 )
                 val_hidden = tf.layers.dense(
                     val_hidden,
