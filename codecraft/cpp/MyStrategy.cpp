@@ -29,6 +29,7 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
         stream.write(pair.first);
         stream.writeString(" : ");
         pair.second.writeTo(stream);
+        std::cout << pair.second.size << std::endl;
         stream.writeString("   ");
     }
 
