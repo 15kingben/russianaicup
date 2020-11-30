@@ -1,8 +1,3 @@
-#define DEBUG
-#ifdef DEBUG
-#include "StringStream.hpp"
-#endif
-
 #include "MyStrategy.hpp"
 #include <exception>
 #include <memory>
@@ -21,8 +16,6 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
 {
     debugInterface.send(DebugCommand::Clear());
 
-
-    #ifdef DEBUG
     std::string str;
     for (auto pair : playerView.entityProperties) {
         str += debugEntityType(pair.first) + ":  ";
@@ -32,8 +25,6 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
 
     // debugInterface.send(DebugCommand::Add(std::make_shared<DebugData::Log>(str)));
     std::cout << str << "\n";
-    #endif //DEBUG
-
 
     debugInterface.getState();
 }
