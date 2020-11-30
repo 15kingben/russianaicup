@@ -63,5 +63,4 @@ void EntityProperties::writeTo(OutputStream& stream) const {
     } else {
         stream.write(false);
     }
-    stream.write(25);
 }

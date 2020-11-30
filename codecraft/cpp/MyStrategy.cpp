@@ -23,21 +23,53 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
 
 
     #ifdef DEBUG
-    StringStream stream;
-
+    std::string str;
     for (auto pair : playerView.entityProperties) {
-        stream.write(pair.first);
-        stream.writeString(" : ");
-        pair.second.writeTo(stream);
-        std::cout << stream.get() << std::endl;
-        stream.writeString("   ");
+        str += debugEntityType(pair.first) + ":  ";
+        str += debugEntityProperty(pair.second);
+        str += "\n";
     }
 
-    std::shared_ptr<DebugData> debugData = std::make_shared<DebugData::Log>(stream.get());
-    stream.flush();
-    debugInterface.send(DebugCommand::Add(debugData));
+    debugInterface.send(DebugCommand::Add(std::make_shared<DebugData::Log>(str)));
     #endif //DEBUG
 
 
     debugInterface.getState();
+}
+
+/////////////////////////////////////////////////////
+////////////// debug utilities  /////////////////////
+/////////////////////////////////////////////////////
+
+std::string debugEntityProperty(const EntityProperties &props) {
+    std::string s = "";
+    s += "cost: " + props.cost;
+    s += "  maxhp: " + props.maxHealth;
+    return s;
+}
+
+std::string debugEntityType(int type) {
+    switch (type) {
+        case 0:
+            return "wall";
+        case 1:
+            return "house";
+        case 2:
+            return "builder_base";
+        case 3:
+            return "builder_unit";
+        case 4:
+            return "melee_base";
+        case 5:
+            return "melee_unit";
+        case 6:
+            return "ranged_base";
+        case 7:
+            return "ranged_unit";
+        case 8:
+            return "resource";
+        case 9:
+            return "turret";
+    }
+    return "";
 }
