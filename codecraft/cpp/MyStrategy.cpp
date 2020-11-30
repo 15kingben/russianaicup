@@ -45,16 +45,17 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
         //             break;
         //     }
         // }
-        cout << debugEntityType(entity.entityType) << " " << pv->entityProperties.at(entity.entityType).size << endl;
+        // cout << debugEntityType(entity.entityType) << " " << pv->entityProperties.at(entity.entityType).size << endl;
 
-        for (auto x : open) {
-            for (int i = 0; i < open.size(); i++) {
-                cout << x[i];
-            }
-            cout << endl;
-        }
-        cout << endl << endl;
     }
+
+    for (auto x : open) {
+        for (int i = 0; i < open.size(); i++) {
+            cout << x[i];
+        }
+        cout << endl;
+    }
+    cout << endl << endl;
 
     return Action(myAction);
 }
