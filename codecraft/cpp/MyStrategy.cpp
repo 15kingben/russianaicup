@@ -19,7 +19,7 @@ void oneTimeInitialization();
 
 std::vector<std::vector<bool> > open;
 bool oneTimeInitDone = false;
-PlayerView &pv = nullptr;
+PlayerView &pv();
 
 enum BuilderStrat {
     MINE = 0,
