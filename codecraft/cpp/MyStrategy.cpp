@@ -39,8 +39,3 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
 
     debugInterface.getState();
 }
-
-std::string debugEntity(const Entity& entity) {
-    std::string s = "";
-    s += "Entity (" + entity.entityType + ") : " + entity.health + " " + entity.position;
-}
