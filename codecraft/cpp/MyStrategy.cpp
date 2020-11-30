@@ -1,6 +1,13 @@
+#define DEBUG
+#ifdef DEBUG
+#include "StringStream.hpp"
+#endif
+
 #include "MyStrategy.hpp"
 #include <exception>
 #include <memory>
+#include <string>
+#include <sstream> 
 
 MyStrategy::MyStrategy() {}
 
@@ -12,7 +19,28 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
 void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debugInterface)
 {
     debugInterface.send(DebugCommand::Clear());
-    std::shared_ptr<DebugData> debugData = std::make_shared<DebugData::Log>("testaroni");
+
+
+    #ifdef DEBUG
+    StringStream stream;
+
+    for (auto pair : playerView.entityProperties) {
+        stream.write(pair.first);
+        stream.write(": ");
+        pair.second.writeTo(stream);
+        stream.write("\n");
+    }
+
+    std::shared_ptr<DebugData> debugData = std::make_shared<DebugData::Log>(stream.get());
+    stream.flush();
     debugInterface.send(DebugCommand::Add(debugData));
+    #endif //DEBUG
+
+
     debugInterface.getState();
+}
+
+std::string debugEntity(const Entity& entity) {
+    std::string s = "";
+    s += "Entity (" + entity.entityType + ") : " + entity.health + " " + entity.position;
 }
