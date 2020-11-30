@@ -49,7 +49,7 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
             for (int i = 0; i < open.size(); i++) {
                 cout << x[i];
             }
-            cout<<endl;
+            cout << endl << endl;
         }
     }
 
