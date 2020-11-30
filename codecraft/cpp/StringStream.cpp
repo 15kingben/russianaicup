@@ -19,11 +19,9 @@ std::string StringStream::get() {
 void StringStream::writeBytes(const char *buffer, size_t byteCount) {
     
 }
-
 void StringStream::write(int value) {
     str += std::to_string(value) + " ";
 }
-
 void StringStream::write(long long value) {
     str += std::to_string(value) + " ";
 }

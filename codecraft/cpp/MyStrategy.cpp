@@ -27,7 +27,7 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
 
     for (auto pair : playerView.entityProperties) {
         stream.write(pair.first);
-        stream.write(": ");
+        stream.write(" : ");
         pair.second.writeTo(stream);
         stream.write("\n");
     }
