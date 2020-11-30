@@ -31,6 +31,7 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
     }
 
     debugInterface.send(DebugCommand::Add(std::make_shared<DebugData::Log>(str)));
+    std::cout << str << std::endl;
     #endif //DEBUG
 
 
