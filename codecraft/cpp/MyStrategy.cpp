@@ -4,26 +4,100 @@
 #include <string>
 #include <sstream> 
 #include <iostream>
+#include <vector>
+#include <unordered_map>
 
+using namespace std;
 
 std::string debugEntityProperty(const EntityProperties &props);
 std::string debugEntityType(EntityType e);
 std::string debugEntity(const Entity &e);
 
+
+
+std::vector<std::vector<bool> > open;
+bool oneTimeInitDone = false;
+PlayerView &pv;
+
+enum BuilderStrat {
+    MINE = 0,
+    REPAIR = 1
+};
+
 MyStrategy::MyStrategy() {}
 
 Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debugInterface)
 {
+    pv = playerView;
+    oneTimeInitialization();
+    everyTickInitialization();
+    std::unordered_map<int, EntityAction> myAction;
+    int me = playerView.myId;
 
-    return Action(std::unordered_map<int, EntityAction>());
+    for (Entity entity : playerView.entities) {
+        takeUpSpace(entity, open);
+
+        // if (entity.id == me) {
+        //     switch (entity.entityType) {
+        //         case (BUILDER_BASE):
+        //             myAction[entity.id] = EntityAction(BuildAction(BUILDER_UNIT, entity.position));
+        //             break;
+        //     }
+        // }
+        for (auto x : open) {
+            for (int i = 0; i < open.size(); i++) {
+                cout << x[i];
+            }
+            cout<<endl;
+        }
+    }
+
+    return Action(myAction);
 }
 
+void takeUpSpace(const Entity& entity, std::vector<std::vector<bool> > &open) {
+    int x = entity.position.x;
+    int y = entity.position.y;
+    int size = pv.entityProperties[entity.entityType].size;
+    for (int i = x; i < x + size; i++) {
+        for (int j = y; j < y + size; j++) {
+            open[i][j] = false;
+        }
+    }
+}
+
+void everyTickInitialization() {
+    int size = pv.mapSize;
+    for (auto row : open) {
+        for (int i = 0; i < size; i++) {
+            row[i] = true;
+        }
+    }
+}
+
+void oneTimeInitialization() {
+    if (oneTimeInitDone) return;
+    int size = pv.mapSize;
+    for (int i = 0; i < size; i++) {
+        open.emplace_back(std::vector<bool>());
+        for (int j = 0; j < size; j++) {
+            open[i].emplace_back(true);
+        }
+    }
+
+    oneTimeInitDone = true;
+}
+
+
+
+
+// Method only run in local mode, not in competition
 void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debugInterface)
 {
     debugInterface.send(DebugCommand::Clear());
 
     bool debugEntityProperties = false;
-    bool debugEntities = true;
+    bool debugEntities = false;
 
     std::string str;
     
@@ -47,6 +121,8 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
 
     debugInterface.getState();
 }
+
+
 
 /////////////////////////////////////////////////////
 ////////////// debug utilities  /////////////////////
