@@ -35,8 +35,10 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
 
 std::string debugEntityProperty(const EntityProperties &props) {
     std::string s = "";
-    s += "cost: " + std::to_string(props.cost);
-    s += "  maxhp: " + std::to_string(props.maxHealth);
+    s += "cost: ";
+    s += std::to_string(props.cost);
+    s += " | maxhp: ";
+    s += std::to_string(props.maxHealth);
     return s;
 }
 
