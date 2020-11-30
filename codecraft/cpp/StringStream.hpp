@@ -17,6 +17,7 @@ public:
     void write(double value);
     void write(const std::string &value);
     std::string get();
+    void writeString(const std::string &value);
 private:
     std::string str;
 };

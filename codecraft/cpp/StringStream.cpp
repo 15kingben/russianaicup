@@ -37,3 +37,6 @@ void StringStream::write(double value) {
 void StringStream::write(const std::string &value) {
     str += value + " ";
 }
+void StringStream::writeString(const std::string &value) {
+    str += value + " ";
+}

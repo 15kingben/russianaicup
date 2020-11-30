@@ -25,14 +25,12 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
     #ifdef DEBUG
     StringStream stream;
 
-    // for (auto pair : playerView.entityProperties) {
-    //     stream.write(pair.first);
-    //     stream.write(" : ");
-    //     pair.second.writeTo(stream);
-    //     stream.write("\n");
-    // }
-
-    stream.write("test");
+    for (auto pair : playerView.entityProperties) {
+        stream.write(pair.first);
+        stream.writeString(" : ");
+        pair.second.writeTo(stream);
+        stream.writeString("\n");
+    }
 
     std::shared_ptr<DebugData> debugData = std::make_shared<DebugData::Log>(stream.get());
     std::cout << stream.get() << std::endl;
