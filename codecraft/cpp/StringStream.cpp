@@ -17,9 +17,7 @@ std::string StringStream::get() {
 }
 
 void StringStream::writeBytes(const char *buffer, size_t byteCount) {
-    for (int i = 0; i < byteCount; i++) {
-        str.push_back(buffer[i]);
-    }
+    
 }
 
 void StringStream::write(int value) {
