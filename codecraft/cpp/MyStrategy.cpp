@@ -5,10 +5,16 @@
 #include <sstream> 
 #include <iostream>
 
+
+std::string debugEntityProperty(const EntityProperties &props);
+std::string debugEntityType(EntityType e);
+std::string debugEntity(const Entity &e);
+
 MyStrategy::MyStrategy() {}
 
 Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debugInterface)
 {
+
     return Action(std::unordered_map<int, EntityAction>());
 }
 
@@ -17,7 +23,7 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
     debugInterface.send(DebugCommand::Clear());
 
     bool debugEntityProperties = false;
-    bool debugEntities = true;
+    bool debugEntities = false;
 
     std::string str;
     
