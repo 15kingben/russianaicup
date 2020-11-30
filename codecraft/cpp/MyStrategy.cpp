@@ -33,7 +33,6 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
     }
 
     std::shared_ptr<DebugData> debugData = std::make_shared<DebugData::Log>(stream.get());
-    std::cout << stream.get() << std::endl;
     stream.flush();
     debugInterface.send(DebugCommand::Add(debugData));
     #endif //DEBUG
