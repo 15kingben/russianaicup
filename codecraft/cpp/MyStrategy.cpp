@@ -27,7 +27,7 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
     for (auto pair : playerView.entityProperties) {
         str += debugEntityType(pair.first) + ":  ";
         str += debugEntityProperty(pair.second);
-        str += "\r\n";
+        str += " ";
     }
 
     debugInterface.send(DebugCommand::Add(std::make_shared<DebugData::Log>(str)));
