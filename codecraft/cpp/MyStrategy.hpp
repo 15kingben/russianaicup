@@ -11,4 +11,7 @@ public:
     void debugUpdate(const PlayerView& playerView, DebugInterface& debugInterface);
 };
 
+std::string debugEntityProperty(const EntityProperties &props);
+std::string debugEntityType(int e);
+
 #endif
