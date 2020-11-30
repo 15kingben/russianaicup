@@ -48,15 +48,15 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
 
 std::string debugVector(Vec2Int vec) {
     std::string s = "";
-    s += "("; s += vec.x; s += ","; s+= vec.y; s += ")";
+    s += "("; s += std::to_string(vec.x); s += ","; s+= std::to_string(vec.y); s += ")";
     return s;
 }
 
 std::string debugEntity(const Entity &entity) {
     std::string s = "";
     s += debugEntityType(entity.entityType) + ":  ";
-    s += "hp: " + entity.health;  s += ", ";
-    s += "id: " + entity.id;  s += ", ";
+    s += "hp: " + std::to_string(entity.health);  s += ", ";
+    s += "id: " + std::to_string(entity.id);  s += ", ";
     s += "pos: " + debugVector(entity.position); s += ", ";
     return s;
 }
