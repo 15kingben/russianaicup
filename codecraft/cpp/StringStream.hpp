@@ -10,6 +10,12 @@ public:
     StringStream();
     void flush();
     void writeBytes(const char *buffer, size_t byteCount);
+    void write(bool value);
+    void write(int value);
+    void write(long long value);
+    void write(float value);
+    void write(double value);
+    void write(const std::string &value);
     std::string get();
 private:
     std::string str;

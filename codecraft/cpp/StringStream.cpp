@@ -21,3 +21,23 @@ void StringStream::writeBytes(const char *buffer, size_t byteCount) {
         str.push_back(buffer[i]);
     }
 }
+
+void StringStream::write(int value) {
+    str += std::to_string(value) + " ";
+}
+
+void StringStream::write(long long value) {
+    str += std::to_string(value) + " ";
+}
+void StringStream::write(bool value) {
+    str += std::to_string(value) + " ";
+}
+void StringStream::write(float value) {
+    str += std::to_string(value) + " ";
+}
+void StringStream::write(double value) {
+    str += std::to_string(value) + " ";
+}
+void StringStream::write(const std::string &value) {
+    str += value + " ";
+}
