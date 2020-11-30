@@ -12,7 +12,9 @@ using namespace std;
 std::string debugEntityProperty(const EntityProperties &props);
 std::string debugEntityType(EntityType e);
 std::string debugEntity(const Entity &e);
-
+void takeUpSpace(const Entity& entity, std::vector<std::vector<bool> > &open);
+void everyTickInitialization();
+void oneTimeInitialization();
 
 
 std::vector<std::vector<bool> > open;
