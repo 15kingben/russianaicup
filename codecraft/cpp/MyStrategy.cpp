@@ -23,7 +23,7 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
     debugInterface.send(DebugCommand::Clear());
 
     bool debugEntityProperties = false;
-    bool debugEntities = false;
+    bool debugEntities = true;
 
     std::string str;
     
