@@ -13,5 +13,6 @@ public:
 
 std::string debugEntityProperty(const EntityProperties &props);
 std::string debugEntityType(EntityType e);
+std::string debugEntity(const Entity &e);
 
 #endif

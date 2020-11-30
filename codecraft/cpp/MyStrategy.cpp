@@ -16,11 +16,24 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
 {
     debugInterface.send(DebugCommand::Clear());
 
+    bool debugEntityProperties = false;
+    bool debugEntities = true;
+
     std::string str;
-    for (auto pair : playerView.entityProperties) {
-        str += debugEntityType(pair.first) + ":  ";
-        str += debugEntityProperty(pair.second);
-        str += "\n";
+    
+    if (debugEntityProperties) {
+        for (auto pair : playerView.entityProperties) {
+            str += debugEntityType(pair.first) + ":  ";
+            str += debugEntityProperty(pair.second);
+            str += "\n";
+        }
+    }
+
+    if (debugEntities) {
+        for (Entity entity : playerView.entities) {
+            str += debugEntity(entity);
+            str += "\n";
+        }
     }
 
     // debugInterface.send(DebugCommand::Add(std::make_shared<DebugData::Log>(str)));
@@ -32,6 +45,21 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
 /////////////////////////////////////////////////////
 ////////////// debug utilities  /////////////////////
 /////////////////////////////////////////////////////
+
+std::string debugVector(Vec2Int vec) {
+    std::string s = "";
+    s += "("; s += vec.x; s += ","; s+= vec.y; s += ")";
+    return s;
+}
+
+std::string debugEntity(const Entity &entity) {
+    std::string s = "";
+    s += debugEntityType(entity.entityType) + ":  ";
+    s += "hp: " + entity.health;  s += ", ";
+    s += "id: " + entity.id;  s += ", ";
+    s += "pos: " + debugVector(entity.position); s += ", ";
+    return s;
+}
 
 std::string debugEntityProperty(const EntityProperties &props) {
     std::string s = "";
