@@ -19,7 +19,7 @@ void oneTimeInitialization();
 
 std::vector<std::vector<bool> > open;
 bool oneTimeInitDone = false;
-PlayerView &pv();
+const PlayerView *pv;
 
 enum BuilderStrat {
     MINE = 0,
@@ -30,12 +30,11 @@ MyStrategy::MyStrategy() {}
 
 Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debugInterface)
 {
-    pv = playerView;
+    pv = &playerView;
     oneTimeInitialization();
     everyTickInitialization();
     std::unordered_map<int, EntityAction> myAction;
     int me = playerView.myId;
-
     for (Entity entity : playerView.entities) {
         takeUpSpace(entity, open);
 
@@ -60,7 +59,7 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
 void takeUpSpace(const Entity& entity, std::vector<std::vector<bool> > &open) {
     int x = entity.position.x;
     int y = entity.position.y;
-    int size = pv.entityProperties[entity.entityType].size;
+    int size = pv->entityProperties.at(entity.entityType).size;
     for (int i = x; i < x + size; i++) {
         for (int j = y; j < y + size; j++) {
             open[i][j] = false;
@@ -69,7 +68,7 @@ void takeUpSpace(const Entity& entity, std::vector<std::vector<bool> > &open) {
 }
 
 void everyTickInitialization() {
-    int size = pv.mapSize;
+    int size = pv->mapSize;
     for (auto row : open) {
         for (int i = 0; i < size; i++) {
             row[i] = true;
@@ -79,7 +78,7 @@ void everyTickInitialization() {
 
 void oneTimeInitialization() {
     if (oneTimeInitDone) return;
-    int size = pv.mapSize;
+    int size = pv->mapSize;
     for (int i = 0; i < size; i++) {
         open.emplace_back(std::vector<bool>());
         for (int j = 0; j < size; j++) {
