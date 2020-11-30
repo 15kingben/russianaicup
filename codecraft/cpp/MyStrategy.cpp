@@ -29,7 +29,7 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
         stream.write(pair.first);
         stream.writeString(" : ");
         pair.second.writeTo(stream);
-        stream.writeString("\n");
+        stream.writeString("   ");
     }
 
     std::shared_ptr<DebugData> debugData = std::make_shared<DebugData::Log>(stream.get());
