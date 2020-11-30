@@ -35,12 +35,12 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
 
 std::string debugEntityProperty(const EntityProperties &props) {
     std::string s = "";
-    s += "cost: " + props.cost;
-    s += "  maxhp: " + props.maxHealth;
+    s += "cost: " + std::to_string(props.cost);
+    s += "  maxhp: " + std::to_string(props.maxHealth);
     return s;
 }
 
-std::string debugEntityType(int type) {
+std::string debugEntityType(EntityType type) {
     switch (type) {
         case 0:
             return "wall";
