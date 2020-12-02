@@ -1,6 +1,7 @@
 #include "ConstructManager.hpp"
 #include "Util.hpp"
 #include "Economy.hpp"
+#include <iostream>
 
 ConstructManager::ConstructManager() {
 
@@ -26,11 +27,14 @@ ConstructManager::ConstructManager() {
 }
 
 void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & actions, Economy economy) {
+    std::cout << economy.getResources() << std::endl;
+
     for (auto pair : builderFactories) {
         if (economy.charge(BUILDER_UNIT))
             actions[pair.first] = Util::getAction(BuildAction(BUILDER_UNIT, Util::getBuildPosition(pair.second)));
         else
             actions[pair.first] = Util::getEmptyAction();
+        std::cout << actions[pair.first].buildAction << std::endl;
     }
 
     for (auto pair : rangedFactories) {
