@@ -2,7 +2,7 @@
 #define _BUILDER_MANAGER_HPP_
 
 #include <unordered_map>
-#include "Model.hpp"
+#include "model/Model.hpp"
 
 enum Role {
     MINE = 0,
