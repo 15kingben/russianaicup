@@ -19,7 +19,7 @@ int Economy::getResourcePerTurn() {
 }
 
 void Economy::setResources(int resource) {
-    resources = resources;
+    resources = resource;
 }
 
 bool Economy::charge(EntityType entityType) {

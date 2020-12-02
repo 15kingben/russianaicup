@@ -50,8 +50,6 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
 
     int me = playerView.myId;
 
-    cout << "here" << endl;
-
     for (Entity entity : playerView.entities) {
         takeUpSpace(entity, open);
         if (entity.playerId && *entity.playerId.get() == me) {
@@ -72,15 +70,11 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
         }
     }
 
-    cout << builders.size() << endl;
-
     builderManager.updateBuilders(builders);
     constructManager.updateBases(builderFactories, rangedFactories, meleeFactories);
 
     constructManager.baseBuildActions(myAction, economy);
     builderManager.builderActions(myAction);
-
-    cout << myAction.size() << endl;
 
 
     return Action(myAction);
