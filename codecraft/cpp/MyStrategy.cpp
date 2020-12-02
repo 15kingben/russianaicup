@@ -60,6 +60,8 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
 
     builderManager.builderActions(myAction);
 
+    cout << myAction.size() << endl;
+
 
     return Action(myAction);
 }
