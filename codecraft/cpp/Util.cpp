@@ -15,3 +15,9 @@ EntityAction Util::getAction(AttackAction action) {
             std::make_shared<AttackAction>(action),
             std::shared_ptr<RepairAction>());
 }
+
+// gets the position where new units/buildings can be built from this unit
+Vec2Int Util::getBuildPosition(Entity entity) {
+    int size = entityProperties[entity.entityType].size;
+    return Vec2Int(entity.position.x + size + 1, entity.position.y + size + 1);
+}

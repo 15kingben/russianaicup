@@ -2,6 +2,7 @@
 #include "Economy.hpp"
 #include "BuilderManager.hpp"
 #include "ConstructManager.hpp"
+#include "Util.hpp"
 #include <exception>
 #include <memory>
 #include <string>
@@ -80,7 +81,7 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
     cout << builders.size() << endl;
 
     builderManager.updateBuilders(builders);
-    constructMa
+    constructManager.baseBuildActions();
     
     builderManager.builderActions(myAction);
 
@@ -119,6 +120,8 @@ void oneTimeInitialization() {
             open[i].emplace_back(true);
         }
     }
+
+    Util::entityProperties = pv->entityProperties;
 
     oneTimeInitDone = true;
 }
