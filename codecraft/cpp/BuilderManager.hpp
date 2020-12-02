@@ -14,7 +14,7 @@ class Builder {
         Role role;
         bool committed;
         Entity entity;
-
+        Builder();
         Builder(Entity entity, Role role);
 };
 

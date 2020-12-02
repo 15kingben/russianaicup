@@ -13,6 +13,10 @@ Builder::Builder(Entity entity, Role role) {
     committed = false;
 }
 
+Builder::Builder() {
+    
+}
+
 int BuilderManager::getBuilderCount() {
     return builders.size();
 }
@@ -29,7 +33,6 @@ void BuilderManager::updateBuilders(const std::unordered_map<int, Entity> & curr
     for (auto pair : currentBuilders) {
         if (builders.find(pair.first) != builders.end()) continue;
         builders[pair.first] = Builder(pair.second, MINE);
-;
     }
 }
 
