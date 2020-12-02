@@ -42,10 +42,11 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
     int me = playerView.myId;
 
 
+    cout << "here" << endl;
 
     for (Entity entity : playerView.entities) {
         takeUpSpace(entity, open);
-
+        cout << "test" << endl;
         if (*entity.playerId && *entity.playerId == me) {
             switch (entity.entityType) {
                 case BUILDER_UNIT:
