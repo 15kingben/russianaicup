@@ -1,6 +1,10 @@
 #include "ConstructManager.hpp"
 #include "Util.hpp"
 
+ConstructManager::ConstructManager() {
+    
+}
+
  void ConstructManager::updateBases(const std::unordered_map<int, Entity> & builderBases, 
                     const std::unordered_map<int, Entity> & rangedBases,
                     const std::unordered_map<int, Entity> & meleeBases) {
