@@ -55,6 +55,8 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
         }
     }
 
+    cout << builders.size() << endl;
+
     builderManager.updateBuilders(builders);
     
 
