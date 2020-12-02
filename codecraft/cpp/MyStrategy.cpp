@@ -46,7 +46,6 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
 
     int me = playerView.myId;
 
-
     cout << "here" << endl;
 
     for (Entity entity : playerView.entities) {
@@ -64,7 +63,6 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
 
     builderManager.updateBuilders(builders);
     
-
     builderManager.builderActions(myAction);
 
     cout << myAction.size() << endl;
