@@ -46,7 +46,7 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
     for (Entity entity : playerView.entities) {
         takeUpSpace(entity, open);
 
-        if (*entity.playerId.get() == me) {
+        if (*entity.playerId && *entity.playerId == me) {
             switch (entity.entityType) {
                 case BUILDER_UNIT:
                     builders[entity.id] = entity;
