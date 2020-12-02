@@ -29,15 +29,21 @@ void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & 
     for (auto pair : builderFactories) {
         if (economy.charge(BUILDER_UNIT))
             actions[pair.first] = Util::getAction(BuildAction(BUILDER_UNIT, Util::getBuildPosition(pair.second)));
+        else
+            actions[pair.first] = Util::getEmptyAction();
     }
 
     for (auto pair : rangedFactories) {
         if (economy.charge(RANGED_UNIT))
             actions[pair.first] = Util::getAction(BuildAction(RANGED_UNIT, Util::getBuildPosition(pair.second)));
+        else
+            actions[pair.first] = Util::getEmptyAction();
     }
 
     for (auto pair : meleeFactories) {
         if (economy.charge(MELEE_UNIT))
             actions[pair.first] = Util::getAction(BuildAction(MELEE_UNIT, Util::getBuildPosition(pair.second)));
+        else
+            actions[pair.first] = Util::getEmptyAction();
     }
 }

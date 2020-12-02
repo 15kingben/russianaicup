@@ -9,6 +9,7 @@ public:
     static std::unordered_map<EntityType, EntityProperties> entityProperties;
     static EntityAction getAction(BuildAction action);
     static EntityAction getAction(AttackAction action);
+    static EntityAction getEmptyAction();
     static Vec2Int getBuildPosition(Entity entity);
 };
 
