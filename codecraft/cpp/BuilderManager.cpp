@@ -39,6 +39,6 @@ void BuilderManager::updateBuilders(const std::unordered_map<int, Entity> & curr
 
 void BuilderManager::builderActions(std::unordered_map<int, EntityAction> & actions) {
     for (auto pair : builders) {
-        actions[pair.first] = Util::getAction(AttackAction(std::shared_ptr<int>(), std::make_shared<AutoAttack>(AutoAttack(10, std::vector<EntityType>()))));
+        actions[pair.first] = Util::getAction(AttackAction(std::shared_ptr<int>(), std::make_shared<AutoAttack>(AutoAttack(1000, std::vector<EntityType>()))));
     }
 }
