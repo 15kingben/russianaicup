@@ -1,4 +1,5 @@
 #include "Economy.hpp"
+#include "Util.hpp"
 #include <memory>
 #include <string>
 
@@ -21,7 +22,8 @@ void Economy::setResources(int resource) {
     resources = resources;
 }
 
-bool Economy::charge(int cost) {
+bool Economy::charge(EntityType entityType) {
+    int cost = Util::entityProperties[entityType].cost;
     if (resources - cost >= 0) {
         resources -= cost;
         return true;

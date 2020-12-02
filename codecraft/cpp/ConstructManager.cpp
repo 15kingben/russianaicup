@@ -1,8 +1,9 @@
 #include "ConstructManager.hpp"
 #include "Util.hpp"
+#include "Economy.hpp"
 
 ConstructManager::ConstructManager() {
-    
+
 }
 
  void ConstructManager::updateBases(const std::unordered_map<int, Entity> & builderBases, 
@@ -24,16 +25,19 @@ ConstructManager::ConstructManager() {
     }
 }
 
-void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & actions) {
+void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & actions, Economy economy) {
     for (auto pair : builderFactories) {
-        actions[pair.first] = Util::getAction(BuildAction(BUILDER_UNIT, Util::getBuildPosition(pair.second)));
+        if (economy.charge(BUILDER_UNIT))
+            actions[pair.first] = Util::getAction(BuildAction(BUILDER_UNIT, Util::getBuildPosition(pair.second)));
     }
 
     for (auto pair : rangedFactories) {
-        actions[pair.first] = Util::getAction(BuildAction(RANGED_UNIT, Util::getBuildPosition(pair.second)));
+        if (economy.charge(RANGED_UNIT))
+            actions[pair.first] = Util::getAction(BuildAction(RANGED_UNIT, Util::getBuildPosition(pair.second)));
     }
 
     for (auto pair : meleeFactories) {
-        actions[pair.first] = Util::getAction(BuildAction(MELEE_UNIT, Util::getBuildPosition(pair.second)));
+        if (economy.charge(MELEE_UNIT))
+            actions[pair.first] = Util::getAction(BuildAction(MELEE_UNIT, Util::getBuildPosition(pair.second)));
     }
 }

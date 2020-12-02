@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 #include "model/Model.hpp"
+#include "Economy.hpp"
 
 class ConstructManager {
 public:
@@ -10,7 +11,7 @@ public:
     void updateBases(const std::unordered_map<int, Entity> & builderBases, 
                     const std::unordered_map<int, Entity> & rangedBases,
                     const std::unordered_map<int, Entity> & meleeBases);
-    void baseBuildActions(std::unordered_map<int, EntityAction> & actions);
+    void baseBuildActions(std::unordered_map<int, EntityAction> & actions, Economy economy);
 
 private:
     std::unordered_map<int, Entity> builderFactories;

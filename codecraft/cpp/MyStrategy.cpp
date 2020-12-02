@@ -81,8 +81,9 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
     cout << builders.size() << endl;
 
     builderManager.updateBuilders(builders);
+    constructManager.updateBases(builderFactories, rangedFactories, meleeFactories);
+
     constructManager.baseBuildActions(myAction);
-    
     builderManager.builderActions(myAction);
 
     cout << myAction.size() << endl;
