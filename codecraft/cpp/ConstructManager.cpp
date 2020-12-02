@@ -4,9 +4,20 @@
  void ConstructManager::updateBases(const std::unordered_map<int, Entity> & builderBases, 
                     const std::unordered_map<int, Entity> & rangedBases,
                     const std::unordered_map<int, Entity> & meleeBases) {
-    meleeFactories = meleeBases;
-    rangedFactories = rangedBases;
-    builderFactories = builderBases;
+    meleeFactories.clear();
+    for (auto pair : meleeBases) {
+        meleeFactories[pair.first] = pair.second;
+    }
+
+    builderFactories.clear();
+    for (auto pair : builderBases) {
+        builderFactories[pair.first] = pair.second;
+    }
+
+    rangedFactories.clear();
+    for (auto pair : rangedBases) {
+        rangedFactories[pair.first] = pair.second;
+    }
 }
 
 void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & actions) {
