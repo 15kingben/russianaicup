@@ -1,5 +1,7 @@
 #include "Util.hpp"
 
+std::unordered_map<EntityType, EntityProperties> Util::entityProperties;
+
 EntityAction Util::getAction(BuildAction action) {
     return EntityAction(
             std::shared_ptr<MoveAction>(), 
