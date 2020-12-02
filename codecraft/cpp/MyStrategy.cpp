@@ -30,6 +30,9 @@ Economy economy();
 // global object to manage builder units
 BuilderManager builderManager;
 
+std::unordered_map<int, EntityAction> myAction;
+unordered_map<int, Entity> builders;
+
 MyStrategy::MyStrategy() {}
 
 Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debugInterface)
@@ -37,8 +40,10 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
     pv = &playerView;
     oneTimeInitialization();
     everyTickInitialization();
-    std::unordered_map<int, EntityAction> myAction;
-    unordered_map<int, Entity> builders;
+
+    myAction.clear();
+    builders.clear();
+
     int me = playerView.myId;
 
 
