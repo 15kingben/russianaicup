@@ -28,7 +28,7 @@ bool oneTimeInitDone = false;
 // global pointer to per-tick PlayerView
 const PlayerView *pv;
 // global object tracking our economy
-Economy economy();
+Economy economy;
 // global object to manage builder units
 BuilderManager builderManager;
 // global object to manage construction
@@ -47,12 +47,6 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
     pv = &playerView;
     oneTimeInitialization();
     everyTickInitialization();
-
-    myAction.clear();
-    builders.clear();
-    builderFactories.clear();
-    rangedFactories.clear();
-    meleeFactories.clear();
 
     int me = playerView.myId;
 
@@ -83,7 +77,7 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
     builderManager.updateBuilders(builders);
     constructManager.updateBases(builderFactories, rangedFactories, meleeFactories);
 
-    constructManager.baseBuildActions(myAction);
+    constructManager.baseBuildActions(myAction, economy);
     builderManager.builderActions(myAction);
 
     cout << myAction.size() << endl;
@@ -110,6 +104,12 @@ void everyTickInitialization() {
             row[i] = true;
         }
     }
+
+    myAction.clear();
+    builders.clear();
+    builderFactories.clear();
+    rangedFactories.clear();
+    meleeFactories.clear();
 }
 
 void oneTimeInitialization() {
@@ -125,6 +125,8 @@ void oneTimeInitialization() {
     Util::entityProperties = pv->entityProperties;
 
     oneTimeInitDone = true;
+
+    economy.setResources(pv->players[pv->myId].resource);
 }
 
 
