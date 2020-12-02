@@ -17,7 +17,7 @@ int BuilderManager::getBuilderCount() {
     return builders.size();
 }
 
-void BuilderManager::updateBuilders(std::unordered_map<int, Entity> currentBuilders) {
+void BuilderManager::updateBuilders(const std::unordered_map<int, Entity> & currentBuilders) {
     // Remove dead builders from the list
     for (auto pair : builders) {
         if (currentBuilders.find(pair.first) == currentBuilders.end()) {
@@ -32,7 +32,7 @@ void BuilderManager::updateBuilders(std::unordered_map<int, Entity> currentBuild
     }
 }
 
-void BuilderManager::builderActions(std::unordered_map<int, EntityAction> actions) {
+void BuilderManager::builderActions(std::unordered_map<int, EntityAction> & actions) {
     for (auto pair : builders) {
         actions[pair.first] = EntityAction(
             std::shared_ptr<MoveAction>(), 
