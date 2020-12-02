@@ -29,5 +29,5 @@ EntityAction Util::getEmptyAction() {
 // gets the position where new units/buildings can be built from this unit
 Vec2Int Util::getBuildPosition(Entity entity) {
     int size = entityProperties[entity.entityType].size;
-    return Vec2Int(entity.position.x + size + 2, entity.position.y + size / 2);
+    return Vec2Int(entity.position.x + size, entity.position.y);
 }
