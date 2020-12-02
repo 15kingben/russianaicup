@@ -103,6 +103,8 @@ void everyTickInitialization() {
     builderFactories.clear();
     rangedFactories.clear();
     meleeFactories.clear();
+
+    economy.setResources(pv->players[pv->myId].resource);
 }
 
 void oneTimeInitialization() {
@@ -118,8 +120,6 @@ void oneTimeInitialization() {
     Util::entityProperties = pv->entityProperties;
 
     oneTimeInitDone = true;
-
-    economy.setResources(pv->players[pv->myId].resource);
 }
 
 
