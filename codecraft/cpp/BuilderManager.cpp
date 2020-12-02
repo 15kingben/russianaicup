@@ -37,7 +37,7 @@ void BuilderManager::builderActions(std::unordered_map<int, EntityAction> action
         actions[pair.first] = EntityAction(
             std::shared_ptr<MoveAction>(), 
             std::shared_ptr<BuildAction>(), 
-            std::make_shared<AttackAction>(std::shared_ptr<int>(), AutoAttack(10, std::vector<EntityType>())), 
+            std::make_shared<AttackAction>(std::shared_ptr<int>(), std::make_shared<AutoAttack>(AutoAttack(10, std::vector<EntityType>()))), 
             std::shared_ptr<RepairAction>());
     }
 }
