@@ -1,6 +1,7 @@
 #include "MyStrategy.hpp"
 #include "Economy.hpp"
 #include "BuilderManager.hpp"
+#include "ConstructManager.hpp"
 #include <exception>
 #include <memory>
 #include <string>
@@ -29,9 +30,14 @@ const PlayerView *pv;
 Economy economy();
 // global object to manage builder units
 BuilderManager builderManager;
+// global object to manage construction
+ConstructManager constructManager;
 
-std::unordered_map<int, EntityAction> myAction;
+unordered_map<int, EntityAction> myAction;
 unordered_map<int, Entity> builders;
+unordered_map<int, Entity> builderFactories;
+unordered_map<int, Entity> rangedFactories;
+unordered_map<int, Entity> meleeFactories;
 
 MyStrategy::MyStrategy() {}
 
@@ -43,6 +49,9 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
 
     myAction.clear();
     builders.clear();
+    builderFactories.clear();
+    rangedFactories.clear();
+    meleeFactories.clear();
 
     int me = playerView.myId;
 
@@ -55,6 +64,15 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
                 case BUILDER_UNIT:
                     builders[entity.id] = entity;
                     break;
+                case RANGED_BASE:
+                    rangedFactories[entity.id] = entity;
+                    break;
+                case MELEE_BASE:
+                    meleeFactories[entity.id] = entity;
+                    break;
+                case BUILDER_BASE:
+                    builderFactories[entity.id] = entity;
+                    break;
             }
         }
     }
@@ -62,6 +80,7 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
     cout << builders.size() << endl;
 
     builderManager.updateBuilders(builders);
+    constructMa
     
     builderManager.builderActions(myAction);
 

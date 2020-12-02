@@ -1,4 +1,5 @@
 #include "BuilderManager.hpp"
+#include "Util.hpp"
 #include <memory>
 #include <string>
 #include <vector>
@@ -14,7 +15,7 @@ Builder::Builder(Entity entity, Role role) {
 }
 
 Builder::Builder() {
-    
+
 }
 
 int BuilderManager::getBuilderCount() {
@@ -38,10 +39,6 @@ void BuilderManager::updateBuilders(const std::unordered_map<int, Entity> & curr
 
 void BuilderManager::builderActions(std::unordered_map<int, EntityAction> & actions) {
     for (auto pair : builders) {
-        actions[pair.first] = EntityAction(
-            std::shared_ptr<MoveAction>(), 
-            std::shared_ptr<BuildAction>(), 
-            std::make_shared<AttackAction>(std::shared_ptr<int>(), std::make_shared<AutoAttack>(AutoAttack(10, std::vector<EntityType>()))), 
-            std::shared_ptr<RepairAction>());
+        actions[pair.first] = Util::getAction(AttackAction(std::shared_ptr<int>(), std::make_shared<AutoAttack>(AutoAttack(10, std::vector<EntityType>()))));
     }
 }
