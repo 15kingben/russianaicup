@@ -76,6 +76,7 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
     constructManager.baseBuildActions(myAction, economy);
     builderManager.builderActions(myAction);
 
+    cout << myAction.size() << endl;
 
     return Action(myAction);
 }
