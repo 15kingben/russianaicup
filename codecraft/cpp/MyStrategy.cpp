@@ -1,4 +1,6 @@
 #include "MyStrategy.hpp"
+#include "Economy.hpp"
+#include "BuilderManager.hpp"
 #include <exception>
 #include <memory>
 #include <string>
@@ -17,14 +19,16 @@ void everyTickInitialization();
 void oneTimeInitialization();
 
 
+// whether or not the square is free
 std::vector<std::vector<bool> > open;
+// has one time setup been completed
 bool oneTimeInitDone = false;
+// global pointer to per-tick PlayerView
 const PlayerView *pv;
-
-enum BuilderStrat {
-    MINE = 0,
-    REPAIR = 1
-};
+// global object tracking our economy
+Economy economy();
+// global object to manage builder units
+BuilderManager builderManager;
 
 MyStrategy::MyStrategy() {}
 
@@ -34,28 +38,28 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
     oneTimeInitialization();
     everyTickInitialization();
     std::unordered_map<int, EntityAction> myAction;
+    unordered_map<int, Entity> builders;
     int me = playerView.myId;
+
+
+
     for (Entity entity : playerView.entities) {
         takeUpSpace(entity, open);
 
-        // if (entity.id == me) {
-        //     switch (entity.entityType) {
-        //         case (BUILDER_BASE):
-        //             myAction[entity.id] = EntityAction(BuildAction(BUILDER_UNIT, entity.position));
-        //             break;
-        //     }
-        // }
-        // cout << debugEntityType(entity.entityType) << " " << pv->entityProperties.at(entity.entityType).size << endl;
-
-    }
-
-    for (auto x : open) {
-        for (int i = 0; i < open.size(); i++) {
-            cout << x[i];
+        if (*entity.playerId.get() == me) {
+            switch (entity.entityType) {
+                case BUILDER_UNIT:
+                    builders[entity.id] = entity;
+                    break;
+            }
         }
-        cout << endl;
     }
-    cout << endl << endl;
+
+    builderManager.updateBuilders(builders);
+    
+
+    builderManager.builderActions(myAction);
+
 
     return Action(myAction);
 }
@@ -96,6 +100,15 @@ void oneTimeInitialization() {
 
 
 
+
+
+
+
+
+
+/////////////////////////////////////////////////////
+/////////////////// DEBUG ///////////////////////////
+/////////////////////////////////////////////////////
 // Method only run in local mode, not in competition
 void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debugInterface)
 {
@@ -129,10 +142,7 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
 
 
 
-/////////////////////////////////////////////////////
-////////////// debug utilities  /////////////////////
-/////////////////////////////////////////////////////
-
+////////////// Debug Utilities  /////////////////////
 std::string debugVector(Vec2Int vec) {
     std::string s = "";
     s += "("; s += std::to_string(vec.x); s += ","; s+= std::to_string(vec.y); s += ")";
