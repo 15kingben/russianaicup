@@ -25,3 +25,10 @@ void ArmyManager::updateMelee(const std::unordered_map<int, Entity> & currentMel
     melees.clear();
     melees = currentMelee;
 }
+
+void ArmyManager::turretActions(std::unordered_map<int, EntityAction> & actions, std::unordered_map<int, Entity> & turrets) {
+    // int range = Util::entityProperties[TURRET].attack.get()->attackRange;
+    // for (auto pair : turrets) {
+    //     actions[pair.first] = Util::getAction(AttackAction());
+    // }
+}

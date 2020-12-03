@@ -11,6 +11,7 @@ class ArmyManager {
         int getMeleeUnitCount() const;
         void updateRanged(const std::unordered_map<int, Entity> & currentRanged);
         void updateMelee(const std::unordered_map<int, Entity> & currentMelee);
+        void turretActions(std::unordered_map<int, EntityAction> & actions, std::unordered_map<int, Entity> & turrets);
     private:
         std::unordered_map<int, Entity> ranged;
         std::unordered_map<int, Entity> melees;
