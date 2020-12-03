@@ -4,6 +4,8 @@
 #include <unordered_map>
 #include "model/Model.hpp"
 #include "Economy.hpp"
+#include "BuilderManager.hpp"
+#include "ArmyManager.hpp"
 
 class ConstructManager {
 public:
