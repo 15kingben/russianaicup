@@ -74,6 +74,12 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
                 case BUILDER_BASE:
                     builderFactories[entity.id] = entity;
                     break;
+                case RANGED_UNIT:
+                    ranged[entity.id] = entity;
+                    break;
+                case MELEE_UNIT:
+                    melees[entity.id] = entity;
+                    break;
             }
         }
     }
