@@ -25,10 +25,10 @@ int BuilderManager::getBuilderCount() const {
 
 void BuilderManager::updateBuilders(const std::unordered_map<int, Entity> & currentBuilders) {
     // Remove dead builders from the list
-    for (auto it = builders.begin(); it != builders.end(); ++it) {
+    for (auto it = builders.begin(); it != builders.end();) {
         if (currentBuilders.find(it->first) == currentBuilders.end()) {
             it = builders.erase(it);
-        }
+        } else it++;
     }
 
     // Add new builders (all miners for now)
