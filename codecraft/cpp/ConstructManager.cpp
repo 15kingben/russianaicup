@@ -39,7 +39,6 @@ void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & 
     int meleeTarget = population;
 
     builderTarget -= builderManager.getBuilderCount();
-    std::cout << "builder" << builderTarget << std::endl;
     for (auto pair : builderFactories) {
         if (builderTarget > 0 && economy.charge(BUILDER_UNIT)) {
             actions[pair.first] = Util::getAction(BuildAction(BUILDER_UNIT, Util::getBuildPosition(pair.second, open)));
@@ -50,8 +49,6 @@ void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & 
     }
 
     rangedTarget -= armyManager.getRangedUnitCount();
-        std::cout << "ranged" << rangedTarget << std::endl;
-
     for (auto pair : rangedFactories) {
         if (rangedTarget > 0 && economy.charge(RANGED_UNIT)) {
             actions[pair.first] = Util::getAction(BuildAction(RANGED_UNIT, Util::getBuildPosition(pair.second, open)));
@@ -62,8 +59,6 @@ void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & 
     }
 
     meleeTarget -= armyManager.getMeleeUnitCount();
-        std::cout << "melee" << meleeTarget << std::endl;
-
     for (auto pair : meleeFactories) {
         if (meleeTarget > 0 && economy.charge(MELEE_UNIT)) {
             actions[pair.first] = Util::getAction(BuildAction(MELEE_UNIT, Util::getBuildPosition(pair.second, open)));

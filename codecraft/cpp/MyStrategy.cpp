@@ -124,6 +124,8 @@ void everyTickInitialization() {
 
     economy.setResources(pv->players[pv->myId].resource);
     economy.setPopulation(0);
+
+    cout << pv->maxTickCount << endl;
 }
 
 void oneTimeInitialization() {
