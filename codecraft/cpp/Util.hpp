@@ -12,6 +12,7 @@ public:
     static EntityAction getAction(AttackAction action);
     static EntityAction getEmptyAction();
     static Vec2Int getBuildPosition(Entity entity, std::vector<std::vector<bool> > & open);
+    static AttackAction getAttackAction(std::shared_ptr<int> target, int pathfindRange, std::vector<EntityType> validTargets);
 };
 
 #endif

@@ -26,6 +26,10 @@ EntityAction Util::getEmptyAction() {
             std::shared_ptr<RepairAction>());
 }
 
+AttackAction Util::getAttackAction(std::shared_ptr<int> target, int pathfindRange, std::vector<EntityType> validTargets) {
+    return AttackAction(target, std::make_shared<AutoAttack>(pathfindRange, validTargets));
+}
+
 // gets the position where new units/buildings can be built from this unit
 Vec2Int Util::getBuildPosition(Entity entity, std::vector<std::vector<bool> > & open) {
     int size = entityProperties[entity.entityType].size;
