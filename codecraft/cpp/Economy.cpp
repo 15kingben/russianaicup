@@ -24,8 +24,10 @@ void Economy::setResources(int resource) {
 
 bool Economy::charge(EntityType entityType) {
     int cost = Util::entityProperties[entityType].cost;
-    if (resources - cost >= 0) {
+    int pop = Util::entityProperties[entityType].populationUse;
+    if (resources - cost >= 0 && population - pop >= 0) {
         resources -= cost;
+        population -= pop;
         return true;
     }
     return false;
@@ -33,4 +35,17 @@ bool Economy::charge(EntityType entityType) {
 
 void Economy::updateResourcePerTurn() {
     resourcePerTurn += 1;
+}
+
+void Economy::setPopulation(int pop) {
+    population = pop;
+}
+
+void Economy::updatePopulation(EntityType entityType) {
+    population += Util::entityProperties[entityType].populationProvide;
+    population -= Util::entityProperties[entityType].populationUse;
+}
+
+int Economy::getPopulation() {
+    return population;
 }

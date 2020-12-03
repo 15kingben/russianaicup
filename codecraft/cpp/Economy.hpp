@@ -11,9 +11,13 @@ public:
     void setResources(int resource);
     bool charge(EntityType entityType);
     void updateResourcePerTurn();
+    void updatePopulation(EntityType entityType);
+    void setPopulation(int pop);
+    int getPopulation();
 private:
     int resourcePerTurn;
     int resources;
+    int population;
 };
 
 #endif

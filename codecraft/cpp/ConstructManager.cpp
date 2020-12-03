@@ -1,4 +1,6 @@
 #include "ConstructManager.hpp"
+#include "BuilderManager.hpp"
+#include "ArmyManager.hpp"
 #include "Util.hpp"
 #include "Economy.hpp"
 #include <iostream>
@@ -26,25 +28,40 @@ ConstructManager::ConstructManager() {
     }
 }
 
-void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & actions, Economy economy) {
+void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & actions, Economy & economy, const BuilderManager & builderManager, const ArmyManager & armyManager) {
+    // Build targets for each type
+    int population = economy.getPopulation();
+    int builderTarget = population * .6;
+    population -= builderTarget;
+    int rangedTarget = population * .2;
+    population -= rangedTarget;
+    int meleeTarget = population;
+
+    builderTarget -= builderManager.getBuilderCount();
     for (auto pair : builderFactories) {
-        if (economy.charge(BUILDER_UNIT))
+        if (builderTarget > 0 && economy.charge(BUILDER_UNIT)) {
             actions[pair.first] = Util::getAction(BuildAction(BUILDER_UNIT, Util::getBuildPosition(pair.second)));
-        else
+            builderTarget--;
+        } else {
             actions[pair.first] = Util::getEmptyAction();
+        }
     }
 
     for (auto pair : rangedFactories) {
-        if (economy.charge(RANGED_UNIT))
+        if (rangedTarget > 0 && economy.charge(RANGED_UNIT)) {
             actions[pair.first] = Util::getAction(BuildAction(RANGED_UNIT, Util::getBuildPosition(pair.second)));
-        else
+            rangedTarget--;
+        } else {
             actions[pair.first] = Util::getEmptyAction();
+        }
     }
 
     for (auto pair : meleeFactories) {
-        if (economy.charge(MELEE_UNIT))
+        if (meleeTarget > 0 && economy.charge(MELEE_UNIT)) {
             actions[pair.first] = Util::getAction(BuildAction(MELEE_UNIT, Util::getBuildPosition(pair.second)));
-        else
+            meleeTarget--;
+        } else {
             actions[pair.first] = Util::getEmptyAction();
+        }
     }
 }

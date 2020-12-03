@@ -21,7 +21,7 @@ class Builder {
 class BuilderManager {
     public:
         BuilderManager();
-        int getBuilderCount();
+        int getBuilderCount() const;
         void updateBuilders(const std::unordered_map<int, Entity> & currentBuilders);
         void builderActions(std::unordered_map<int, EntityAction> & actions);
     private:

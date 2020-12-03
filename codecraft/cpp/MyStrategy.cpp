@@ -2,6 +2,7 @@
 #include "Economy.hpp"
 #include "BuilderManager.hpp"
 #include "ConstructManager.hpp"
+#include "ArmyManager.hpp"
 #include "Util.hpp"
 #include <exception>
 #include <memory>
@@ -33,9 +34,13 @@ Economy economy;
 BuilderManager builderManager;
 // global object to manage construction
 ConstructManager constructManager;
+// global object to manage soldiers
+ArmyManager armyManager;
 
 unordered_map<int, EntityAction> myAction;
 unordered_map<int, Entity> builders;
+unordered_map<int, Entity> melees;
+unordered_map<int, Entity> ranged;
 unordered_map<int, Entity> builderFactories;
 unordered_map<int, Entity> rangedFactories;
 unordered_map<int, Entity> meleeFactories;
@@ -52,7 +57,10 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
 
     for (Entity entity : playerView.entities) {
         takeUpSpace(entity, open);
+
         if (entity.playerId && *entity.playerId.get() == me) {
+            economy.updatePopulation(entity.entityType);
+
             switch (entity.entityType) {
                 case BUILDER_UNIT:
                     builders[entity.id] = entity;
@@ -72,8 +80,10 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
 
     builderManager.updateBuilders(builders);
     constructManager.updateBases(builderFactories, rangedFactories, meleeFactories);
+    armyManager.updateMelee(melees);
+    armyManager.updateRanged(ranged);
 
-    constructManager.baseBuildActions(myAction, economy);
+    constructManager.baseBuildActions(myAction, economy, builderManager, armyManager);
     builderManager.builderActions(myAction);
 
     return Action(myAction);
@@ -100,11 +110,14 @@ void everyTickInitialization() {
 
     myAction.clear();
     builders.clear();
+    melees.clear();
+    ranged.clear();
     builderFactories.clear();
     rangedFactories.clear();
     meleeFactories.clear();
 
     economy.setResources(pv->players[pv->myId].resource);
+    economy.setPopulation(0);
 }
 
 void oneTimeInitialization() {

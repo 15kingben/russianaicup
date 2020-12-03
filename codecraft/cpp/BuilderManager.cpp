@@ -18,7 +18,7 @@ Builder::Builder() {
 
 }
 
-int BuilderManager::getBuilderCount() {
+int BuilderManager::getBuilderCount() const {
     return builders.size();
 }
 
