@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <iostream>
 
 BuilderManager::BuilderManager() {
     
@@ -26,6 +27,7 @@ void BuilderManager::updateBuilders(const std::unordered_map<int, Entity> & curr
     // Remove dead builders from the list
     for (auto pair : builders) {
         if (currentBuilders.find(pair.first) == currentBuilders.end()) {
+            std::cout << "UH OH" << std::endl;
             builders.erase(pair.first);
         }
     }
