@@ -25,10 +25,9 @@ int BuilderManager::getBuilderCount() const {
 
 void BuilderManager::updateBuilders(const std::unordered_map<int, Entity> & currentBuilders) {
     // Remove dead builders from the list
-    for (auto pair : builders) {
-        if (currentBuilders.find(pair.first) == currentBuilders.end()) {
-            std::cout << "UH OH" << std::endl;
-            builders.erase(pair.first);
+    for (auto it = builders.begin(); it != builders.end(); ++it) {
+        if (currentBuilders.find(it->first) == currentBuilders.end()) {
+            it = builders.erase(it);
         }
     }
 
