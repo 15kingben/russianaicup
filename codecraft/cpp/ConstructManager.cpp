@@ -33,7 +33,7 @@ void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & 
     int population = economy.getPopulation();
     int builderTarget = population * .6;
     population -= builderTarget;
-    int rangedTarget = population * .2;
+    int rangedTarget = population * .5;
     population -= rangedTarget;
     int meleeTarget = population;
 
