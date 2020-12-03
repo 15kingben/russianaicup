@@ -6,6 +6,7 @@
 #include "Economy.hpp"
 #include "BuilderManager.hpp"
 #include "ArmyManager.hpp"
+#include <vector>
 
 class ConstructManager {
 public:
@@ -13,7 +14,7 @@ public:
     void updateBases(const std::unordered_map<int, Entity> & builderBases, 
                     const std::unordered_map<int, Entity> & rangedBases,
                     const std::unordered_map<int, Entity> & meleeBases);
-    void baseBuildActions(std::unordered_map<int, EntityAction> & actions, Economy & economy, const BuilderManager & builderManager, const ArmyManager & armyManager);
+    void baseBuildActions(std::unordered_map<int, EntityAction> & actions, Economy & economy, const BuilderManager & builderManager, const ArmyManager & armyManager, std::vector<std::vector<bool> > & open);
 
 private:
     std::unordered_map<int, Entity> builderFactories;

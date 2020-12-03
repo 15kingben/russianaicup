@@ -28,7 +28,8 @@ ConstructManager::ConstructManager() {
     }
 }
 
-void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & actions, Economy & economy, const BuilderManager & builderManager, const ArmyManager & armyManager) {
+void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & actions, Economy & economy, const BuilderManager & builderManager, 
+        const ArmyManager & armyManager, std::vector<std::vector<bool> > & open) {
     // Build targets for each type
     int population = economy.getPopulation();
     int builderTarget = population * .6;

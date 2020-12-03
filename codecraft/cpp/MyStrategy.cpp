@@ -83,7 +83,7 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
     armyManager.updateMelee(melees);
     armyManager.updateRanged(ranged);
 
-    constructManager.baseBuildActions(myAction, economy, builderManager, armyManager);
+    constructManager.baseBuildActions(myAction, economy, builderManager, armyManager, open);
     builderManager.builderActions(myAction);
 
     return Action(myAction);

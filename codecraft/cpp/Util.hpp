@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 #include "model/Model.hpp"
+#include <vector>
 
 class Util {
 public:
@@ -10,7 +11,7 @@ public:
     static EntityAction getAction(BuildAction action);
     static EntityAction getAction(AttackAction action);
     static EntityAction getEmptyAction();
-    static Vec2Int getBuildPosition(Entity entity);
+    static Vec2Int getBuildPosition(Entity entity, std::vector<std::vector<bool> > & open);
 };
 
 #endif
