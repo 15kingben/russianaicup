@@ -43,7 +43,6 @@ void Economy::setPopulation(int pop) {
 
 void Economy::updatePopulation(EntityType entityType) {
     population += Util::entityProperties[entityType].populationProvide;
-    population -= Util::entityProperties[entityType].populationUse;
 }
 
 int Economy::getPopulation() {
