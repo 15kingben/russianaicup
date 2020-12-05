@@ -16,6 +16,7 @@ class CombatUnit {
         CombatStrat strat;
         Vec2Int target;
         Entity entity;
+        bool fallback;
 };
 
 class ArmyManager {
@@ -31,8 +32,9 @@ class ArmyManager {
     private:
         std::unordered_map<int, CombatUnit> ranged;
         std::unordered_map<int, CombatUnit> melees;
-        int MAX_DEFEND_DISTANCE;
-        EntityAction getDefendAction(CombatUnit unit);
+        int FALLBACK_DISTANCE;
+        int RECOVER_DISTANCE;                                                                                                      
+        EntityAction getDefendAction(CombatUnit & unit);
 };
 
 #endif

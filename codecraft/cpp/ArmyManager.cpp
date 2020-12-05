@@ -16,6 +16,7 @@ CombatUnit::CombatUnit() { };
 CombatUnit::CombatUnit(Entity entity, CombatStrat strat) {
     this->entity = entity;
     this->strat = strat;
+    fallback = false;
 }
 
 int ArmyManager::getMeleeUnitCount() const {
@@ -76,23 +77,32 @@ void ArmyManager::combatActions(std::unordered_map<int, EntityAction> & actions)
     }
 }
 
-void ArmyManager::setMaxDistance(int x) {
-    MAX_DEFEND_DISTANCE = x;
+void ArmyManager::setMaxDistance(int mapSize) {
+    FALLBACK_DISTANCE = mapSize / 3;
+    RECOVER_DISTANCE = mapSize / 4;
 }
 
-EntityAction ArmyManager::getDefendAction(CombatUnit unit) {
+EntityAction ArmyManager::getDefendAction(CombatUnit & unit) {
     int mapSize = Util::mapSize;
     EntityAction action = Util::getAction(MoveAction(Util::homeBase, true, false));
     std::vector<EntityType> defendTargets({BUILDER_UNIT, RANGED_UNIT, MELEE_UNIT});
 
-    std::cout << Util::mapSize << std::endl;
-    std::cout << unit.entity.position.x << " " << unit.entity.position.y << std::endl;
-    std::cout << Util::homeBase.x << " " << Util::homeBase.y << std::endl;
+    if (unit.fallback) {
+        if (Util::dist2(unit.entity.position, Util::homeBase) < Util::dist2(Vec2Int(0,0), Vec2Int(RECOVER_DISTANCE, RECOVER_DISTANCE))) {
+            unit.fallback = false;
+        } else {
+            return action;
+        }
+    }
 
 
     // If close enough to base add attack action
-    if (Util::dist2(unit.entity.position, Util::homeBase) < Util::dist2(Vec2Int(0,0), Vec2Int(MAX_DEFEND_DISTANCE, MAX_DEFEND_DISTANCE))) {
-        action.attackAction = std::make_shared<AttackAction>(Util::getAttackAction(nullptr, mapSize*10, defendTargets));
+    if (Util::dist2(unit.entity.position, Util::homeBase) > Util::dist2(Vec2Int(0,0), Vec2Int(FALLBACK_DISTANCE, FALLBACK_DISTANCE))) {
+        unit.fallback = true;
+        return action;
     }
+
+    action.attackAction = std::make_shared<AttackAction>(Util::getAttackAction(nullptr, mapSize*10, defendTargets));
+
     return action;
 }
