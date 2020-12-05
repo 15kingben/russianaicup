@@ -78,7 +78,7 @@ void ArmyManager::setMaxDistance(int x) {
 
 EntityAction ArmyManager::getDefendAction(CombatUnit unit) {
     int mapSize = Util::mapSize;
-    EntityAction action = Util::getAction(MoveAction(Vec2Int(mapSize - 20, mapSize - 20), true, false));
+    EntityAction action = Util::getAction(MoveAction(Vec2Int(mapSize - 10, mapSize - 10), true, false));
     std::vector<EntityType> defendTargets({BUILDER_UNIT, RANGED_UNIT, MELEE_UNIT});
 
     std::cout << Util::mapSize << std::endl;
