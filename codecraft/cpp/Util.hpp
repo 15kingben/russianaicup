@@ -16,6 +16,7 @@ public:
     static Vec2Int getBuildPosition(Entity entity, std::vector<std::vector<bool> > & open);
     static AttackAction getAttackAction(std::shared_ptr<int> target, int pathfindRange, std::vector<EntityType> validTargets);
     static int dist2(Vec2Int from, Vec2Int to);
+    static int getUnitCost(EntityType type, int number);
 };
 
 #endif

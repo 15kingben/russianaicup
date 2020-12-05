@@ -41,7 +41,7 @@ void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & 
 
     builderTarget -= builderManager.getBuilderCount();
     for (auto pair : builderFactories) {
-        if (builderTarget > 0 && economy.charge(BUILDER_UNIT)) {
+        if (builderTarget > 0 && economy.charge(BUILDER_UNIT, Util::getUnitCost(BUILDER_UNIT, builderManager.getBuilderCount()))) {
             actions[pair.first] = Util::getAction(BuildAction(BUILDER_UNIT, Util::getBuildPosition(pair.second, open)));
             builderTarget--;
         } else {
@@ -51,7 +51,7 @@ void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & 
 
     rangedTarget -= armyManager.getRangedUnitCount();
     for (auto pair : rangedFactories) {
-        if (rangedTarget > 0 && economy.charge(RANGED_UNIT)) {
+        if (rangedTarget > 0 && economy.charge(RANGED_UNIT, Util::getUnitCost(RANGED_UNIT, armyManager.getRangedUnitCount()))) {
             actions[pair.first] = Util::getAction(BuildAction(RANGED_UNIT, Util::getBuildPosition(pair.second, open)));
             rangedTarget--;
         } else {
@@ -61,7 +61,7 @@ void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & 
 
     meleeTarget -= armyManager.getMeleeUnitCount();
     for (auto pair : meleeFactories) {
-        if (meleeTarget > 0 && economy.charge(MELEE_UNIT)) {
+        if (meleeTarget > 0 && economy.charge(MELEE_UNIT, Util::getUnitCost(MELEE_UNIT, armyManager.getMeleeUnitCount()))) {
             actions[pair.first] = Util::getAction(BuildAction(MELEE_UNIT, Util::getBuildPosition(pair.second, open)));
             meleeTarget--;
         } else {

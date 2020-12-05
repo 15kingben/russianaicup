@@ -9,7 +9,7 @@ public:
     int getResources();
     int getResourcePerTurn();
     void setResources(int resource);
-    bool charge(EntityType entityType);
+    bool charge(EntityType entityType, int cost);
     void updateResourcePerTurn();
     void updatePopulation(EntityType entityType);
     void setPopulation(int pop);

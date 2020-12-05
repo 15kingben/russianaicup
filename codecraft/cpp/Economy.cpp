@@ -22,8 +22,7 @@ void Economy::setResources(int resource) {
     resources = resource;
 }
 
-bool Economy::charge(EntityType entityType) {
-    int cost = Util::entityProperties[entityType].initialCost;
+bool Economy::charge(EntityType entityType, int cost) {
     int pop = Util::entityProperties[entityType].populationUse;
     if (resources - cost >= 0 && population - pop >= 0) {
         resources -= cost;

@@ -74,3 +74,7 @@ int Util::dist2(Vec2Int from, Vec2Int to) {
     int dy = to.y - from.y;
     return dy*dy + dx*dx;
 }
+
+int Util::getUnitCost(EntityType type, int count) {
+    return entityProperties[type].initialCost + count;
+}
