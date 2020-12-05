@@ -38,17 +38,21 @@ AttackAction Util::getAttackAction(std::shared_ptr<int> target, int pathfindRang
     return AttackAction(target, std::make_shared<AutoAttack>(pathfindRange, validTargets));
 }
 
+bool inb(int x, int y) {
+    return x >= 0 && y >= 0 && y < Util::mapSize && x < Util::mapSize;
+}
+
 // gets the position where new units/buildings can be built from this unit
 Vec2Int Util::getBuildPosition(Entity entity, std::vector<std::vector<bool> > & open) {
     int size = entityProperties[entity.entityType].size;
     for (int x = entity.position.x; x < entity.position.x + size; x++) {
         int y = entity.position.y - 1;
-        if (open[x][y]) {
+        if (inb(x,y) && open[x][y]) {
             open[x][y] = false;
             return Vec2Int(x, y);
         }
         y = entity.position.y + size;
-        if (open[x][y]) {
+        if (inb(x,y) && oopen[x][y]) {
             open[x][y] = false;
             return Vec2Int(x, y);
         }
@@ -56,12 +60,12 @@ Vec2Int Util::getBuildPosition(Entity entity, std::vector<std::vector<bool> > & 
 
     for (int y = entity.position.y; y < entity.position.y + size; y++) {
         int x = entity.position.x - 1;
-        if (open[x][y]) {
+        if (inb(x,y) && oopen[x][y]) {
             open[x][y] = false;
             return Vec2Int(x, y);
         }
         x = entity.position.x + size;
-        if (open[x][y]) {
+        if (inb(x,y) && oopen[x][y]) {
             open[x][y] = false;
             return Vec2Int(x, y);
         }
