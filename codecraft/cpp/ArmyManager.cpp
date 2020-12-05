@@ -87,7 +87,7 @@ EntityAction ArmyManager::getDefendAction(CombatUnit & unit) {
     EntityAction action = Util::getAction(MoveAction(Util::homeBase, true, false));
     std::vector<EntityType> defendTargets({BUILDER_UNIT, RANGED_UNIT, MELEE_UNIT});
 
-    std::cout << unit.fallback << std::endl;
+    if (unit.fallback) std::cout << "fallback" << std::endl;
 
     if (unit.fallback) {
         if (Util::dist2(unit.entity.position, Util::homeBase) < Util::dist2(Vec2Int(0,0), Vec2Int(RECOVER_DISTANCE, RECOVER_DISTANCE))) {
