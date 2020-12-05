@@ -122,6 +122,8 @@ void everyTickInitialization() {
         }
     }
 
+    cout << "pee2" << endl;
+
     myAction.clear();
     builders.clear();
     melees.clear();
@@ -130,6 +132,8 @@ void everyTickInitialization() {
     builderFactories.clear();
     rangedFactories.clear();
     meleeFactories.clear();
+
+    cout << "pee" << endl;
 
     economy.setResources(pv->players[pv->myId].resource);
     economy.setPopulation(0);
@@ -147,16 +151,12 @@ void oneTimeInitialization() {
         }
     }
 
-    cout << pv->mapSize << endl;
-
     Util::entityProperties = pv->entityProperties;
     Util::mapSize = pv->mapSize;
 
-    cout << Util::mapSize << endl;
     for (auto entity : pv->entities) {
         if (entity.entityType == BUILDER_BASE) Util::homeBase = entity.position;
     }
-    cout << "poop" << endl;
 
     armyManager.setMaxDistance(pv->mapSize/3);
 
