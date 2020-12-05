@@ -95,6 +95,7 @@ EntityAction ArmyManager::getDefendAction(CombatUnit & unit) {
     if (unit.fallback) {
         if (Util::dist2(unit.entity.position, Util::homeBase) < Util::dist2(Vec2Int(0,0), Vec2Int(RECOVER_DISTANCE, RECOVER_DISTANCE))) {
             unit.fallback = false;
+            std::cout << "reset" << std::endl;
         } else {
             return action;
         }
