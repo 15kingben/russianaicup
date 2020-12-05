@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <iostream>
 
 int Util::mapSize;
 
@@ -79,6 +80,8 @@ EntityAction ArmyManager::getDefendAction(CombatUnit unit) {
     int mapSize = Util::mapSize;
     EntityAction action = Util::getAction(MoveAction(Vec2Int(mapSize - 20, mapSize - 20), true, false));
     std::vector<EntityType> defendTargets({BUILDER_UNIT, RANGED_UNIT, MELEE_UNIT});
+
+    std::cout << Util::mapSize << std::endl;
 
     // If close enough to base add attack action
     if (Util::dist2(unit.entity.position, Vec2Int(mapSize, mapSize)) < Util::dist2(Vec2Int(0,0), Vec2Int(MAX_DEFEND_DISTANCE, MAX_DEFEND_DISTANCE))) {
