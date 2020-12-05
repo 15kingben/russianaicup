@@ -8,6 +8,8 @@ ArmyManager::ArmyManager() {
     
 }
 
+CombatUnit::CombatUnit() { };
+
 CombatUnit::CombatUnit(Entity entity, CombatStrat strat) {
     this->entity = entity;
     this->strat = strat;
