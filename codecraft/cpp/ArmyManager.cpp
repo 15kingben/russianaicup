@@ -30,9 +30,9 @@ int ArmyManager::getRangedUnitCount() const {
 void ArmyManager::updateRanged(const std::unordered_map<int, Entity> & currentRanged) {
     // Remove dead ranged from the list
     for (auto it = ranged.begin(); it != ranged.end();) {
+        std::cout<<it->second.fallback << std::endl;
         if (currentRanged.find(it->first) == currentRanged.end()) {
             it = ranged.erase(it);
-            std::cout << "Erase" << std::endl;
         } else it++;
     }
 
@@ -42,7 +42,6 @@ void ArmyManager::updateRanged(const std::unordered_map<int, Entity> & currentRa
             ranged[pair.first].entity = pair.second;
         } else {
             ranged[pair.first] = CombatUnit(pair.second, DEFEND);
-            std::cout << "new" << std::endl;
         }
     }
 }
