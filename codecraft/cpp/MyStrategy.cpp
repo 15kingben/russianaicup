@@ -155,7 +155,6 @@ void everyTickInitialization() {
     if (delta > 0) {
         int expectedTurnsLeft = totalResources / delta;
         cout << expectedTurnsLeft << endl;
-        while (true) ; 
     }
 }
 
