@@ -156,6 +156,7 @@ void oneTimeInitialization() {
     for (auto entity : pv->entities) {
         if (entity.entityType == BUILDER_BASE) Util::homeBase = entity.position;
     }
+    cout << "poop" << endl;
 
     armyManager.setMaxDistance(pv->mapSize/3);
 
