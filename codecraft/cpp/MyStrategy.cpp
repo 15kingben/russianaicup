@@ -157,7 +157,7 @@ void oneTimeInitialization() {
         if (entity.entityType == BUILDER_BASE && *entity.playerId.get() == pv->myId) Util::homeBase = entity.position;
     }
 
-    armyManager.setMaxDistance(pv->mapSize);
+    armyManager.setMaxDistance(pv->mapSize/3);
 
     oneTimeInitDone = true;
 }
