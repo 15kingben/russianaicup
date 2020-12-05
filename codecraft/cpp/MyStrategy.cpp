@@ -151,8 +151,8 @@ void everyTickInitialization() {
 
     int oldTotalResources = totalResources;
     totalResources = totalResourcesOnMap();
-    if (oldTotalResources != 0) {
-        int delta = oldTotalResources - totalResources;
+    int delta = oldTotalResources - totalResources;
+    if (delta >= 0) {
         int expectedTurnsLeft = totalResources / delta;
         cout << expectedTurnsLeft << endl;
     }
