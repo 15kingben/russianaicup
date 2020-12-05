@@ -9,6 +9,7 @@ class Util {
 public:
     static std::unordered_map<EntityType, EntityProperties> entityProperties;
     static int mapSize;
+    static Vec2Int homeBase;
     static EntityAction getAction(BuildAction action);
     static EntityAction getAction(AttackAction action);
     static EntityAction getAction(MoveAction action);

@@ -145,6 +145,10 @@ void oneTimeInitialization() {
 
     Util::entityProperties = pv->entityProperties;
     Util::mapSize = pv->mapSize;
+    for (auto entity : pv->entities) {
+        if (entity.entityType == BUILDER_BASE) Util::homeBase = entity.position;
+    }
+
     armyManager.setMaxDistance(pv->mapSize/3);
 
     oneTimeInitDone = true;
