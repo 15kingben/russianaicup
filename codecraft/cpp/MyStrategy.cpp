@@ -147,8 +147,12 @@ void oneTimeInitialization() {
         }
     }
 
+    cout << pv->mapSize << endl;
+
     Util::entityProperties = pv->entityProperties;
     Util::mapSize = pv->mapSize;
+
+    cout << Util::mapSize << endl;
     for (auto entity : pv->entities) {
         if (entity.entityType == BUILDER_BASE) Util::homeBase = entity.position;
     }
