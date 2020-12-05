@@ -100,11 +100,12 @@ EntityAction ArmyManager::getDefendAction(CombatUnit & unit) {
 
     // If close enough to base add attack action
     if (Util::dist2(unit.entity.position, Util::homeBase) > Util::dist2(Vec2Int(0,0), Vec2Int(FALLBACK_DISTANCE, FALLBACK_DISTANCE))) {
+        std::cout << "poop" << std::endl;
         unit.fallback = true;
         return action;
     }
 
-    action.attackAction = std::make_shared<AttackAction>(Util::getAttackAction(nullptr, mapSize*10, defendTargets));
+    action.attackAction = std::make_shared<AttackAction>(Util::getAttackAction(nullptr, mapSize/2, defendTargets));
 
     return action;
 }
