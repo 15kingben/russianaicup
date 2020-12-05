@@ -35,8 +35,9 @@ void BuilderManager::updateBuilders(const std::unordered_map<int, Entity> & curr
     for (auto pair : currentBuilders) {
         if (builders.find(pair.first) != builders.end()) {
             builders[pair.first].entity = pair.second;
+        } else {
+            builders[pair.first] = Builder(pair.second, MINE);
         }
-        builders[pair.first] = Builder(pair.second, MINE);
     }
 }
 
