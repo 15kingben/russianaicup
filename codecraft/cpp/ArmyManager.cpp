@@ -73,6 +73,7 @@ void ArmyManager::turretActions(std::unordered_map<int, EntityAction> & actions,
 void ArmyManager::combatActions(std::unordered_map<int, EntityAction> & actions) {
     for (auto pair : ranged) {
         if (pair.second.strat == DEFEND) actions[pair.first] = getDefendAction(pair.second);
+        if (pair.second.fallback) std::cout << "fffffff" << std::endl;
     }
     for (auto pair : melees) {
         if (pair.second.strat == DEFEND) actions[pair.first] = getDefendAction(pair.second);
