@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 #include "model/Model.hpp"
+#include <deque>
 
 enum Role {
     MINE = 0,
@@ -16,6 +17,11 @@ class Builder {
         Entity entity;
         Builder();
         Builder(Entity entity, Role role);
+};
+
+class BuildJob {
+    public:
+        std::deque<EntityAction> actions;
 };
 
 class BuilderManager {

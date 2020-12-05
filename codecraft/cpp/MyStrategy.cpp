@@ -20,6 +20,7 @@ std::string debugEntity(const Entity &e);
 void takeUpSpace(const Entity& entity, std::vector<std::vector<bool> > &open);
 void everyTickInitialization();
 void oneTimeInitialization();
+int totalResourcesOnMap();
 
 
 // whether or not the square is free
@@ -112,6 +113,16 @@ void takeUpSpace(const Entity& entity, std::vector<std::vector<bool> > &open) {
     }
 }
 
+int totalResourcesOnMap() {
+    int total = 0;
+    for (auto e : pv->entities) {
+        if (e.entityType == RESOURCE) {
+            total += pv->entityProperties.at(RESOURCE).resourcePerHealth * e.health;
+        }
+    }
+    return total;
+}
+
 void everyTickInitialization() {
     int size = pv->mapSize;
     for (auto row : open) {
@@ -136,6 +147,9 @@ void everyTickInitialization() {
 
     economy.setResources(pv->players[i].resource);
     economy.setPopulation(0);
+
+    int totalResources = totalResourcesOnMap();
+    cout << totalResources << endl;
 }
 
 Vec2Int Util::homeBase;
