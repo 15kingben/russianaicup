@@ -96,6 +96,7 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
     constructManager.baseBuildActions(myAction, economy, builderManager, armyManager, open);
     builderManager.builderActions(myAction);
     armyManager.turretActions(myAction, turrets);
+    armyManager.combatActions(myAction);
 
     return Action(myAction);
 }

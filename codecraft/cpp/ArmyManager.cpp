@@ -62,6 +62,9 @@ void ArmyManager::combatActions(std::unordered_map<int, EntityAction> & actions)
     for (auto pair : ranged) {
         if (pair.second.strat == DEFEND) actions[pair.first] = getDefendAction(pair.second);
     }
+    for (auto pair : melees) {
+        if (pair.second.strat == DEFEND) actions[pair.first] = getDefendAction(pair.second);
+    }
 }
 
 void ArmyManager::setMaxDistance(int x) {
