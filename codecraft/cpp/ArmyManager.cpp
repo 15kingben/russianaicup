@@ -87,6 +87,8 @@ EntityAction ArmyManager::getDefendAction(CombatUnit unit) {
 
     std::cout << Util::mapSize << std::endl;
     std::cout << unit.entity.position.x << " " << unit.entity.position.y << std::endl;
+    std::cout << Util::homeBase.x << " " << Util::homeBase.y << std::endl;
+
 
     // If close enough to base add attack action
     if (Util::dist2(unit.entity.position, Util::homeBase) < Util::dist2(Vec2Int(0,0), Vec2Int(MAX_DEFEND_DISTANCE, MAX_DEFEND_DISTANCE))) {
