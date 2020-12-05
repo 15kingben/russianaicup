@@ -32,6 +32,7 @@ void ArmyManager::updateRanged(const std::unordered_map<int, Entity> & currentRa
     for (auto it = ranged.begin(); it != ranged.end();) {
         if (currentRanged.find(it->first) == currentRanged.end()) {
             it = ranged.erase(it);
+            std::cout << "Erase" << std::endl;
         } else it++;
     }
 
