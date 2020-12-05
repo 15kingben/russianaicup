@@ -52,7 +52,7 @@ Vec2Int Util::getBuildPosition(Entity entity, std::vector<std::vector<bool> > & 
             return Vec2Int(x, y);
         }
         y = entity.position.y + size;
-        if (inb(x,y) && oopen[x][y]) {
+        if (inb(x,y) && open[x][y]) {
             open[x][y] = false;
             return Vec2Int(x, y);
         }
@@ -60,12 +60,12 @@ Vec2Int Util::getBuildPosition(Entity entity, std::vector<std::vector<bool> > & 
 
     for (int y = entity.position.y; y < entity.position.y + size; y++) {
         int x = entity.position.x - 1;
-        if (inb(x,y) && oopen[x][y]) {
+        if (inb(x,y) && open[x][y]) {
             open[x][y] = false;
             return Vec2Int(x, y);
         }
         x = entity.position.x + size;
-        if (inb(x,y) && oopen[x][y]) {
+        if (inb(x,y) && open[x][y]) {
             open[x][y] = false;
             return Vec2Int(x, y);
         }
