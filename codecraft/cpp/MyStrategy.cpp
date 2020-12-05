@@ -131,10 +131,13 @@ void everyTickInitialization() {
     rangedFactories.clear();
     meleeFactories.clear();
 
-    economy.setResources(pv->players[pv->myId].resource);
-    economy.setPopulation(0);
+    int i = 0;
+    for (int i = 0; i < pv->players.size(); i++) 
+        if (pv->players[i].id == pv->myId) 
+            break;
 
-    cout << "wtf" << endl;
+    economy.setResources(pv->players[i].resource);
+    economy.setPopulation(0);
 }
 
 Vec2Int Util::homeBase;
