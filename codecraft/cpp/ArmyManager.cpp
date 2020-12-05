@@ -30,7 +30,6 @@ int ArmyManager::getRangedUnitCount() const {
 void ArmyManager::updateRanged(const std::unordered_map<int, Entity> & currentRanged) {
     // Remove dead ranged from the list
     for (auto it = ranged.begin(); it != ranged.end();) {
-        std::cout<<it->second.fallback << std::endl;
         if (currentRanged.find(it->first) == currentRanged.end()) {
             it = ranged.erase(it);
         } else it++;
@@ -72,11 +71,10 @@ void ArmyManager::turretActions(std::unordered_map<int, EntityAction> & actions,
 }
 
 void ArmyManager::combatActions(std::unordered_map<int, EntityAction> & actions) {
-    for (auto pair : ranged) {
+    for (auto & pair : ranged) {
         if (pair.second.strat == DEFEND) actions[pair.first] = getDefendAction(pair.second);
-        if (pair.second.fallback) std::cout << "fffffff" << std::endl;
     }
-    for (auto pair : melees) {
+    for (auto & pair : melees) {
         if (pair.second.strat == DEFEND) actions[pair.first] = getDefendAction(pair.second);
     }
 }
@@ -91,12 +89,9 @@ EntityAction ArmyManager::getDefendAction(CombatUnit & unit) {
     EntityAction action = Util::getAction(MoveAction(Util::homeBase, true, false));
     std::vector<EntityType> defendTargets({BUILDER_UNIT, RANGED_UNIT, MELEE_UNIT});
 
-    if (unit.fallback) std::cout << "fallback" << std::endl;
-
     if (unit.fallback) {
         if (Util::dist2(unit.entity.position, Util::homeBase) < Util::dist2(Vec2Int(0,0), Vec2Int(RECOVER_DISTANCE, RECOVER_DISTANCE))) {
             unit.fallback = false;
-            std::cout << "reset"  << RECOVER_DISTANCE << " " << FALLBACK_DISTANCE << std::endl;
         } else {
             return action;
         }
@@ -105,7 +100,6 @@ EntityAction ArmyManager::getDefendAction(CombatUnit & unit) {
 
     // If close enough to base add attack action
     if (Util::dist2(unit.entity.position, Util::homeBase) > Util::dist2(Vec2Int(0,0), Vec2Int(FALLBACK_DISTANCE, FALLBACK_DISTANCE))) {
-        std::cout << "poop" << std::endl;
         unit.fallback = true;
         return action;
     }
