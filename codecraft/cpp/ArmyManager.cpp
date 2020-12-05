@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+int Util::mapSize;
+
 ArmyManager::ArmyManager() {
     
 }
