@@ -42,6 +42,7 @@ void ArmyManager::updateRanged(const std::unordered_map<int, Entity> & currentRa
             ranged[pair.first].entity = pair.second;
         } else {
             ranged[pair.first] = CombatUnit(pair.second, DEFEND);
+            std::cout << "new" << std::endl;
         }
     }
 }
