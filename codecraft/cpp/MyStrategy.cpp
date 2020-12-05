@@ -97,7 +97,6 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
 
     constructManager.baseBuildActions(myAction, economy, builderManager, armyManager, open);
     builderManager.builderActions(myAction);
-    while(true) ;
     armyManager.turretActions(myAction, turrets);
     armyManager.combatActions(myAction);
 
@@ -156,6 +155,7 @@ void everyTickInitialization() {
     if (delta > 0) {
         int expectedTurnsLeft = totalResources / delta;
         cout << expectedTurnsLeft << endl;
+        while (true) ; 
     }
 }
 
