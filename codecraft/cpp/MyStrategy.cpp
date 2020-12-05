@@ -122,8 +122,6 @@ void everyTickInitialization() {
         }
     }
 
-    cout << "pee2" << endl;
-
     myAction.clear();
     builders.clear();
     melees.clear();
@@ -133,10 +131,10 @@ void everyTickInitialization() {
     rangedFactories.clear();
     meleeFactories.clear();
 
-    cout << "pee" << endl;
-
     economy.setResources(pv->players[pv->myId].resource);
     economy.setPopulation(0);
+
+    cout << "wtf" << endl;
 }
 
 Vec2Int Util::homeBase;
