@@ -36,7 +36,9 @@ void ArmyManager::updateRanged(const std::unordered_map<int, Entity> & currentRa
 
     // Add new ranged (all miners for now)
     for (auto pair : currentRanged) {
-        if (ranged.find(pair.first) != ranged.end()) continue;
+        if (ranged.find(pair.first) != ranged.end()) {
+            ranged[pair.first].entity = pair.second;
+        }
         ranged[pair.first] = CombatUnit(pair.second, DEFEND);
     }
 }
@@ -51,7 +53,9 @@ void ArmyManager::updateMelee(const std::unordered_map<int, Entity> & currentMel
  
     // Add new builders (all miners for now)
     for (auto pair : currentMelee) {
-        if (melees.find(pair.first) != melees.end()) continue;
+        if (melees.find(pair.first) != melees.end()) {
+            melees[pair.first].entity = pair.second;
+        }
         melees[pair.first] = CombatUnit(pair.second, DEFEND);
     }
 }

@@ -33,7 +33,9 @@ void BuilderManager::updateBuilders(const std::unordered_map<int, Entity> & curr
 
     // Add new builders (all miners for now)
     for (auto pair : currentBuilders) {
-        if (builders.find(pair.first) != builders.end()) continue;
+        if (builders.find(pair.first) != builders.end()) {
+            builders[pair.first].entity = pair.second;
+        }
         builders[pair.first] = Builder(pair.second, MINE);
     }
 }
