@@ -50,9 +50,11 @@ MyStrategy::MyStrategy() {}
 
 Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debugInterface)
 {
+    cout << "pre" << endl;
     pv = &playerView;
     oneTimeInitialization();
     everyTickInitialization();
+    cout << "post" << endl;
 
     int me = playerView.myId;
 
