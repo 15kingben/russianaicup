@@ -133,6 +133,8 @@ void everyTickInitialization() {
     economy.setPopulation(0);
 }
 
+Vec2Int Util::homeBase;
+
 void oneTimeInitialization() {
     if (oneTimeInitDone) return;
     int size = pv->mapSize;
