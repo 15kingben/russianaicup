@@ -18,6 +18,14 @@ EntityAction Util::getAction(AttackAction action) {
             std::shared_ptr<RepairAction>());
 }
 
+EntityAction Util::getAction(MoveAction action) {
+    return EntityAction(
+            std::make_shared<MoveAction>(action), 
+            std::shared_ptr<BuildAction>(), 
+            std::shared_ptr<AttackAction>(),
+            std::shared_ptr<RepairAction>());
+}
+
 EntityAction Util::getEmptyAction() {
     return EntityAction(
             std::shared_ptr<MoveAction>(), 
@@ -59,4 +67,10 @@ Vec2Int Util::getBuildPosition(Entity entity, std::vector<std::vector<bool> > & 
         }
     }
     return Vec2Int(entity.position.x + size, entity.position.y + size - 1);
+}
+
+int Util::dist2(Vec2Int from, Vec2Int to) {
+    int dx = to.x - from.x;
+    int dy = to.y - from.y;
+    return dy*dy + dx*dx;
 }

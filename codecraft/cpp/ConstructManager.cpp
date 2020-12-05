@@ -32,7 +32,8 @@ void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & 
         const ArmyManager & armyManager, std::vector<std::vector<bool> > & open) {
     // Build targets for each type
     int population = economy.getPopulation();
-    int builderTarget = population * .5;
+    // all builders if no other factories yet
+    int builderTarget = population == 5 ? population : population * .5;
     population -= builderTarget;
     int rangedTarget = population * .5;
     population -= rangedTarget;
