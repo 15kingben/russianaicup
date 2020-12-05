@@ -50,11 +50,9 @@ MyStrategy::MyStrategy() {}
 
 Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debugInterface)
 {
-    cout << "pre" << endl;
     pv = &playerView;
     oneTimeInitialization();
     everyTickInitialization();
-    cout << "post" << endl;
 
     int me = playerView.myId;
 
@@ -156,7 +154,7 @@ void oneTimeInitialization() {
     Util::mapSize = pv->mapSize;
 
     for (auto entity : pv->entities) {
-        if (entity.entityType == BUILDER_BASE) Util::homeBase = entity.position;
+        if (entity.entityType == BUILDER_BASE && entity.playerId == pv->myId) Util::homeBase = entity.position;
     }
 
     armyManager.setMaxDistance(pv->mapSize/3);
