@@ -215,7 +215,7 @@ std::string debugEntity(const Entity &entity) {
 std::string debugEntityProperty(const EntityProperties &props) {
     std::string s = "";
     s += "cost: ";
-    s += std::to_string(props.cost);
+    s += std::to_string(props.initialCost);
     s += " | maxhp: ";
     s += std::to_string(props.maxHealth);
     return s;
