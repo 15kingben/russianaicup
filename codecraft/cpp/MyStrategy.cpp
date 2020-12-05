@@ -46,6 +46,7 @@ unordered_map<int, Entity> builderFactories;
 unordered_map<int, Entity> rangedFactories;
 unordered_map<int, Entity> meleeFactories;
 unordered_map<int, Entity> turrets;
+int totalResources = 0;
 
 MyStrategy::MyStrategy() {}
 
@@ -148,8 +149,13 @@ void everyTickInitialization() {
     economy.setResources(pv->players[i].resource);
     economy.setPopulation(0);
 
-    int totalResources = totalResourcesOnMap();
-    cout << totalResources << endl;
+    int oldTotalResources = totalResources;
+    totalResources = totalResourcesOnMap();
+    if (oldTotalResources != 0) {
+        int delta = oldTotalResources - totalResources;
+        int expectedTurnsLeft = totalResources / delta;
+        cout << expectedTurnsLeft << endl;
+    }
 }
 
 Vec2Int Util::homeBase;
