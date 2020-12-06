@@ -13,6 +13,7 @@ public:
     static int myId;
     static std::unordered_map<int, Entity> entities;
     static Vec2Int homeBase;
+    static Economy economy;
     static EntityAction getAction(BuildAction action);
     static EntityAction getAction(AttackAction action);
     static EntityAction getAction(MoveAction action);

@@ -10,6 +10,7 @@ public:
     int getResourcePerTurn();
     void setResources(int resource);
     bool charge(EntityType entityType, int cost);
+    bool charge(EntityType entityType);
     void updateResourcePerTurn();
     void updatePopulation(EntityType entityType);
     void setPopulation(int pop);

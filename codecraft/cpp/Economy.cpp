@@ -32,6 +32,11 @@ bool Economy::charge(EntityType entityType, int cost) {
     return false;
 }
 
+bool Economy::charge(EntityType entityType) {
+    return charge(entityType, Util::entityProperties[entityType].initialCost);
+}
+
+
 void Economy::updateResourcePerTurn() {
     resourcePerTurn += 1;
 }

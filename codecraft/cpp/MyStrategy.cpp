@@ -176,6 +176,7 @@ void oneTimeInitialization() {
     for (Entity e : pv->entities) {
         Util::entities[e.id] = e;
     }
+    Util::economy = economy;
 
     for (auto entity : pv->entities) {
         if (entity.entityType == BUILDER_BASE && *entity.playerId.get() == pv->myId) Util::homeBase = entity.position;

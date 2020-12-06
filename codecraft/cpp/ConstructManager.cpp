@@ -95,4 +95,6 @@ void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & 
             actions[pair.first] = Util::getEmptyAction();
         }
     }
+
+    
 }

@@ -37,6 +37,12 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
             actions.push_front(next);
             actions.push_front(Util::getAction(MoveAction(Vec2Int(bx,by), false, true)));
         }
+        if (!Util::economy.charge(next.buildAction->entityType)) {
+            // hold in place
+            actions.push_front(next);
+            return Util::getAction(MoveAction(entity.position, false, false));
+        }
+
         return next;
     }
 
