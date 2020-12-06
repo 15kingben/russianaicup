@@ -2,7 +2,6 @@
 #define _BUILDER_MANAGER_HPP_
 
 #include "Square.hpp"
-#include "ConstructManager.hpp"
 #include <unordered_map>
 #include "model/Model.hpp"
 #include <deque>
