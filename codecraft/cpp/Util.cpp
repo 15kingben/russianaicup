@@ -153,3 +153,7 @@ Vec2Int Util::getBuildPosition(Vec2Int pos, EntityType type, std::vector<std::ve
 
     return Vec2Int(-1,-1);
 }
+
+std::string Util::printVec(Vec2Int vec) {
+    return std::to_string(vec.x) + " " + std::to_string(vec.y);
+}
