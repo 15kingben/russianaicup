@@ -29,7 +29,7 @@ public:
     static bool isAdjacent(Vec2Int a, Vec2Int b);
     static Vec2Int getBuildPosition(Vec2Int pos, EntityType type, std::vector<std::vector<Square> > & open);
     static std::string printVec(Vec2Int vec);
-    static std::string printAction(EntityAction action);
+    static void printAction(EntityAction action);
 };
 
 #endif

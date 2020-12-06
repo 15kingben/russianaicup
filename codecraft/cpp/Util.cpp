@@ -159,7 +159,7 @@ std::string Util::printVec(Vec2Int vec) {
     return std::to_string(vec.x) + " " + std::to_string(vec.y);
 }
 
-std::string Util::printAction(EntityAction action) {
+void Util::printAction(EntityAction action) {
     if (action.attackAction != nullptr) {
         std::cout << "Attack: " << action.attackAction.get()->target << std::endl;
     }
