@@ -56,6 +56,8 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
         return next;
     }
 
+    std::cout << "poop" << std::endl;
+
     if (next.repairAction != nullptr) {
         int targetId = next.repairAction.get()->target;
         Entity target;
@@ -82,6 +84,10 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
 
         return next;
     }
+
+    std::cout << "poop" << std::endl;
+
+    return Util::getEmptyAction();
 }
 
 BuilderManager::BuilderManager() {
