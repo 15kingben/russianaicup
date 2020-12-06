@@ -37,10 +37,11 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
             actions.push_front(next);
             // if the obstruction is friendly, just wait
             if (target.playerId && *target.playerId.get() == Util::myId) {
+                std::cout << "WAIT" << std::endl;
                 return Util::getAction(MoveAction(entity.position, false, false));
             }
 
-            return Util::getAction(Util::getAttackAction(std::make_shared<int>(target.id), 15, std::vector<EntityType>({target.entityType})));
+            return Util::getAction(Util::getAttackAction(std::make_shared<int>(target.id), 5, std::vector<EntityType>({target.entityType})));
         }
 
         BuildAction buildAction = *next.buildAction.get();
