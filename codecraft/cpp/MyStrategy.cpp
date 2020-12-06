@@ -206,28 +206,28 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
 {
     debugInterface.send(DebugCommand::Clear());
 
-    bool debugEntityProperties = false;
-    bool debugEntities = false;
+    // bool debugEntityProperties = false;
+    // bool debugEntities = false;
 
-    std::string str;
+    // std::string str;
     
-    if (debugEntityProperties) {
-        for (auto pair : playerView.entityProperties) {
-            // str += debugEntityType(pair.first) + ":  ";
-            str += debugEntityProperty(pair.second);
-            str += "\n";
-        }
-    }
+    // if (debugEntityProperties) {
+    //     for (auto pair : playerView.entityProperties) {
+    //         // str += debugEntityType(pair.first) + ":  ";
+    //         str += debugEntityProperty(pair.second);
+    //         str += "\n";
+    //     }
+    // }
 
-    if (debugEntities) {
-        for (Entity entity : playerView.entities) {
-            str += debugEntity(entity);
-            str += "\n";
-        }
-    }
+    // if (debugEntities) {
+    //     for (Entity entity : playerView.entities) {
+    //         str += debugEntity(entity);
+    //         str += "\n";
+    //     }
+    // }
 
-    // debugInterface.send(DebugCommand::Add(std::make_shared<DebugData::Log>(str)));
-    std::cout << str << "\n";
+    // // debugInterface.send(DebugCommand::Add(std::make_shared<DebugData::Log>(str)));
+    // std::cout << str << "\n";
 
     debugInterface.getState();
 }
