@@ -4,20 +4,28 @@
 #include <unordered_map>
 #include "model/Model.hpp"
 #include <vector>
+#include "ConstructManager.hpp"
 
 class Util {
 public:
     static std::unordered_map<EntityType, EntityProperties> entityProperties;
     static int mapSize;
+    static int myId;
+    static std::unordered_map<int, Entity> entities;
     static Vec2Int homeBase;
     static EntityAction getAction(BuildAction action);
     static EntityAction getAction(AttackAction action);
     static EntityAction getAction(MoveAction action);
+    static EntityAction getAction(RepairAction action);
     static EntityAction getEmptyAction();
-    static Vec2Int getBuildPosition(Entity entity, std::vector<std::vector<bool> > & open);
+    static Vec2Int getBuildPosition(Entity entity, std::vector<std::vector<Square> > & open);
     static AttackAction getAttackAction(std::shared_ptr<int> target, int pathfindRange, std::vector<EntityType> validTargets);
     static int dist2(Vec2Int from, Vec2Int to);
     static int getUnitCost(EntityType type, int number);
+    static Vec2Int getHomeDirection();
+    static MoveAction getFlee(Entity entity, const std::vector<std::vector<Square> > & map);
+    static Entity getClear(BuildAction action, std::vector<std::vector<Square> > & map);
+    static bool isAdjacent(Vec2Int a, Vec2Int b);
 };
 
 #endif

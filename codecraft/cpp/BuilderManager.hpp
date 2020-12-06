@@ -17,11 +17,14 @@ class Builder {
         Entity entity;
         Builder();
         Builder(Entity entity, Role role);
+        Job job;
 };
 
-class BuildJob {
+class Job {
     public:
         std::deque<EntityAction> actions;
+        EntityAction getAction(std::vector<std::vector<Square> > & open);
+        Entity entity;
 };
 
 class BuilderManager {

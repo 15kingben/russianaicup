@@ -1,0 +1,6 @@
+- BuildJob implementation
+ - List desired placement of houses, bases
+- Repairable interface // repair is slow, 1pt when bases have 300 hp, soldiers have 10-30
+- Builder + ranged flee mechanic
+- improved defense mechanics
+- Assault mechanic

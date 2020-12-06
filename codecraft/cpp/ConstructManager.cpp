@@ -5,6 +5,33 @@
 #include "Economy.hpp"
 #include <iostream>
 
+Square::Square() {
+    entity = Entity();
+    occupied = false;
+}
+
+Square::Square(Entity entity) {
+    this->entity = entity;
+    occupied = true;
+}
+
+void Square::setEntity(Entity entity) {
+    this->entity = entity;
+    occupied = true;
+}
+
+Entity Square::getEntity() {
+    return entity;
+}
+
+bool Square::isOccupied() {
+    return occupied;
+}
+
+void Square::setPlanned() {
+    occupied = true;
+}
+
 ConstructManager::ConstructManager() {
 
 }
@@ -29,7 +56,7 @@ ConstructManager::ConstructManager() {
 }
 
 void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & actions, Economy & economy, const BuilderManager & builderManager, 
-        const ArmyManager & armyManager, std::vector<std::vector<bool> > & open) {
+        const ArmyManager & armyManager, std::vector<std::vector<Square> > & open) {
     // Build targets for each type
     int population = economy.getPopulation();
     // all builders if no other factories yet

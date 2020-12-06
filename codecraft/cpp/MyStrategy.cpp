@@ -17,14 +17,14 @@ using namespace std;
 std::string debugEntityProperty(const EntityProperties &props);
 std::string debugEntityType(EntityType e);
 std::string debugEntity(const Entity &e);
-void takeUpSpace(const Entity& entity, std::vector<std::vector<bool> > &open);
+void takeUpSpace(const Entity& entity, std::vector<std::vector<Square> > &open);
 void everyTickInitialization();
 void oneTimeInitialization();
 int totalResourcesOnMap();
 
 
 // whether or not the square is free
-std::vector<std::vector<bool> > open;
+std::vector<std::vector<Square> > open;
 // has one time setup been completed
 bool oneTimeInitDone = false;
 // global pointer to per-tick PlayerView
@@ -103,13 +103,13 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
     return Action(myAction);
 }
 
-void takeUpSpace(const Entity& entity, std::vector<std::vector<bool> > &open) {
+void takeUpSpace(const Entity& entity, std::vector<std::vector<Square> > &open) {
     int x = entity.position.x;
     int y = entity.position.y;
     int size = pv->entityProperties.at(entity.entityType).size;
     for (int i = x; i < x + size; i++) {
         for (int j = y; j < y + size; j++) {
-            open[i][j] = false;
+            open[i][j].setEntity(entity);
         }
     }
 }
@@ -128,7 +128,7 @@ void everyTickInitialization() {
     int size = pv->mapSize;
     for (auto row : open) {
         for (int i = 0; i < size; i++) {
-            row[i] = true;
+            row[i] = Square();
         }
     }
 
@@ -154,7 +154,6 @@ void everyTickInitialization() {
     int delta = oldTotalResources - totalResources;
     if (delta > 0) {
         int expectedTurnsLeft = totalResources / delta;
-        cout << expectedTurnsLeft << endl;
     }
 }
 
@@ -164,14 +163,19 @@ void oneTimeInitialization() {
     if (oneTimeInitDone) return;
     int size = pv->mapSize;
     for (int i = 0; i < size; i++) {
-        open.emplace_back(std::vector<bool>());
+        open.emplace_back(std::vector<Square>());
         for (int j = 0; j < size; j++) {
-            open[i].emplace_back(true);
+            open[i].emplace_back(Square());
         }
     }
 
     Util::entityProperties = pv->entityProperties;
     Util::mapSize = pv->mapSize;
+    Util::myId = pv->myId;
+    Util::entities.clear();
+    for (Entity e : pv->entities) {
+        Util::entities[e.id] = e;
+    }
 
     for (auto entity : pv->entities) {
         if (entity.entityType == BUILDER_BASE && *entity.playerId.get() == pv->myId) Util::homeBase = entity.position;

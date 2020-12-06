@@ -1,37 +1,46 @@
 #include "Util.hpp"
+#include "ConstructManager.hpp"
 
 std::unordered_map<EntityType, EntityProperties> Util::entityProperties;
 
 EntityAction Util::getAction(BuildAction action) {
     return EntityAction(
-            std::shared_ptr<MoveAction>(), 
+            nullptr, 
             std::make_shared<BuildAction>(action), 
-            std::shared_ptr<AttackAction>(),
-            std::shared_ptr<RepairAction>());
+            nullptr,
+            nullptr);
 }
 
 EntityAction Util::getAction(AttackAction action) {
     return EntityAction(
-            std::shared_ptr<MoveAction>(), 
-            std::shared_ptr<BuildAction>(), 
+            nullptr, 
+            nullptr, 
             std::make_shared<AttackAction>(action),
-            std::shared_ptr<RepairAction>());
+            nullptr);
 }
 
 EntityAction Util::getAction(MoveAction action) {
     return EntityAction(
             std::make_shared<MoveAction>(action), 
-            std::shared_ptr<BuildAction>(), 
-            std::shared_ptr<AttackAction>(),
-            std::shared_ptr<RepairAction>());
+            nullptr, 
+            nullptr,
+            nullptr);
+}
+
+EntityAction Util::getAction(RepairAction action) {
+    return EntityAction(
+            nullptr, 
+            nullptr, 
+            nullptr,
+            std::make_shared<RepairAction>(action));
 }
 
 EntityAction Util::getEmptyAction() {
     return EntityAction(
-            std::shared_ptr<MoveAction>(), 
-            std::shared_ptr<BuildAction>(), 
-            std::shared_ptr<AttackAction>(),
-            std::shared_ptr<RepairAction>());
+            nullptr, 
+            nullptr, 
+            nullptr,
+            nullptr);
 }
 
 AttackAction Util::getAttackAction(std::shared_ptr<int> target, int pathfindRange, std::vector<EntityType> validTargets) {
@@ -43,30 +52,30 @@ bool inb(int x, int y) {
 }
 
 // gets the position where new units/buildings can be built from this unit
-Vec2Int Util::getBuildPosition(Entity entity, std::vector<std::vector<bool> > & open) {
+Vec2Int Util::getBuildPosition(Entity entity, std::vector<std::vector<Square> > & open) {
     int size = entityProperties[entity.entityType].size;
     for (int x = entity.position.x; x < entity.position.x + size; x++) {
         int y = entity.position.y - 1;
-        if (inb(x,y) && open[x][y]) {
-            open[x][y] = false;
+        if (inb(x,y) && !open[x][y].isOccupied()) {
+            open[x][y].setPlanned();
             return Vec2Int(x, y);
         }
         y = entity.position.y + size;
-        if (inb(x,y) && open[x][y]) {
-            open[x][y] = false;
+        if (inb(x,y) && !open[x][y].isOccupied()) {
+            open[x][y].setPlanned();
             return Vec2Int(x, y);
         }
     }
 
     for (int y = entity.position.y; y < entity.position.y + size; y++) {
         int x = entity.position.x - 1;
-        if (inb(x,y) && open[x][y]) {
-            open[x][y] = false;
+        if (inb(x,y) && !open[x][y].isOccupied()) {
+            open[x][y].setPlanned();
             return Vec2Int(x, y);
         }
         x = entity.position.x + size;
-        if (inb(x,y) && open[x][y]) {
-            open[x][y] = false;
+        if (inb(x,y) && !open[x][y].isOccupied()) {
+            open[x][y].setPlanned();
             return Vec2Int(x, y);
         }
     }
@@ -81,4 +90,38 @@ int Util::dist2(Vec2Int from, Vec2Int to) {
 
 int Util::getUnitCost(EntityType type, int count) {
     return entityProperties[type].initialCost + count;
+}
+
+// Direction of home base, [-1,-1], [-1,1], [1,-1] or [1,1]
+Vec2Int Util::getHomeDirection() {
+    Vec2Int hb = Util::homeBase;
+    int ms = Util::mapSize;
+    int x = hb.x < ms / 2 ? 1 : -1;
+    int y = hb.y < ms / 2 ? 1 : -1;
+    return Vec2Int(x, y);
+}
+
+MoveAction Util::getFlee(Entity entity, const std::vector<std::vector<Square> > & map) {
+    int dangerZone = 6; // Ranged unit attack range + 1
+    // finish
+    return MoveAction();
+}
+
+Entity Util::getClear(BuildAction action, std::vector<std::vector<Square> > & map) {
+    Vec2Int buildLocation = action.position;
+    int sideLength = Util::entityProperties[action.entityType].size;
+    for (int x = buildLocation.x; x < buildLocation.x + sideLength; x++) {
+        for (int y = buildLocation.y; y < buildLocation.y + sideLength; y++) {
+            if (map[x][y].isOccupied()) {
+                return map[x][y].getEntity();
+            }
+        }
+    }
+    Entity ret;
+    ret.id = -1;
+    return ret;
+}
+
+bool Util::isAdjacent(Vec2Int a, Vec2Int b) {
+    return abs(a.x - b.x) + abs(a.y - b.y) == 1;
 }
