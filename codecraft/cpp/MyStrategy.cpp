@@ -97,6 +97,7 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
     armyManager.updateRanged(ranged);
 
     constructManager.baseBuildActions(myAction, economy, builderManager, armyManager, open);
+    constructManager.updateHouseBuilds(builderManager, open);
     builderManager.builderActions(myAction, open);
     armyManager.turretActions(myAction, turrets);
     armyManager.combatActions(myAction);
