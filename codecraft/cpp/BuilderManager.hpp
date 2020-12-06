@@ -1,10 +1,10 @@
 #ifndef _BUILDER_MANAGER_HPP_
 #define _BUILDER_MANAGER_HPP_
 
+#include "ConstructManager.hpp"
 #include <unordered_map>
 #include "model/Model.hpp"
 #include <deque>
-#include "ConstructManager.hpp"
 
 enum Role {
     MINE = 0,
