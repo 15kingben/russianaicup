@@ -131,7 +131,7 @@ Entity Util::getClear(BuildAction action, std::vector<std::vector<Square> > & ma
     int sideLength = Util::entityProperties[action.entityType].size;
     for (int x = buildLocation.x; x < buildLocation.x + sideLength; x++) {
         for (int y = buildLocation.y; y < buildLocation.y + sideLength; y++) {
-            if (map[x][y].isOccupied()) {
+            if (map[x][y].isOccupied() && (!map[x][y].getEntity().playerId || *map[x][y].getEntity().playerId.get() != Util::myId)) {
                 return map[x][y].getEntity();
             }
         }
