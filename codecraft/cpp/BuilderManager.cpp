@@ -22,6 +22,8 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
             next = actions.front();
             actions.pop_front();
         } else {
+                        std::cout << "NOT HERE" << std::endl;
+
             actions.push_front(next);
             return next;
         }
