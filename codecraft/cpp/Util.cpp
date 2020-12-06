@@ -60,22 +60,22 @@ std::unordered_set<Vec2Int> getNeighborPositions(Vec2Int bottomLeft, EntityType 
     for (int x = bottomLeft.x; x < bottomLeft.x + size; x++) {
         int y = bottomLeft.y - 1;
         if (inb(x,y)) {
-            positions.push_back(Vec2Int(x,y));
+            positions.emplace(Vec2Int(x,y));
         }
         y = bottomLeft.y + size;
         if (inb(x,y)) {
-            positions.push_back(Vec2Int(x,y));
+            positions.emplace(Vec2Int(x,y));
         }
     }
 
     for (int y = bottomLeft.y; y < bottomLeft.y + size; y++) {
         int x = bottomLeft.x - 1;
         if (inb(x,y)) {
-            positions.push_back(Vec2Int(x,y));
+            positions.emplace(Vec2Int(x,y));
         }
         x = bottomLeft.x + size;
         if (inb(x,y)) {
-            positions.push_back(Vec2Int(x,y));
+            positions.emplace(Vec2Int(x,y));
         }
     }
 
