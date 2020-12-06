@@ -2,11 +2,11 @@
 #define _CONSTRUCT_HPP_
 
 #include "Square.hpp"
+#include "BuilderManager.hpp"
 #include <unordered_map>
 #include <map>
 #include "model/Model.hpp"
 #include "Economy.hpp"
-#include "BuilderManager.hpp"
 #include "ArmyManager.hpp"
 #include <vector>
 #include <utility>
