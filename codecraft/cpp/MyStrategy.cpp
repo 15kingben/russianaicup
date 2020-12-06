@@ -213,7 +213,7 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
     
     if (debugEntityProperties) {
         for (auto pair : playerView.entityProperties) {
-            str += debugEntityType(pair.first) + ":  ";
+            // str += debugEntityType(pair.first) + ":  ";
             str += debugEntityProperty(pair.second);
             str += "\n";
         }
