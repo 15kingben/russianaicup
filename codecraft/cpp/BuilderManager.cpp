@@ -130,7 +130,7 @@ void BuilderManager::updateBuilders(const std::unordered_map<int, Entity> & curr
     }
 
     // yuck
-    for (auto pair : builders) {
+    for (auto & pair : builders) {
         pair.second.job.entity = pair.second.entity;
     }
 }
