@@ -14,6 +14,7 @@ enum Role {
 
 class Job {
     public:
+        Job();
         std::deque<EntityAction> actions;
         EntityAction getAction(std::vector<std::vector<Square> > & open);
         Entity entity;
