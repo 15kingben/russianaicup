@@ -17,6 +17,7 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
 
     if (next.moveAction != nullptr) {
         if (entity.position.x == next.moveAction.get()->target.x && entity.position.y == next.moveAction.get()->target.y) {
+            std::cout << "WERE HERE" << std::endl;
             // we're done moving, on to building
             next = actions.front();
             actions.pop_front();
