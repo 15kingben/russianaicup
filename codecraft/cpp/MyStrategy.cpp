@@ -243,7 +243,7 @@ std::string debugVector(Vec2Int vec) {
 
 std::string debugEntity(const Entity &entity) {
     std::string s = "";
-    s += debugEntityType(entity.entityType) + ":  ";
+    // s += debugEntityType(entity.entityType) + ":  ";
     s += "hp: " + std::to_string(entity.health);  s += ", ";
     s += "id: " + std::to_string(entity.id);  s += ", ";
     s += "pos: " + debugVector(entity.position); s += ", ";
