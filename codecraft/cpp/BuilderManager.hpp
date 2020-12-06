@@ -4,10 +4,18 @@
 #include <unordered_map>
 #include "model/Model.hpp"
 #include <deque>
+#include "ConstructManager.hpp"
 
 enum Role {
     MINE = 0,
     POP_GROWTH
+};
+
+class Job {
+    public:
+        std::deque<EntityAction> actions;
+        EntityAction getAction(std::vector<std::vector<Square> > & open);
+        Entity entity;
 };
 
 class Builder {
@@ -18,13 +26,6 @@ class Builder {
         Builder();
         Builder(Entity entity, Role role);
         Job job;
-};
-
-class Job {
-    public:
-        std::deque<EntityAction> actions;
-        EntityAction getAction(std::vector<std::vector<Square> > & open);
-        Entity entity;
 };
 
 class BuilderManager {
