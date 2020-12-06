@@ -148,6 +148,7 @@ void BuilderManager::builderActions(std::unordered_map<int, EntityAction> & acti
             EntityAction action = pair.second.job.getAction(open);
             if (action.attackAction == nullptr && action.buildAction == nullptr && action.moveAction == nullptr && action.repairAction == nullptr) {
                 // done with job
+                std::cout << "Done with job" << std::endl;
                 pair.second.committed = false;
                 pair.second.job = Job();
                 actions[pair.first] = getMineAction();
