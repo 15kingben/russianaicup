@@ -8,6 +8,7 @@
 
 Square::Square() {
     entity = Entity();
+    entity.id = -1;
     occupied = false;
 }
 
