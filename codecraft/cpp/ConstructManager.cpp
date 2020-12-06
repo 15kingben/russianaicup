@@ -153,7 +153,7 @@ void ConstructManager::updateHouseBuilds(BuilderManager& builderManager, std::ve
 
     int inProgress = 0;
     for (auto pair : houseLocations)
-        if (pair.second > 0)
+        if (pair.second != 0 && pair.second != -1)
             inProgress++;
 
     if (inProgress < std::max(builderManager.getBuilderCount() / 8, 2)) {
