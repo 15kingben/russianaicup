@@ -122,6 +122,11 @@ void ConstructManager::initHouseLocations() {
             houseLocations[loc] = 0;
         }
     }
+
+    std::cout << "Debug house locations" << std::endl;
+    for (auto pair : houseLocations) { 
+        std::cout << pair.first.x << " " << pair.first.y << std::endl;
+    }
 }
 
 void ConstructManager::updateHouseBuilds(BuilderManager& builderManager, std::vector<std::vector<Square> > & open) {
@@ -150,6 +155,7 @@ void ConstructManager::updateHouseBuilds(BuilderManager& builderManager, std::ve
     if (inProgress < std::max(builderManager.getBuilderCount() / 8, 2)) {
         for (auto & pair : houseLocations) {
             if (pair.second == 0) {
+                std::cout << "Building new house" << pair.first.x << " " << pair.first.y << std::endl;
                 pair.second = builderManager.assignNearestWorkerToBuild(pair.first, HOUSE, open);
             }
         }

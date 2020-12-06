@@ -12,6 +12,8 @@ Job::Job() {
 
 EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
     EntityAction next = actions.front(); actions.pop_front();
+    std::cout << entity.id << " Executing job action: " << actions.size();
+
     if (next.moveAction != nullptr) {
         if (entity.position.x == next.moveAction.get()->target.x && entity.position.y == next.moveAction.get()->target.y) {
             // we're done moving, on to building
