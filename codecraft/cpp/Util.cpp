@@ -1,6 +1,7 @@
 #include "Util.hpp"
 #include "ConstructManager.hpp"
 #include <algorithm>
+#include <unordered_set>
 
 std::unordered_map<EntityType, EntityProperties> Util::entityProperties;
 
@@ -52,8 +53,8 @@ bool inb(int x, int y) {
     return x >= 0 && y >= 0 && y < Util::mapSize && x < Util::mapSize;
 }
 
-std::vector<Vec2Int> getNeighborPositions(Vec2Int bottomLeft, EntityType type) {
-    std::vector<Vec2Int> positions;
+std::unordered_set<Vec2Int> getNeighborPositions(Vec2Int bottomLeft, EntityType type) {
+    std::unordered_set<Vec2Int> positions;
     int size = Util::entityProperties[type].size;
 
     for (int x = bottomLeft.x; x < bottomLeft.x + size; x++) {
