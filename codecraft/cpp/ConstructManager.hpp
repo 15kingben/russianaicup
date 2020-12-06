@@ -17,6 +17,7 @@ public:
     void updateBases(const std::unordered_map<int, Entity> & builderBases, 
                     const std::unordered_map<int, Entity> & rangedBases,
                     const std::unordered_map<int, Entity> & meleeBases);
+
     void baseBuildActions(std::unordered_map<int, EntityAction> & actions, Economy & economy, const BuilderManager & builderManager, const ArmyManager & armyManager, std::vector<std::vector<Square> > & open);
     void updateHouseBuilds(BuilderManager & builderManager, std::vector<std::vector<Square> > & open);
     void initHouseLocations();

@@ -11,6 +11,12 @@ public:
     bool isOccupied();
     void setPlanned();
     Entity getEntity();
+
+   bool operator<(const Square& rhs) const noexcept
+   {
+      // logic here
+      return this < &rhs; // for example
+   }
 private:
     bool occupied;
     Entity entity;
