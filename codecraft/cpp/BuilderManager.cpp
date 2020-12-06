@@ -34,7 +34,7 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
         BuildAction buildAction = *next.buildAction.get();
         Vec2Int b = Util::getBuildPosition(buildAction.position, buildAction.entityType, open);
 
-        std::unordered_set<Entity> obsctructions = Util::getClear(*next.buildAction, open);
+        std::unordered_set<int> obsctructions = Util::getClear(*next.buildAction, open);
         if (!obsctructions.empty()) { // in future, code removal of resources and enemy builders
             std::cout << "WAIT" << std::endl;
             return Util::getAction(MoveAction(entity.position, false, false));
