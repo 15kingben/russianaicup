@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <unordered_set>
 #include <iostream>
+#include <string>
 
 std::unordered_map<EntityType, EntityProperties> Util::entityProperties;
 Economy Util::economy;
