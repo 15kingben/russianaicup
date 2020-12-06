@@ -2,6 +2,7 @@
 #include "Economy.hpp"
 #include "BuilderManager.hpp"
 #include "ConstructManager.hpp"
+#include "Square.hpp"
 #include "ArmyManager.hpp"
 #include "Util.hpp"
 #include <exception>
