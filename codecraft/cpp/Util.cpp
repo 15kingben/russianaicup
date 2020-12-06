@@ -126,18 +126,17 @@ MoveAction Util::getFlee(Entity entity, const std::vector<std::vector<Square> > 
     return MoveAction();
 }
 
-Entity Util::getClear(BuildAction action, std::vector<std::vector<Square> > & map) {
+std::unordered_set<Entity> Util::getClear(BuildAction action, std::vector<std::vector<Square> > & map) {
     Vec2Int buildLocation = action.position;
+    std::unordered_set<Entity> ret;
     int sideLength = Util::entityProperties[action.entityType].size;
     for (int x = buildLocation.x; x < buildLocation.x + sideLength; x++) {
         for (int y = buildLocation.y; y < buildLocation.y + sideLength; y++) {
             if (map[x][y].isOccupied()) {  // && (!map[x][y].getEntity().playerId || *map[x][y].getEntity().playerId.get() != Util::myId)
-                return map[x][y].getEntity();
+                ret.emplace(map[x][y].getEntity());
             }
         }
     }
-    Entity ret;
-    ret.id = -1;
     return ret;
 }
 
