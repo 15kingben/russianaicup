@@ -156,7 +156,7 @@ void ConstructManager::updateHouseBuilds(BuilderManager& builderManager, std::ve
         if (pair.second != 0 && pair.second != -1)
             inProgress++;
 
-    if (inProgress < std::max(builderManager.getBuilderCount() / 8, 2)) {
+    if (inProgress < builderManager.getBuilderCount() / 5) {
         for (auto & pair : houseLocations) {
             if (pair.second == 0) {
                 std::cout << "Building new house" << pair.first.first << " " << pair.first.second << std::endl;
