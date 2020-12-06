@@ -8,6 +8,7 @@ Economy Util::economy;
 int Util::myId;
 int Util::mapSize;
 Vec2Int Util::homeBase;
+std::unordered_map<int, Entity> Util::entities;
 
 EntityAction Util::getAction(BuildAction action) {
     return EntityAction(
