@@ -6,6 +6,9 @@
 #include <vector>
 #include <iostream>
 
+Economy Util::economy;
+int Util::myId;
+
 Job::Job() {
 
 }

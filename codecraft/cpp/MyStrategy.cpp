@@ -159,6 +159,8 @@ void everyTickInitialization() {
 }
 
 Vec2Int Util::homeBase;
+Economy Util::economy;
+int Util::myId;
 
 void oneTimeInitialization() {
     if (oneTimeInitDone) return;

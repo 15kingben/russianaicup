@@ -6,6 +6,7 @@
 #include <iostream>
 #include <algorithm>
 
+Economy Util::economy;
 
 Square::Square() {
     entity = Entity();
