@@ -157,6 +157,7 @@ void ConstructManager::updateHouseBuilds(BuilderManager& builderManager, std::ve
             if (pair.second == 0) {
                 std::cout << "Building new house" << pair.first.first << " " << pair.first.second << std::endl;
                 pair.second = builderManager.assignNearestWorkerToBuild(Vec2Int(pair.first.first, pair.first.second), HOUSE, open);
+                break;
             }
         }
     }
