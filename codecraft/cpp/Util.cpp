@@ -113,8 +113,8 @@ int Util::getUnitCost(EntityType type, int count) {
 Vec2Int Util::getHomeDirection() {
     Vec2Int hb = Util::homeBase;
     int ms = Util::mapSize;
-    int x = hb.x < ms / 2 ? 1 : -1;
-    int y = hb.y < ms / 2 ? 1 : -1;
+    int x = hb.x < ms / 2 ? -1 : 1;
+    int y = hb.y < ms / 2 ? -1 : 1;
     return Vec2Int(x, y);
 }
 
