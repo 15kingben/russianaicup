@@ -175,7 +175,7 @@ void Util::printAction(EntityAction action) {
     }
 }
 
-std::string printEntityType(EntityType type) {
+std::string Util::printEntityType(EntityType type) {
     switch (type) {
         case 0:
             return "wall";
