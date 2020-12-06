@@ -5,6 +5,7 @@
 #include "model/Model.hpp"
 #include <vector>
 #include "ConstructManager.hpp"
+#include <string>
 
 class Util {
 public:
