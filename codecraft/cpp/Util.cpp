@@ -2,6 +2,7 @@
 #include "ConstructManager.hpp"
 #include <algorithm>
 #include <unordered_set>
+#include <iostream>
 
 std::unordered_map<EntityType, EntityProperties> Util::entityProperties;
 Economy Util::economy;
@@ -156,4 +157,19 @@ Vec2Int Util::getBuildPosition(Vec2Int pos, EntityType type, std::vector<std::ve
 
 std::string Util::printVec(Vec2Int vec) {
     return std::to_string(vec.x) + " " + std::to_string(vec.y);
+}
+
+std::string Util::printAction(EntityAction action) {
+    if (action.attackAction != nullptr) {
+        std::cout << "Attack: " << action.attackAction.get()->target << std::endl;
+    }
+    if (action.moveAction != nullptr) {
+        std::cout << "Move: " << printVec(action.moveAction.get()->target) << std::endl;
+    }
+    if (action.repairAction != nullptr) {
+        std::cout << "Repair: " << action.repairAction.get()->target << std::endl;
+    }
+    if (action.buildAction != nullptr) {
+        std::cout << "Build: " << printVec(action.buildAction.get()->position) << std::endl;
+    }
 }
