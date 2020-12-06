@@ -1,6 +1,7 @@
 #ifndef _CONSTRUCT_HPP_
 #define _CONSTRUCT_HPP_
 
+#include "Square.hpp"
 #include <unordered_map>
 #include <map>
 #include "model/Model.hpp"
@@ -9,7 +10,6 @@
 #include "ArmyManager.hpp"
 #include <vector>
 #include <utility>
-#include "Square.hpp"
 
 class ConstructManager {
 public:
@@ -18,7 +18,7 @@ public:
                     const std::unordered_map<int, Entity> & rangedBases,
                     const std::unordered_map<int, Entity> & meleeBases);
     void baseBuildActions(std::unordered_map<int, EntityAction> & actions, Economy & economy, const BuilderManager & builderManager, const ArmyManager & armyManager, std::vector<std::vector<Square> > & open);
-    void updateHouseBuilds(BuilderManager& builderManager, std::vector<std::vector<Square> > & open);
+    void updateHouseBuilds(BuilderManager & builderManager, std::vector<std::vector<Square> > & open);
     void initHouseLocations();
 
 private:

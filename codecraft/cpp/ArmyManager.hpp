@@ -2,22 +2,8 @@
 #define _ARMY_MANAGER_HPP_
 
 #include <unordered_map>
+#include "CombatUnit.hpp"
 #include "model/Model.hpp"
-
-enum CombatStrat {
-    DEFEND,
-    ATTACK
-};
-
-class CombatUnit {
-    public:
-        CombatUnit();
-        CombatUnit(Entity entity, CombatStrat strat);
-        CombatStrat strat;
-        Vec2Int target;
-        Entity entity;
-        bool fallback;
-};
 
 class ArmyManager {
     public:

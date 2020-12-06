@@ -6,29 +6,8 @@
 #include <unordered_map>
 #include "model/Model.hpp"
 #include <deque>
-
-enum Role {
-    MINE = 0,
-    POP_GROWTH
-};
-
-class Job {
-    public:
-        Job();
-        std::deque<EntityAction> actions;
-        EntityAction getAction(std::vector<std::vector<Square> > & open);
-        Entity entity;
-};
-
-class Builder {
-    public:
-        Role role;
-        bool committed;
-        Entity entity;
-        Builder();
-        Builder(Entity entity, Role role);
-        Job job;
-};
+#include "Job.hpp"
+#include "Builder.hpp"
 
 class BuilderManager {
     public:
