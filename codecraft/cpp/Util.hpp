@@ -27,6 +27,7 @@ public:
     static MoveAction getFlee(Entity entity, const std::vector<std::vector<Square> > & map);
     static Entity getClear(BuildAction action, std::vector<std::vector<Square> > & map);
     static bool isAdjacent(Vec2Int a, Vec2Int b);
+    static Vec2Int getBuildPosition(Vec2Int pos, EntityType type, std::vector<std::vector<Square> > & open);
 };
 
 #endif

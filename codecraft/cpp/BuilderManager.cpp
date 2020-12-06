@@ -27,15 +27,23 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
         Entity target = Util::getClear(*next.buildAction, open);
         if (target.id != -1) {
             // clear out any enemies or resources which are in the way
+
             actions.push_front(next);
+            // if the obstruction is friendly, just wait
+            if (target.playerId && *target.playerId.get() == Util::myId) {
+                return Util::getAction(MoveAction(entity.position, false, false));
+            }
+
             return Util::getAction(Util::getAttackAction(std::make_shared<int>(target.id), 15, std::vector<EntityType>({target.entityType})));
         }
-        int bx = next.buildAction->position.x - 1;
-        int by = next.buildAction->position.y;
-        if (entity.position.x != bx || entity.position.y != by) {
-            // we must have detoured to clear the area, return back to build location
+
+        BuildAction buildAction = *next.buildAction.get();
+
+        Vec2Int b = Util::getBuildPosition(buildAction.position, buildAction.entityType, open);
+        if (entity.position.x != b.x || entity.position.y != b.y) {
+            // we must have just detoured to clear the area, return back to build location
             actions.push_front(next);
-            actions.push_front(Util::getAction(MoveAction(Vec2Int(bx,by), false, true)));
+            actions.push_front(Util::getAction(MoveAction(b, false, true)));
         }
         if (!Util::economy.charge(next.buildAction->entityType)) {
             // hold in place
@@ -115,8 +123,47 @@ void BuilderManager::updateBuilders(const std::unordered_map<int, Entity> & curr
     }
 }
 
-void BuilderManager::builderActions(std::unordered_map<int, EntityAction> & actions) {
-    for (auto pair : builders) {
-        actions[pair.first] = Util::getAction(AttackAction(nullptr, std::make_shared<AutoAttack>(AutoAttack(1000, std::vector<EntityType>({RESOURCE})))));
+EntityAction getMineAction() {
+    return Util::getAction(AttackAction(nullptr, std::make_shared<AutoAttack>(AutoAttack(1000, std::vector<EntityType>({RESOURCE})))));
+}
+
+void BuilderManager::builderActions(std::unordered_map<int, EntityAction> & actions, std::vector<std::vector<Square> > & open) {
+    for (auto & pair : builders) {
+        if (pair.second.committed) {
+            // we have an active job
+            EntityAction action = pair.second.job.getAction(open);
+            if (action.attackAction == nullptr && action.buildAction == nullptr && action.moveAction == nullptr && action.repairAction == nullptr) {
+                // done with job
+                pair.second.committed = false;
+                pair.second.job = Job();
+                actions[pair.first] = getMineAction();
+            } else {
+                actions[pair.first] = action;
+            }
+        } else {
+            actions[pair.first] = getMineAction();
+        }
     }
+}
+
+int BuilderManager::assignNearestWorkerToBuild(Vec2Int location, EntityType type, std::vector<std::vector<Square> > & open) {
+    int minDistance = 100000;
+    int workerId = -1;
+    for (auto & pair : builders) {
+        if (pair.second.committed) continue;
+        if (Util::dist2(location, pair.second.entity.position) < minDistance) {
+            minDistance = Util::dist2(location, pair.second.entity.position);
+            workerId = pair.first;
+        }
+    }
+
+    // Give the worker the tasks
+    Job job;
+    job.actions.push_back(Util::getAction(RepairAction(-1)));
+    job.actions.push_back(Util::getAction(BuildAction(type, location)));
+    job.actions.push_back(Util::getAction(MoveAction(Util::getBuildPosition(location, type, open), false, false)));
+    builders[workerId].committed = true;
+    builders[workerId].job = job;
+
+    return workerId;
 }

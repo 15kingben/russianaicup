@@ -96,7 +96,7 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
     armyManager.updateRanged(ranged);
 
     constructManager.baseBuildActions(myAction, economy, builderManager, armyManager, open);
-    builderManager.builderActions(myAction);
+    builderManager.builderActions(myAction, open);
     armyManager.turretActions(myAction, turrets);
     armyManager.combatActions(myAction);
 
@@ -183,6 +183,8 @@ void oneTimeInitialization() {
     }
 
     armyManager.setMaxDistance(pv->mapSize);
+
+    constructManager.initHouseLocations();
 
     oneTimeInitDone = true;
 }

@@ -4,6 +4,7 @@
 #include "Util.hpp"
 #include "Economy.hpp"
 #include <iostream>
+#include <algorithm>
 
 Square::Square() {
     entity = Entity();
@@ -95,6 +96,62 @@ void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & 
             actions[pair.first] = Util::getEmptyAction();
         }
     }
+}
 
-    
+void ConstructManager::initHouseLocations() {
+    Vec2Int d = Util::getHomeDirection(); 
+    Vec2Int startPoint(std::max(d.x, 0) * (Util::mapSize - 1), std::max(d.y, 0) * (Util::mapSize - 1));
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            // filter out base locations
+            if ((i==1 || i==2) && (j == 1 || j == 2 || j == 4)) continue;
+            if ((j==1 || j==2) && (i == 1 || i == 2 || i == 4)) continue;
+
+            Vec2Int loc(startPoint.x + i * d.x * 4, startPoint.y + j * d.y * 4);
+            houseLocations[loc] = 0;
+        }
+    }
+
+    for (int i = 4; i < 7; i++) {
+        for (int j = 4; j < 7; j++) {
+            // filter out base locations
+            if ((i==1 || i==2) && (j == 1 || j == 2 || j == 4)) continue;
+            if ((j==1 || j==2) && (i == 1 || i == 2 || i == 4)) continue;
+
+            Vec2Int loc(startPoint.x + i * d.x * 4, startPoint.y + j * d.y * 4);
+            houseLocations[loc] = 0;
+        }
+    }
+}
+
+void ConstructManager::updateHouseBuilds(BuilderManager& builderManager, std::vector<std::vector<Square> > & open) {
+    for (auto pair : houseLocations) {
+        int id = pair.second;
+        if (builderManager.builders.find(id) == builderManager.builders.end()) {
+            // uh oh builder died before finishing the job
+            houseLocations[pair.first] = 0;
+        } else if (builderManager.builders.at(id).committed == false) {
+            // builder actions happen after contruct actions
+            // so we are done with this builder
+            houseLocations[pair.first] = -1;
+        }
+    }
+
+    if (Util::economy.getPopulation() > 110) {
+        // don't build anymore houses
+        return;
+    }
+
+    int inProgress = 0;
+    for (auto pair : houseLocations)
+        if (pair.second > 0)
+            inProgress++;
+
+    if (inProgress < std::max(builderManager.getBuilderCount() / 8, 2)) {
+        for (auto & pair : houseLocations) {
+            if (pair.second == 0) {
+                pair.second = builderManager.assignNearestWorkerToBuild(pair.first, HOUSE, open);
+            }
+        }
+    }
 }

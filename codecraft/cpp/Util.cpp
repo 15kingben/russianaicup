@@ -1,5 +1,6 @@
 #include "Util.hpp"
 #include "ConstructManager.hpp"
+#include <algorithm>
 
 std::unordered_map<EntityType, EntityProperties> Util::entityProperties;
 
@@ -51,32 +52,42 @@ bool inb(int x, int y) {
     return x >= 0 && y >= 0 && y < Util::mapSize && x < Util::mapSize;
 }
 
-// gets the position where new units/buildings can be built from this unit
-Vec2Int Util::getBuildPosition(Entity entity, std::vector<std::vector<Square> > & open) {
-    int size = entityProperties[entity.entityType].size;
-    for (int x = entity.position.x; x < entity.position.x + size; x++) {
-        int y = entity.position.y - 1;
-        if (inb(x,y) && !open[x][y].isOccupied()) {
-            open[x][y].setPlanned();
-            return Vec2Int(x, y);
+std::vector<Vec2Int> getNeighborPositions(Vec2Int bottomLeft, EntityType type) {
+    std::vector<Vec2Int> positions;
+    int size = Util::entityProperties[type].size;
+
+    for (int x = bottomLeft.x; x < bottomLeft.x + size; x++) {
+        int y = bottomLeft.y - 1;
+        if (inb(x,y)) {
+            positions.push_back(Vec2Int(x,y));
         }
-        y = entity.position.y + size;
-        if (inb(x,y) && !open[x][y].isOccupied()) {
-            open[x][y].setPlanned();
-            return Vec2Int(x, y);
+        y = bottomLeft.y + size;
+        if (inb(x,y)) {
+            positions.push_back(Vec2Int(x,y));
         }
     }
 
-    for (int y = entity.position.y; y < entity.position.y + size; y++) {
-        int x = entity.position.x - 1;
-        if (inb(x,y) && !open[x][y].isOccupied()) {
-            open[x][y].setPlanned();
-            return Vec2Int(x, y);
+    for (int y = bottomLeft.y; y < bottomLeft.y + size; y++) {
+        int x = bottomLeft.x - 1;
+        if (inb(x,y)) {
+            positions.push_back(Vec2Int(x,y));
         }
-        x = entity.position.x + size;
-        if (inb(x,y) && !open[x][y].isOccupied()) {
-            open[x][y].setPlanned();
-            return Vec2Int(x, y);
+        x = bottomLeft.x + size;
+        if (inb(x,y)) {
+            positions.push_back(Vec2Int(x,y));
+        }
+    }
+
+    return positions;
+}
+
+// gets the position where new units/buildings can be built from this unit
+Vec2Int Util::getBuildPosition(Entity entity, std::vector<std::vector<Square> > & open) {
+    int size = entityProperties[entity.entityType].size;
+    for (Vec2Int pos : getNeighborPositions(entity.position, entity.entityType)) {
+        if (!open[pos.x][pos.y].isOccupied()) {
+            open[pos.x][pos.y].setPlanned();
+            return pos;
         }
     }
     return Vec2Int(entity.position.x + size, entity.position.y + size - 1);
@@ -124,4 +135,15 @@ Entity Util::getClear(BuildAction action, std::vector<std::vector<Square> > & ma
 
 bool Util::isAdjacent(Vec2Int a, Vec2Int b) {
     return abs(a.x - b.x) + abs(a.y - b.y) == 1;
+}
+
+Vec2Int Util::getBuildPosition(Vec2Int pos, EntityType type, std::vector<std::vector<Square> > & open) {
+    int size = Util::entityProperties[type].size;
+    for (Vec2Int pos : getNeighborPositions(pos, type)) {
+        if (!open[pos.x][pos.y].isOccupied()) {
+            return pos;
+        }
+    }
+
+    return Vec2Int(-1,-1);
 }
