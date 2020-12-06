@@ -1,7 +1,7 @@
 #ifndef _SQUARE_HPP_
 #define _SQUARE_HPP_
 
-#include "Model.hpp"
+#include "model/Model.hpp"
 
 class Square {
 public:
