@@ -15,9 +15,9 @@
 
 using namespace std;
 
-std::string debugEntityProperty(const EntityProperties &props);
-std::string debugEntityType(EntityType e);
-std::string debugEntity(const Entity &e);
+// std::string debugEntityProperty(const EntityProperties &props);
+// std::string debugEntityType(EntityType e);
+// std::string debugEntity(const Entity &e);
 void takeUpSpace(const Entity& entity, std::vector<std::vector<Square> > &open);
 void everyTickInitialization();
 void oneTimeInitialization();
