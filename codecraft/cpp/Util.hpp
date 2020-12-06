@@ -32,6 +32,7 @@ public:
     static std::string printVec(Vec2Int vec);
     static void printAction(EntityAction action);
     static std::string printEntityType(EntityType type);
+    static std::string printEntity(const Entity &entity);
 };
 
 #endif

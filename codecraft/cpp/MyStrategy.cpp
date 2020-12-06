@@ -235,26 +235,18 @@ void MyStrategy::debugUpdate(const PlayerView& playerView, DebugInterface& debug
 
 
 ////////////// Debug Utilities  /////////////////////
-std::string debugVector(Vec2Int vec) {
-    std::string s = "";
-    s += "("; s += std::to_string(vec.x); s += ","; s+= std::to_string(vec.y); s += ")";
-    return s;
-}
+// std::string debugVector(Vec2Int vec) {
+//     std::string s = "";
+//     s += "("; s += std::to_string(vec.x); s += ","; s+= std::to_string(vec.y); s += ")";
+//     return s;
+// }
 
-std::string debugEntity(const Entity &entity) {
-    std::string s = "";
-    // s += debugEntityType(entity.entityType) + ":  ";
-    s += "hp: " + std::to_string(entity.health);  s += ", ";
-    s += "id: " + std::to_string(entity.id);  s += ", ";
-    s += "pos: " + debugVector(entity.position); s += ", ";
-    return s;
-}
 
-std::string debugEntityProperty(const EntityProperties &props) {
-    std::string s = "";
-    s += "cost: ";
-    s += std::to_string(props.initialCost);
-    s += " | maxhp: ";
-    s += std::to_string(props.maxHealth);
-    return s;
-}
+// std::string debugEntityProperty(const EntityProperties &props) {
+//     std::string s = "";
+//     s += "cost: ";
+//     s += std::to_string(props.initialCost);
+//     s += " | maxhp: ";
+//     s += std::to_string(props.maxHealth);
+//     return s;
+// }

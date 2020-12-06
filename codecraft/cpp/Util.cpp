@@ -200,3 +200,12 @@ std::string printEntityType(EntityType type) {
     }
     return "";
 }
+
+std::string Util::printEntity(const Entity &entity) {
+    std::string s = "";
+    s += printEntityType(entity.entityType) + ":  ";
+    s += "hp: " + std::to_string(entity.health);  s += ", ";
+    s += "id: " + std::to_string(entity.id);  s += ", ";
+    s += "pos: " + printVec(entity.position); s += ", ";
+    return s;
+}
