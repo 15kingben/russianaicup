@@ -11,16 +11,16 @@
 #include <utility>
 
 class Square {
-    public:
-        Square();
-        Square(Entity entity);
-        void setEntity(Entity entity);
-        bool isOccupied();
-        void setPlanned();
-        Entity getEntity();
-    private:
-        bool occupied;
-        Entity entity;
+public:
+    Square();
+    Square(Entity entity);
+    void setEntity(Entity entity);
+    bool isOccupied();
+    void setPlanned();
+    Entity getEntity();
+private:
+    bool occupied;
+    Entity entity;
 };
 
 class ConstructManager {
