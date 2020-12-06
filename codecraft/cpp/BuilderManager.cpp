@@ -47,11 +47,13 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
 
         Vec2Int b = Util::getBuildPosition(buildAction.position, buildAction.entityType, open);
         if (entity.position.x != b.x || entity.position.y != b.y) {
+            std::cout << "DETOUR" << std::endl;
             // we must have just detoured to clear the area, return back to build location
             actions.push_front(next);
-            actions.push_front(Util::getAction(MoveAction(b, false, true)));
+            return Util::getAction(MoveAction(b, false, true));
         }
         if (!Util::economy.charge(next.buildAction->entityType)) {
+            std::cout << "NO MONEY" << std::endl;
             // hold in place
             actions.push_front(next);
             return Util::getAction(MoveAction(entity.position, false, false));
