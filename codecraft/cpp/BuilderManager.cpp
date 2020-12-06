@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <unordered_set>
 
 Job::Job() {
 
@@ -30,23 +31,30 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
     }
 
     if (next.buildAction != nullptr) {
-        Entity target = Util::getClear(*next.buildAction, open);
-        if (target.id != -1) {
-            // clear out any enemies or resources which are in the way
-            std::cout << "CLEARING " << target.id << " " << Util::printEntityType(target.entityType) << std::endl;
-            actions.push_front(next);
-            // if the obstruction is friendly, just wait
-            if (target.playerId && *target.playerId.get() == Util::myId) {
-                std::cout << "WAIT" << std::endl;
-                return Util::getAction(MoveAction(entity.position, false, false));
-            }
+        BuildAction buildAction = *next.buildAction.get();
+        Vec2Int b = Util::getBuildPosition(buildAction.position, buildAction.entityType, open);
 
-            return Util::getAction(Util::getAttackAction(std::make_shared<int>(target.id), 5, std::vector<EntityType>({target.entityType})));
+        std::unordered_set<Entity> obsctructions = Util::getClear(*next.buildAction, open);
+        if (!obsctructions.empty()) { // in future, code removal of resources and enemy builders
+            std::cout << "WAIT" << std::endl;
+            return Util::getAction(MoveAction(entity.position, false, false));
+                    
+            //         EntityAction getOutOfTheWay = Util::getAction(MoveAction(b,false,false));
+
+            // for (auto obs : obsctructions) {
+            // // clear out any enemies or resources which are in the way
+            //     std::cout << "CLEARING " << target.id << " " << Util::printEntityType(target.entityType) << std::endl;
+            //     actions.push_front(next);
+            //     // if the obstruction is friendly, just wait
+            //     if (target.playerId && *target.playerId.get() == Util::myId) {
+                    
+            //     }
+            // }
+            // return Util::getAction(Util::getAttackAction(std::make_shared<int>(target.id), 5, std::vector<EntityType>({target.entityType})));
         }
 
-        BuildAction buildAction = *next.buildAction.get();
 
-        Vec2Int b = Util::getBuildPosition(buildAction.position, buildAction.entityType, open);
+        
         if (entity.position.x != b.x || entity.position.y != b.y) {
             std::cout << "DETOUR" << std::endl;
             // we must have just detoured to clear the area, return back to build location
@@ -139,7 +147,11 @@ void BuilderManager::updateBuilders(const std::unordered_map<int, Entity> & curr
 }
 
 EntityAction getMineAction() {
-    return Util::getAction(AttackAction(nullptr, std::make_shared<AutoAttack>(AutoAttack(1000, std::vector<EntityType>({RESOURCE})))));
+    std::vector<EntityType> mineTargets({RESOURCE});
+    if (Util::economy.getPopulation() == 5) {
+        mineTargets.push_back(BUILDER_UNIT);
+    }
+    return Util::getAction(AttackAction(nullptr, std::make_shared<AutoAttack>(AutoAttack(1000, mineTargets))));
 }
 
 void BuilderManager::builderActions(std::unordered_map<int, EntityAction> & actions, std::vector<std::vector<Square> > & open) {
