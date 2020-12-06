@@ -258,29 +258,3 @@ std::string debugEntityProperty(const EntityProperties &props) {
     s += std::to_string(props.maxHealth);
     return s;
 }
-
-std::string debugEntityType(EntityType type) {
-    switch (type) {
-        case 0:
-            return "wall";
-        case 1:
-            return "house";
-        case 2:
-            return "builder_base";
-        case 3:
-            return "builder_unit";
-        case 4:
-            return "melee_base";
-        case 5:
-            return "melee_unit";
-        case 6:
-            return "ranged_base";
-        case 7:
-            return "ranged_unit";
-        case 8:
-            return "resource";
-        case 9:
-            return "turret";
-    }
-    return "";
-}

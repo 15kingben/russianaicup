@@ -30,6 +30,7 @@ public:
     static Vec2Int getBuildPosition(Vec2Int pos, EntityType type, std::vector<std::vector<Square> > & open);
     static std::string printVec(Vec2Int vec);
     static void printAction(EntityAction action);
+    static std::string printEntityType(EntityType type);
 };
 
 #endif
