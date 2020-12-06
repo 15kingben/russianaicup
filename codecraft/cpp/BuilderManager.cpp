@@ -30,7 +30,7 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
         Entity target = Util::getClear(*next.buildAction, open);
         if (target.id != -1) {
             // clear out any enemies or resources which are in the way
-
+            std::cout << "CLEAR" << std::endl;
             actions.push_front(next);
             // if the obstruction is friendly, just wait
             if (target.playerId && *target.playerId.get() == Util::myId) {
