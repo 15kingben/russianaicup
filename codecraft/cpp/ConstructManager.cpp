@@ -6,6 +6,7 @@
 #include <iostream>
 #include <algorithm>
 
+
 Square::Square() {
     entity = Entity();
     occupied = false;
@@ -108,7 +109,7 @@ void ConstructManager::initHouseLocations() {
             if ((j==1 || j==2) && (i == 1 || i == 2 || i == 4)) continue;
 
             Vec2Int loc(startPoint.x + i * d.x * 4, startPoint.y + j * d.y * 4);
-            houseLocations[loc] = 0;
+            houseLocations[std::make_pair(loc.x, loc.y)] = 0;
         }
     }
 
@@ -119,13 +120,13 @@ void ConstructManager::initHouseLocations() {
             if ((j==1 || j==2) && (i == 1 || i == 2 || i == 4)) continue;
 
             Vec2Int loc(startPoint.x + i * d.x * 4, startPoint.y + j * d.y * 4);
-            houseLocations[loc] = 0;
+            houseLocations[std::make_pair(loc.x, loc.y)] = 0;
         }
     }
 
     std::cout << "Debug house locations" << std::endl;
     for (auto pair : houseLocations) { 
-        std::cout << pair.first.x << " " << pair.first.y << std::endl;
+        std::cout << pair.first.first << " " << pair.first.second << std::endl;
     }
 }
 
@@ -155,8 +156,8 @@ void ConstructManager::updateHouseBuilds(BuilderManager& builderManager, std::ve
     if (inProgress < std::max(builderManager.getBuilderCount() / 8, 2)) {
         for (auto & pair : houseLocations) {
             if (pair.second == 0) {
-                std::cout << "Building new house" << pair.first.x << " " << pair.first.y << std::endl;
-                pair.second = builderManager.assignNearestWorkerToBuild(pair.first, HOUSE, open);
+                std::cout << "Building new house" << pair.first.first << " " << pair.first.second << std::endl;
+                pair.second = builderManager.assignNearestWorkerToBuild(Vec2Int(pair.first.first, pair.first.second), HOUSE, open);
             }
         }
     }

@@ -26,7 +26,7 @@ private:
     std::unordered_map<int, Entity> builderFactories;
     std::unordered_map<int, Entity> rangedFactories;
     std::unordered_map<int, Entity> meleeFactories;
-    std::map<Vec2Int, int> houseLocations;
+    std::map<std::pair<int, int>, int> houseLocations;
 };
 
 #endif
