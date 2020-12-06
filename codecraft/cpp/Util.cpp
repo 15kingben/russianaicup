@@ -4,6 +4,10 @@
 #include <unordered_set>
 
 std::unordered_map<EntityType, EntityProperties> Util::entityProperties;
+Economy Util::economy;
+int Util::myId;
+int Util::mapSize;
+Vec2Int Util::homeBase;
 
 EntityAction Util::getAction(BuildAction action) {
     return EntityAction(
