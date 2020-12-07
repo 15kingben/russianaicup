@@ -84,7 +84,7 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
             return Util::getAction(MoveAction(b, false, true));
         }
         if (!Util::economy->charge(next.buildAction->entityType)) {
-            std::cout << "NO MONEY" << std::endl;
+            std::cout << "NO MONEY " << Util::economy->getResources() << std::endl;
             // hold in place
             actions.push_front(next);
             return Util::getAction(MoveAction(entity.position, false, false));
