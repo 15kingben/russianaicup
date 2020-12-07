@@ -94,7 +94,6 @@ Vec2Int Util::getBuildPosition(Entity entity, std::vector<std::vector<Square> > 
     int size = entityProperties[entity.entityType].size;
     for (Vec2Int pos : getNeighborPositions(entity.position, entity.entityType)) {
         if (!open[pos.x][pos.y].isOccupied()) {
-            open[pos.x][pos.y].setPlanned();
             return pos;
         }
     }
