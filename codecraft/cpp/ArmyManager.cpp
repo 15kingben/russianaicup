@@ -38,7 +38,7 @@ Vec2Int ArmyManager::getRandomEnemyTarget() {
         if (roll == 3) target = Vec2Int(1, 1);
 
         if (Util::playerCount == 2) {
-            if (roll == 1 || roll = 3) continue;
+            if (roll == 1 || roll == 3) continue;
         }
 
         for (auto pair : done) {
