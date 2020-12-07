@@ -54,8 +54,8 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
         }
 
 
-        
-        if (entity.position.x != b.x || entity.position.y != b.y) {
+        std::unordered_set nbrs = Util::getNeighborPositions(buildAction.position, buildAction.entityType);
+        if (nbrs.find(entity.position) == nbrs.end()) {
             std::cout << "DETOUR" << std::endl;
             // we must have just detoured to clear the area, return back to build location
             actions.push_front(next);
@@ -68,6 +68,7 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
             return Util::getAction(MoveAction(entity.position, false, false));
         }
 
+        std::cout<<"BUILDING NOW" << std::endl;
         return next;
     }
 
