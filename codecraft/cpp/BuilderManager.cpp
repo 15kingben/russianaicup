@@ -8,7 +8,7 @@
 #include <unordered_set>
 #include "Repairable.hpp"
 
-const int STEP_TIMEOUT = 50;
+const int STEP_TIMEOUT = 20;
 
 Repairable::Repairable() {
 
