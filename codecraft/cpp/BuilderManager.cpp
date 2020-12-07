@@ -242,9 +242,6 @@ int BuilderManager::getCommitted() {
 int MAX_REPAIR_CT = 2;
 
 void BuilderManager::repair(Repairable& entity, std::vector<std::vector<Square> > & open) {
-    if (entity.getEntity().entityType < 0 || entity.getEntity().entityType > 10) {
-        while (true) std::cout << "poop" << std::endl;
-    }
     if (entity.getEntity().health == Util::entityProperties[entity.getEntity().entityType].maxHealth) {
         entity.helpers.clear();
         return;
@@ -262,6 +259,8 @@ void BuilderManager::repair(Repairable& entity, std::vector<std::vector<Square> 
         if (id != -1) {
             entity.helpers.emplace(id);
             x--;
+        } else {
+            break;
         }
     }
 }
