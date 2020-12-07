@@ -187,6 +187,7 @@ void oneTimeInitialization() {
     for (auto entity : pv->entities) {
         if (entity.entityType == BUILDER_BASE) {
             std::cout << "poopoo" << *entity.playerId.get() << " " << pv->myId << std::endl;
+            std::cout << entity.position.x << " " << entity.position.y << std::endl;
         }
         if (entity.entityType == BUILDER_BASE && *(entity.playerId.get()) == pv->myId) Util::homeBase = entity.position;
     }
