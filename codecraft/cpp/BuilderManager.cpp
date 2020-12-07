@@ -54,10 +54,16 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
         }
 
         std::unordered_set<Vec2Int> poop = Util::getNeighborPositions(buildAction.position, buildAction.entityType);
-        std::unordered_set<std::pair<int,int> > nbrs;
-        for (auto shit : poop) nbrs.emplace(Util::pair(shit));
+        bool isNeighbor = false;
+        for (auto x : poop) {
+            if (x == entity.position) {
+                isNeighbor = true;
+                break;
+            }
 
-        if (nbrs.find(Util::pair(entity.position)) == nbrs.end()) {
+        }
+
+        if (!isNeighbor) {
             std::cout << "DETOUR" << std::endl;
             // we must have just detoured to clear the area, return back to build location
             actions.push_front(next);
