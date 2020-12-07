@@ -18,7 +18,7 @@ Job::Job() {
 }
 
 EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
-    if (actions.empty() || step == STEP_TIMEOUT) {
+    if (actions.empty() || step > STEP_TIMEOUT) {
         return Util::getEmptyAction();
     }
     step++;
