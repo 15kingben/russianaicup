@@ -15,6 +15,7 @@ Repairable::Repairable() {
 }
 
 Job::Job() {
+    step = 0;
 }
 
 EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
