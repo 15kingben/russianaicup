@@ -64,17 +64,17 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
             // return Util::getAction(Util::getAttackAction(std::make_shared<int>(target.id), 5, std::vector<EntityType>({target.entityType})));
         }
 
-        std::unordered_set<Vec2Int> poop = Util::getNeighborPositions(buildAction.position, buildAction.entityType);
-        bool isNeighbor = false;
-        for (auto x : poop) {
-            if (x == entity.position) {
-                isNeighbor = true;
-                break;
-            }
+        // std::unordered_set<Vec2Int> poop = Util::getNeighborPositions(buildAction.position, buildAction.entityType);
+        // bool isNeighbor = false;
+        // for (auto x : poop) {
+        //     if (x == entity.position) {
+        //         isNeighbor = true;
+        //         break;
+        //     }
 
-        }
+        // }
 
-        if (!isNeighbor) {
+        if (!Util::isNeighbor(entity.position, Entity(-1,0,next.buildAction->entityType, next.buildAction->position, 0, false))) {
             std::cout << "DETOUR" << std::endl;
             // we must have just detoured to clear the area, return back to build location
             actions.push_front(next);
@@ -104,7 +104,7 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
         actions.push_front(next);
 
         // we have our target, but we may need to pathfind first
-        if (!Util::isAdjacent(entity.position, target.position)) {
+        if (!Util::isNeighbor(entity.position, target)) {
             return Util::getAction(MoveAction(Util::getBuildPosition(target.position, target.entityType, open), false, true));
         }
  

@@ -211,3 +211,15 @@ std::string Util::printEntity(const Entity &entity) {
 std::pair<int, int> Util::pair(Vec2Int v) {
     return std::make_pair(v.x, v.y);
 }
+
+bool Util::isNeighbor(Vec2Int position, Entity entity) {
+    std::unordered_set<Vec2Int> poop = Util::getNeighborPositions(entity.position, entity.entityType);
+    bool isNeighbor = false;
+    for (auto x : poop) {
+        if (x == entity.position) {
+            isNeighbor = true;
+            break;
+        }
+    }
+    return isNeighbor;
+}
