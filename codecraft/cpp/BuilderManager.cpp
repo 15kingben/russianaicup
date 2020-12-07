@@ -47,6 +47,7 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
 
         std::unordered_set<int> obsctructions = Util::getClear(*next.buildAction, open);
         if (!obsctructions.empty()) { // in future, code removal of resources and enemy builders
+            for (auto x : obsctructions) std::cout << x << std::endl;
             std::cout << "WAIT" << std::endl;
             actions.push_front(next);
             return Util::getAction(MoveAction(entity.position, false, false));
