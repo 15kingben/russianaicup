@@ -39,6 +39,7 @@ Vec2Int ArmyManager::getRandomEnemyTarget() {
         if (!(target == me)) {
             target.x *= Util::mapSize;
             target.y *= Util::mapSize;
+            std::cout << "TARGET " << Util::printVec(target) << std::endl;
             return target;
         } 
     }
