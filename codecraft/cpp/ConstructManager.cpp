@@ -147,8 +147,8 @@ void ConstructManager::updateHouseBuilds(BuilderManager& builderManager, std::ve
         }
     }
 
-    if (Util::economy.getPopulation() > 110) {
-        // don't build anymore houses
+    if (Util::economy.getPopulation() > 110 || Util::economy.getPopulation() > Util::economy.getUsedPopulation()) {
+        // don't build any more houses
         return;
     }
 

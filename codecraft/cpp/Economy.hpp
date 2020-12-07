@@ -15,10 +15,12 @@ public:
     void updatePopulation(EntityType entityType);
     void setPopulation(int pop);
     int getPopulation();
+    int getUsedPopulation();
 private:
     int resourcePerTurn;
     int resources;
     int population;
+    int usedPopulation;
 };
 
 #endif
