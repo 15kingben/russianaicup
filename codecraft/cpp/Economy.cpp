@@ -26,7 +26,7 @@ void Economy::setResources(int resource) {
 
 bool Economy::charge(EntityType entityType, int cost) {
     int pop = Util::entityProperties[entityType].populationUse;
-    std::cout << "econ: " << pop << " " << population << " " << cost << " " << resources << std::endl;
+    
     if (resources - cost >= 0 && population - pop >= 0) {
         resources -= cost;
         population -= pop;
