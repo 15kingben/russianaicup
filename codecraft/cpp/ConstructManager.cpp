@@ -5,6 +5,7 @@
 #include "Economy.hpp"
 #include <iostream>
 #include <algorithm>
+#include "Building.hpp"
 
 Square::Square() {
     entity = Entity();
@@ -30,27 +31,49 @@ bool Square::isOccupied() {
     return occupied;
 }
 
+Building::Building() { }
+
+Building::Building(Entity entity) {
+    this->entity = entity;
+}
+
+Entity Building::getEntity() {
+    return entity;
+}
+
 ConstructManager::ConstructManager() {
 
 }
 
- void ConstructManager::updateBases(const std::unordered_map<int, Entity> & builderBases, 
+void fuck(const std::unordered_map<int, Entity> & input, std::unordered_map<int, Building> & output) {
+    // Remove dead builders from the list
+    for (auto it = output.begin(); it != output.end();) {
+        if (input.find(it->first) == input.end()) {
+            it = output.erase(it);
+        } else it++;
+    }
+
+    // Add new builders (all miners for now)
+    for (auto pair : input) {
+        if (output.find(pair.first) != output.end()) {
+            output[pair.first].entity = pair.second;
+        } else {
+            output[pair.first] = Building(pair.second);
+        }
+    }
+}
+
+void ConstructManager::updateBuildings(const std::unordered_map<int, Entity> & builderBases, 
                     const std::unordered_map<int, Entity> & rangedBases,
-                    const std::unordered_map<int, Entity> & meleeBases) {
+                    const std::unordered_map<int, Entity> & meleeBases,
+                    const std::unordered_map<int, Entity> & houses,
+                    const std::unordered_map<int, Entity> & turrets) {
     meleeFactories.clear();
-    for (auto pair : meleeBases) {
-        meleeFactories[pair.first] = pair.second;
-    }
-
-    builderFactories.clear();
-    for (auto pair : builderBases) {
-        builderFactories[pair.first] = pair.second;
-    }
-
-    rangedFactories.clear();
-    for (auto pair : rangedBases) {
-        rangedFactories[pair.first] = pair.second;
-    }
+    fuck(builderBases, builderFactories);
+    fuck(rangedBases, rangedFactories);
+    fuck(meleeBases, meleeFactories);
+    fuck(houses, this->houses);
+    fuck(turrets, this->turrets);
 }
 
 void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & actions, Economy & economy, BuilderManager & builderManager, 
@@ -67,7 +90,7 @@ void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & 
     builderTarget -= builderManager.getBuilderCount();
     for (auto pair : builderFactories) {
         if (builderTarget > 0 && economy.charge(BUILDER_UNIT, Util::getUnitCost(BUILDER_UNIT, builderManager.getBuilderCount()))) {
-            actions[pair.first] = Util::getAction(BuildAction(BUILDER_UNIT, Util::getBuildPosition(pair.second, open)));
+            actions[pair.first] = Util::getAction(BuildAction(BUILDER_UNIT, Util::getBuildPosition(pair.second.entity, open)));
             builderTarget--;
         } else {
             actions[pair.first] = Util::getEmptyAction();
@@ -77,7 +100,7 @@ void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & 
     rangedTarget -= armyManager.getRangedUnitCount();
     for (auto pair : rangedFactories) {
         if (rangedTarget > 0 && economy.charge(RANGED_UNIT, Util::getUnitCost(RANGED_UNIT, armyManager.getRangedUnitCount()))) {
-            actions[pair.first] = Util::getAction(BuildAction(RANGED_UNIT, Util::getBuildPosition(pair.second, open)));
+            actions[pair.first] = Util::getAction(BuildAction(RANGED_UNIT, Util::getBuildPosition(pair.second.entity, open)));
             rangedTarget--;
         } else {
             actions[pair.first] = Util::getEmptyAction();
@@ -87,7 +110,7 @@ void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & 
     meleeTarget -= armyManager.getMeleeUnitCount();
     for (auto pair : meleeFactories) {
         if (meleeTarget > 0 && economy.charge(MELEE_UNIT, Util::getUnitCost(MELEE_UNIT, armyManager.getMeleeUnitCount()))) {
-            actions[pair.first] = Util::getAction(BuildAction(MELEE_UNIT, Util::getBuildPosition(pair.second, open)));
+            actions[pair.first] = Util::getAction(BuildAction(MELEE_UNIT, Util::getBuildPosition(pair.second.entity, open)));
             meleeTarget--;
         } else {
             actions[pair.first] = Util::getEmptyAction();
@@ -147,7 +170,7 @@ void ConstructManager::updateHouseBuilds(BuilderManager& builderManager, std::ve
         if (pair.second != 0 && pair.second != -1)
             inProgress++;
 
-    if (inProgress < builderManager.getBuilderCount() / 5) {
+    if (std::max(inProgress, builderManager.getCommitted()) < builderManager.getBuilderCount() / 5) {
         for (auto & pair : houseLocations) {
             if (pair.second == 0 && Util::getClear(BuildAction(HOUSE, Vec2Int(pair.first.first, pair.first.second)), open).empty()) {
                 std::cout << "Building new house" << pair.first.first << " " << pair.first.second << std::endl;
@@ -155,5 +178,11 @@ void ConstructManager::updateHouseBuilds(BuilderManager& builderManager, std::ve
                 break;
             }
         }
+    }
+}
+
+void ConstructManager::repairBuildings(BuilderManager & builderManager, std::vector<std::vector<Square> > & open) {
+    for (auto& pair : houses) {
+        builderManager.repair(pair.second, open);
     }
 }

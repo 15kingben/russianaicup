@@ -178,7 +178,7 @@ void BuilderManager::builderActions(std::unordered_map<int, EntityAction> & acti
     }
 }
 
-int BuilderManager::assignNearestWorkerToBuild(Vec2Int location, EntityType type, std::vector<std::vector<Square> > & open) {
+int BuilderManager::getClosestWorker(Vec2Int location) {
     int minDistance = 100000;
     int workerId = -1;
     for (auto & pair : builders) {
@@ -188,16 +188,69 @@ int BuilderManager::assignNearestWorkerToBuild(Vec2Int location, EntityType type
             workerId = pair.first;
         }
     }
+    return workerId;
+}
+
+int BuilderManager::assignNearestWorkerToBuild(Vec2Int location, EntityType type, std::vector<std::vector<Square> > & open) {
+    int workerId = getClosestWorker(location);
+    if (workerId == -1) return -1;
 
     // Give the worker the tasks
     Job job;
     // job.actions.push_front(Util::getAction(RepairAction(-1)));
     job.actions.push_front(Util::getAction(BuildAction(type, location)));
-    job.actions.push_front(Util::getAction(MoveAction(Util::getBuildPosition(location, type, open), false, false)));
+    job.actions.push_front(Util::getAction(MoveAction(Util::getBuildPosition(location, type, open), false, true)));
+    job.entity = Util::entities[workerId];
+    builders[workerId].committed = true;
+    builders[workerId].job = job;
+    
+    return workerId;
+}
+
+int BuilderManager::assignNearestWorkerToRepair(Entity entity) {
+    int workerId = getClosestWorker(entity.position);
+    if (workerId == -1) return -1;
+
+    // Give the worker the tasks
+    Job job;
+    // job.actions.push_front(Util::getAction(RepairAction(-1)));
+    job.actions.push_front(Util::getAction(RepairAction(entity.id)));
     job.entity = Util::entities[workerId];
     builders[workerId].committed = true;
     builders[workerId].job = job;
     
 
     return workerId;
+}
+
+int BuilderManager::getCommitted() {
+    int s = 0;
+    for (auto pair : builders) {
+        if (pair.second.committed) s++;
+    }
+    return s;
+}
+
+int MAX_REPAIR_CT = 2;
+
+void BuilderManager::repair(Repairable& entity, std::vector<std::vector<Square> > & open) {
+    if (entity.getEntity().health == Util::entityProperties[entity.getEntity().entityType].maxHealth) {
+        entity.helpers.clear();
+        return;
+    }
+
+    int x = (getBuilderCount() / 5) - getCommitted();
+    for (int helper : entity.helpers) {
+        if (Util::entities.find(helper) == Util::entities.end()) {
+            entity.helpers.erase(helper);
+        }
+    }
+
+    while (x > 0 && entity.helpers.size() < MAX_REPAIR_CT) {
+        int id = assignNearestWorkerToRepair(entity.getEntity());
+        if (id != -1) {
+            entity.helpers.emplace(id);
+            x--;
+        }
+    }
 }

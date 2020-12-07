@@ -47,6 +47,7 @@ unordered_map<int, Entity> builderFactories;
 unordered_map<int, Entity> rangedFactories;
 unordered_map<int, Entity> meleeFactories;
 unordered_map<int, Entity> turrets;
+unordered_map<int, Entity> houses;
 int totalResources = 0;
 
 MyStrategy::MyStrategy() {}
@@ -87,17 +88,21 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
                 case TURRET:
                     turrets[entity.id] = entity;
                     break;
+                case HOUSE:
+                    houses[entity.id] = entity;
+                    break;
             }
         }
     }
 
     builderManager.updateBuilders(builders);
-    constructManager.updateBases(builderFactories, rangedFactories, meleeFactories);
+    constructManager.updateBuildings(builderFactories, rangedFactories, meleeFactories, houses, turrets);
     armyManager.updateMelee(melees);
     armyManager.updateRanged(ranged);
 
     constructManager.baseBuildActions(myAction, economy, builderManager, armyManager, open);
     constructManager.updateHouseBuilds(builderManager, open);
+    constructManager.repairBuildings(builderManager, open);
     builderManager.builderActions(myAction, open);
     armyManager.turretActions(myAction, turrets);
     armyManager.combatActions(myAction);
@@ -139,6 +144,7 @@ void everyTickInitialization() {
     melees.clear();
     ranged.clear();
     turrets.clear();
+    houses.clear();
     builderFactories.clear();
     rangedFactories.clear();
     meleeFactories.clear();
