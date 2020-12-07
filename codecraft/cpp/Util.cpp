@@ -224,9 +224,3 @@ bool Util::isNeighbor(Vec2Int position, Entity entity) {
     }
     return isNeighbor;
 }
-
-Vec2Int Util::getRandomEnemyTarget() {
-    std::default_random_engine generator;
-    std::uniform_int_distribution<int> distribution(0,4);
-    int dice_roll = distribution(generator);
-}   
