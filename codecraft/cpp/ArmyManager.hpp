@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include "CombatUnit.hpp"
 #include "model/Model.hpp"
+#include <unordered_set>
 
 class ArmyManager {
     public:
@@ -23,6 +24,7 @@ class ArmyManager {
         int RECOVER_DISTANCE;                                                                                                      
         EntityAction getDefendAction(CombatUnit & unit);
         EntityAction getAttackAction(CombatUnit & unit);
+        std::unordered_set<Vec2Int> done;
 };
 
 #endif

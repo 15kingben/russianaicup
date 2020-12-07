@@ -243,14 +243,11 @@ int MAX_REPAIR_CT = 2;
 
 void BuilderManager::repair(Repairable& entity, std::vector<std::vector<Square> > & open) {
     for (int i = 0; i < 5; i++) {
-        std::cout << "yes" << std::endl;
+        std::cout << entity.getEntity().entityType << std::endl;
     }
     if (entity.getEntity().health == Util::entityProperties[entity.getEntity().entityType].maxHealth) {
         entity.helpers.clear();
         return;
-    }
-    for (int i = 0; i < 5; i++) {
-        std::cout << "no" << std::endl;
     }
 
     int x = (getBuilderCount() / 5) - getCommitted();

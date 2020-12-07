@@ -52,6 +52,10 @@ int ArmyManager::getRangedUnitCount() const {
     return ranged.size();
 }
 
+void checkDone() {
+    
+}
+
 void ArmyManager::updateRanged(const std::unordered_map<int, Entity> & currentRanged) {
     // Remove dead ranged from the list
     for (auto it = ranged.begin(); it != ranged.end();) {
@@ -68,6 +72,8 @@ void ArmyManager::updateRanged(const std::unordered_map<int, Entity> & currentRa
             ranged[pair.first] = CombatUnit(pair.second, ATTACK, getRandomEnemyTarget());
         }
     }
+
+    checkDone();
 }
 
 void ArmyManager::updateMelee(const std::unordered_map<int, Entity> & currentMelee) {
@@ -86,6 +92,8 @@ void ArmyManager::updateMelee(const std::unordered_map<int, Entity> & currentMel
             melees[pair.first] = CombatUnit(pair.second, DEFEND, Vec2Int(0,0));
         }
     }
+
+    checkDone();
 }
 
 void ArmyManager::turretActions(std::unordered_map<int, EntityAction> & actions, std::unordered_map<int, Entity> & turrets) {
