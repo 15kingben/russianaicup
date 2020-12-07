@@ -6,8 +6,13 @@
 #include <vector>
 #include <iostream>
 #include <unordered_set>
+#include "Repairable.hpp"
 
 const int STEP_TIMEOUT = 50;
+
+Repairable::Repairable() {
+
+}
 
 Job::Job() {
 }
