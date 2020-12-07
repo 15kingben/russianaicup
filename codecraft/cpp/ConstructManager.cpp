@@ -102,19 +102,8 @@ void ConstructManager::initHouseLocations() {
     Vec2Int startPoint(std::max(d.x, 0) * (Util::mapSize - 1), std::max(d.y, 0) * (Util::mapSize - 1)); std::cout << Util::printVec(startPoint) << std::endl;
     d.x *= -1; d.y *= -1;
 
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 4; j++) {
-            // filter out base locations
-            if ((i==1 || i==2) && (j == 1 || j == 2 || j == 4)) continue;
-            if ((j==1 || j==2) && (i == 1 || i == 2 || i == 4)) continue;
-
-            Vec2Int loc(startPoint.x + i * d.x * 4, startPoint.y + j * d.y * 4);
-            houseLocations[std::make_pair(loc.x, loc.y)] = 0;
-        }
-    }
-
-    for (int i = 4; i < 7; i++) {
-        for (int j = 4; j < 7; j++) {
+    for (int i = 0; i < 7; i++) {
+        for (int j = 0; j < 7; j++) {
             // filter out base locations
             if ((i==1 || i==2) && (j == 1 || j == 2 || j == 4)) continue;
             if ((j==1 || j==2) && (i == 1 || i == 2 || i == 4)) continue;
