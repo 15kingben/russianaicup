@@ -96,7 +96,11 @@ void ArmyManager::updateRanged(const std::unordered_map<int, Entity> & currentRa
         if (ranged.find(pair.first) != ranged.end()) {
             ranged[pair.first].entity = pair.second;
         } else {
-            ranged[pair.first] = CombatUnit(pair.second, ATTACK, getRandomEnemyTarget());
+            if (ranged.size() %3 == 0) {
+                ranged[pair.first] = CombatUnit(pair.second, DEFEND, getRandomEnemyTarget());
+            } else {
+                ranged[pair.first] = CombatUnit(pair.second, ATTACK, getRandomEnemyTarget());
+            }
         }
         checkDone(ranged[pair.first]);
     }
@@ -146,7 +150,7 @@ void ArmyManager::setMaxDistance(int mapSize) {
 
 EntityAction ArmyManager::getDefendAction(CombatUnit & unit) {
     int mapSize = Util::mapSize;
-    EntityAction action = Util::getAction(MoveAction(Util::homeBase, true, false));
+    EntityAction action = Util::getAction(MoveAction(Vec2Int(30,30), true, false));
     std::vector<EntityType> defendTargets({BUILDER_UNIT, RANGED_UNIT, MELEE_UNIT});
 
     if (unit.fallback) {
