@@ -8,6 +8,8 @@
 Economy::Economy() {
     resources = 0;
     resourcePerTurn = 0;
+    population = 0;
+    usedPopulation = 0;
 }
 
 int Economy::getResources() {
