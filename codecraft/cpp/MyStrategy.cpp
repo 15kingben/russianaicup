@@ -155,7 +155,7 @@ void everyTickInitialization() {
             break;
 
     economy.setResources(pv->players[i].resource);
-    cout << "resource: " << resource << endl;
+    cout << "resource: " << economy.getResources() << endl;
     economy.setPopulation(0);
     Util::entities.clear();
     for (Entity e : pv->entities) {
