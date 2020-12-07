@@ -131,6 +131,9 @@ void ConstructManager::updateHouseBuilds(BuilderManager& builderManager, std::ve
             // so we are done with this builder
             pair.second = -1;
         }
+        if (id == -1 && open[pair.first.first][pair.first.second].getEntity().id != -1 && open[pair.first.first][pair.first.second].getEntity().entityType != HOUSE) {
+            pair.second = 0;
+        }
     }
 
 

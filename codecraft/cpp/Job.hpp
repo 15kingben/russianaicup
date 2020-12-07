@@ -12,6 +12,8 @@ class Job {
         std::deque<EntityAction> actions;
         EntityAction getAction(std::vector<std::vector<Square> > & open);
         Entity entity;
+        int step;
+
 };
 
 #endif

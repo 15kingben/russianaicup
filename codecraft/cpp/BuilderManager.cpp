@@ -7,14 +7,16 @@
 #include <iostream>
 #include <unordered_set>
 
-Job::Job() {
+const int STEP_TIMEOUT = 50;
 
+Job::Job() {
 }
 
 EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
-    if (actions.empty()) {
+    if (actions.empty() || step == STEP_TIMEOUT) {
         return Util::getEmptyAction();
     }
+    step++;
     EntityAction next = actions.front(); actions.pop_front();
     std::cout << entity.id << " Executing job action: " << std::endl;
     Util::printAction(next);
@@ -103,8 +105,6 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
  
         return next;
     }
-
-    std::cout << "poop" << std::endl;
 
     return Util::getEmptyAction();
 }
