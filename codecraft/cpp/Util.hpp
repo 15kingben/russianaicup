@@ -35,6 +35,7 @@ public:
     static std::string printEntityType(EntityType type);
     static std::string printEntity(const Entity &entity);
     static std::unordered_set<Vec2Int> getNeighborPositions(Vec2Int bottomLeft, EntityType type);
+    static std::pair<int, int> pair(Vec2Int);
 };
 
 #endif

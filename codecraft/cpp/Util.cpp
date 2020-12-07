@@ -60,7 +60,7 @@ bool inb(int x, int y) {
     return x >= 0 && y >= 0 && y < Util::mapSize && x < Util::mapSize;
 }
 
-std::unordered_set<Vec2Int> getNeighborPositions(Vec2Int bottomLeft, EntityType type) {
+std::unordered_set<Vec2Int> Util::getNeighborPositions(Vec2Int bottomLeft, EntityType type) {
     std::unordered_set<Vec2Int> positions;
     int size = Util::entityProperties[type].size;
 
@@ -207,4 +207,8 @@ std::string Util::printEntity(const Entity &entity) {
     s += "id: " + std::to_string(entity.id);  s += ", ";
     s += "pos: " + printVec(entity.position); s += ", ";
     return s;
+}
+
+std::pair<int, int> Util::pair(Vec2Int v) {
+    return std::make_pair(v.x, v.y);
 }
