@@ -83,21 +83,20 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
     if (next.repairAction != nullptr) {
         int targetId = next.repairAction.get()->target;
         Entity target;
+        if (Util::entities.find(targetId) == Util::entities.end()) return Util::getEmptyAction();
         target = Util::entities[targetId];
         if (target.health == Util::entityProperties[target.entityType].maxHealth) {
             // done
             return Util::getEmptyAction();
         }
+        // push front since not full hp
+        actions.push_front(next);
 
         // we have our target, but we may need to pathfind first
         if (!Util::isAdjacent(entity.position, target.position)) {
-            actions.push_front(next);
             return Util::getAction(MoveAction(Util::getBuildPosition(target.position, target.entityType, open), false, true));
         }
-
-        // push front since not full hp
-        actions.push_front(next);
-        
+ 
         return next;
     }
 
