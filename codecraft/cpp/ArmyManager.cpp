@@ -91,7 +91,7 @@ void ArmyManager::updateRanged(const std::unordered_map<int, Entity> & currentRa
         } else {
             ranged[pair.first] = CombatUnit(pair.second, ATTACK, getRandomEnemyTarget());
         }
-        checkDone(ranged[pair.first]);
+        // checkDone(ranged[pair.first]);
     }
 }
 
