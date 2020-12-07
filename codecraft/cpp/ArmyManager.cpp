@@ -35,6 +35,8 @@ Vec2Int ArmyManager::getRandomEnemyTarget() {
 
         // TODO: add more logic for if enemies die
         if (!(target == me)) {
+            target.x *= Util::mapSize;
+            target.y *= Util::mapSize;
             return target;
         } 
     }
