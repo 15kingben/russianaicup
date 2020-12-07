@@ -185,4 +185,13 @@ void ConstructManager::repairBuildings(BuilderManager & builderManager, std::vec
     for (auto& pair : houses) {
         builderManager.repair(pair.second, open);
     }
+    for (auto& pair : builderFactories) {
+        builderManager.repair(pair.second, open);
+    }
+    for (auto& pair : rangedFactories) {
+        builderManager.repair(pair.second, open);
+    }
+    for (auto& pair : meleeFactories) {
+        builderManager.repair(pair.second, open);
+    }
 }
