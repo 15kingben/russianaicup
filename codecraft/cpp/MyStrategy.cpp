@@ -154,7 +154,7 @@ void everyTickInitialization() {
     for (Entity e : pv->entities) {
         Util::entities[e.id] = e;
     }
-    Util::economy = economy;
+    Util::economy = &economy;
 
     int oldTotalResources = totalResources;
     totalResources = totalResourcesOnMap();

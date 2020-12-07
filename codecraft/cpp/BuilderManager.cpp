@@ -73,7 +73,7 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
             actions.push_front(next);
             return Util::getAction(MoveAction(b, false, true));
         }
-        if (!Util::economy.charge(next.buildAction->entityType)) {
+        if (!Util::economy->charge(next.buildAction->entityType)) {
             std::cout << "NO MONEY" << std::endl;
             // hold in place
             actions.push_front(next);
@@ -152,7 +152,7 @@ void BuilderManager::updateBuilders(const std::unordered_map<int, Entity> & curr
 
 EntityAction getMineAction() {
     std::vector<EntityType> mineTargets({RESOURCE});
-    if (Util::economy.getPopulation() == 5) {
+    if (Util::economy->getPopulation() == 5) {
         mineTargets.push_back(BUILDER_UNIT);
     }
     return Util::getAction(AttackAction(nullptr, std::make_shared<AutoAttack>(AutoAttack(1000, mineTargets))));
