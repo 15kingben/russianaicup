@@ -44,6 +44,7 @@ void Economy::updateResourcePerTurn() {
 
 void Economy::setPopulation(int pop) {
     population = pop;
+    usedPopulation = 0;
 }
 
 void Economy::updatePopulation(EntityType entityType) {
