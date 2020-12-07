@@ -68,9 +68,12 @@ void ArmyManager::checkDone(CombatUnit& unit) {
     v.x = std::max(v.x, 1);
     v.y = std::max(v.y, 1);
     if (unit.entity.position == Vec2Int(0, 0) || unit.entity.position == Vec2Int(m, 0) || unit.entity.position == Vec2Int(0, m) || unit.entity.position == Vec2Int(m, m)) {
-        
         done.emplace(v);
     }
+
+    v = unit.target;
+    v.x = std::max(v.x, 1);
+    v.y = std::max(v.y, 1);
 
     for (auto pair : done) {
         if (pair == v) {
