@@ -30,10 +30,6 @@ bool Square::isOccupied() {
     return occupied;
 }
 
-void Square::setPlanned() {
-    occupied = true;
-}
-
 ConstructManager::ConstructManager() {
 
 }

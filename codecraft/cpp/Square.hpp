@@ -9,7 +9,6 @@ public:
     Square(Entity entity);
     void setEntity(Entity entity);
     bool isOccupied();
-    void setPlanned();
     Entity getEntity();
 
    bool operator<(const Square& rhs) const noexcept

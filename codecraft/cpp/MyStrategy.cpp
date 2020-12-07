@@ -128,7 +128,7 @@ int totalResourcesOnMap() {
 
 void everyTickInitialization() {
     int size = pv->mapSize;
-    for (auto row : open) {
+    for (auto & row : open) {
         for (int i = 0; i < size; i++) {
             row[i] = Square();
         }
