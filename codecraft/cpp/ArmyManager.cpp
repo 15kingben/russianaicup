@@ -37,9 +37,9 @@ Vec2Int ArmyManager::getRandomEnemyTarget() {
         if (roll == 2) target = Vec2Int(0, 1);
         if (roll == 3) target = Vec2Int(1, 1);
 
-        if (Util::playerCount == 2) {
-            if (roll == 1 || roll == 2) continue;
-        }
+        // if (Util::playerCount == 2) {
+        //     if (roll == 1 || roll == 2) continue;
+        // }
 
         for (auto pair : done) {
             if (pair == target) continue;
@@ -168,6 +168,6 @@ EntityAction ArmyManager::getDefendAction(CombatUnit & unit) {
 
 EntityAction ArmyManager::getAttackAction(CombatUnit & unit) {
     EntityAction action = Util::getAction(MoveAction(unit.target, true, true));
-    // action.attackAction = std::make_shared<AttackAction>(Util::getAttackAction(nullptr, 10, std::vector<EntityType>()));
+    action.attackAction = std::make_shared<AttackAction>(Util::getAttackAction(nullptr, 10, std::vector<EntityType>()));
     return action;
 }
