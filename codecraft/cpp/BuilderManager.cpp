@@ -12,6 +12,9 @@ Job::Job() {
 }
 
 EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
+    if (actions.empty()) {
+        return Util::getEmptyAction();
+    }
     EntityAction next = actions.front(); actions.pop_front();
     std::cout << entity.id << " Executing job action: " << std::endl;
     Util::printAction(next);
@@ -37,6 +40,7 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
         std::unordered_set<int> obsctructions = Util::getClear(*next.buildAction, open);
         if (!obsctructions.empty()) { // in future, code removal of resources and enemy builders
             std::cout << "WAIT" << std::endl;
+            actions.push_front(next);
             return Util::getAction(MoveAction(entity.position, false, false));
                     
             //         EntityAction getOutOfTheWay = Util::getAction(MoveAction(b,false,false));
