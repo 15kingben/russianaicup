@@ -150,6 +150,11 @@ void everyTickInitialization() {
 
     economy.setResources(pv->players[i].resource);
     economy.setPopulation(0);
+    Util::entities.clear();
+    for (Entity e : pv->entities) {
+        Util::entities[e.id] = e;
+    }
+    Util::economy = economy;
 
     int oldTotalResources = totalResources;
     totalResources = totalResourcesOnMap();
@@ -171,12 +176,7 @@ void oneTimeInitialization() {
 
     Util::entityProperties = pv->entityProperties;
     Util::mapSize = pv->mapSize;
-    Util::myId = pv->myId;
-    Util::entities.clear();
-    for (Entity e : pv->entities) {
-        Util::entities[e.id] = e;
-    }
-    Util::economy = economy;
+    Util::myId = pv->myId;    
 
     for (auto entity : pv->entities) {
         if (entity.entityType == BUILDER_BASE && *entity.playerId.get() == pv->myId) Util::homeBase = entity.position;
