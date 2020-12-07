@@ -187,7 +187,7 @@ int BuilderManager::assignNearestWorkerToBuild(Vec2Int location, EntityType type
 
     // Give the worker the tasks
     Job job;
-    job.actions.push_front(Util::getAction(RepairAction(-1)));
+    // job.actions.push_front(Util::getAction(RepairAction(-1)));
     job.actions.push_front(Util::getAction(BuildAction(type, location)));
     job.actions.push_front(Util::getAction(MoveAction(Util::getBuildPosition(location, type, open), false, false)));
     job.entity = Util::entities[workerId];
