@@ -54,7 +54,7 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
         }
 
 
-        std::unordered_set nbrs = Util::getNeighborPositions(buildAction.position, buildAction.entityType);
+        std::unordered_set<Vec2Int> nbrs = Util::getNeighborPositions(buildAction.position, buildAction.entityType);
         if (nbrs.find(entity.position) == nbrs.end()) {
             std::cout << "DETOUR" << std::endl;
             // we must have just detoured to clear the area, return back to build location
