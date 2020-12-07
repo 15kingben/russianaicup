@@ -173,7 +173,6 @@ void ConstructManager::updateHouseBuilds(BuilderManager& builderManager, std::ve
     if (std::max(inProgress, builderManager.getCommitted()) < builderManager.getBuilderCount() / 5) {
         for (auto & pair : houseLocations) {
             if (pair.second == 0 && Util::getClear(BuildAction(HOUSE, Vec2Int(pair.first.first, pair.first.second)), open).empty()) {
-                std::cout << "Building new house" << pair.first.first << " " << pair.first.second << std::endl;
                 pair.second = builderManager.assignNearestWorkerToBuild(Vec2Int(pair.first.first, pair.first.second), HOUSE, open);
                 break;
             }

@@ -117,7 +117,6 @@ Vec2Int Util::getHomeDirection() {
     int ms = Util::mapSize;
     int x = hb.x < ms / 2 ? -1 : 1;
     int y = hb.y < ms / 2 ? -1 : 1;
-    std::cout << "HB: " << Util::homeBase.x << " " << Util::homeBase.y << " " << x << " " << y << std::endl;
     return Vec2Int(x, y);
 }
 
