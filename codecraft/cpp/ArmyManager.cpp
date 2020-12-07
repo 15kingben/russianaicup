@@ -21,8 +21,10 @@ CombatUnit::CombatUnit(Entity entity, CombatStrat strat, Vec2Int target) {
 }
 
 Vec2Int ArmyManager::getRandomEnemyTarget() {
-    std::default_random_engine generator;
+    std::random_device mch; 
+    std::default_random_engine generator(mch());
     std::uniform_int_distribution<int> distribution(0,3);
+    
     Vec2Int me = Util::getHomeDirection();
     me.x = std::max(0, me.x); me.y = std::max(0, me.y);
     while (true) {
