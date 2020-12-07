@@ -27,6 +27,8 @@ Vec2Int ArmyManager::getRandomEnemyTarget() {
     
     Vec2Int me = Util::getHomeDirection();
     me.x = std::max(0, me.x); me.y = std::max(0, me.y);
+    if (done.size() >= 3) return Vec2Int(Util::mapSize / 2, Util::mapSize / 2);
+
     while (true) {
         Vec2Int target;
         int roll = distribution(generator);
@@ -34,6 +36,10 @@ Vec2Int ArmyManager::getRandomEnemyTarget() {
         if (roll == 1) target = Vec2Int(1, 0);
         if (roll == 2) target = Vec2Int(0, 1);
         if (roll == 3) target = Vec2Int(1, 1);
+
+        for (auto pair : done) {
+            if (pair == target) continue;
+        }
 
         // TODO: add more logic for if enemies die
         if (!(target == me)) {
@@ -52,8 +58,22 @@ int ArmyManager::getRangedUnitCount() const {
     return ranged.size();
 }
 
-void checkDone() {
-    
+void ArmyManager::checkDone(CombatUnit& unit) {
+    int m = Util::mapSize - 1;
+    Vec2Int v = unit.entity.position;
+    v.x = std::max(v.x, 1);
+    v.y = std::max(v.y, 1);
+    if (unit.entity.position == Vec2Int(0, 0) || unit.entity.position == Vec2Int(m, 0) || unit.entity.position == Vec2Int(0, m) || unit.entity.position == Vec2Int(m, m)) {
+        
+        done.emplace(v);
+    }
+
+    for (auto pair : done) {
+        if (pair == v) {
+            unit.target = getRandomEnemyTarget();
+            break;
+        }
+    }
 }
 
 void ArmyManager::updateRanged(const std::unordered_map<int, Entity> & currentRanged) {
@@ -71,9 +91,8 @@ void ArmyManager::updateRanged(const std::unordered_map<int, Entity> & currentRa
         } else {
             ranged[pair.first] = CombatUnit(pair.second, ATTACK, getRandomEnemyTarget());
         }
+        checkDone(ranged[pair.first]);
     }
-
-    checkDone();
 }
 
 void ArmyManager::updateMelee(const std::unordered_map<int, Entity> & currentMelee) {
@@ -91,9 +110,8 @@ void ArmyManager::updateMelee(const std::unordered_map<int, Entity> & currentMel
         } else {
             melees[pair.first] = CombatUnit(pair.second, DEFEND, Vec2Int(0,0));
         }
+        checkDone(melees[pair.first]);
     }
-
-    checkDone();
 }
 
 void ArmyManager::turretActions(std::unordered_map<int, EntityAction> & actions, std::unordered_map<int, Entity> & turrets) {

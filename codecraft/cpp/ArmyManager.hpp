@@ -25,6 +25,7 @@ class ArmyManager {
         EntityAction getDefendAction(CombatUnit & unit);
         EntityAction getAttackAction(CombatUnit & unit);
         std::unordered_set<Vec2Int> done;
+        void checkDone(CombatUnit& unit);
 };
 
 #endif
