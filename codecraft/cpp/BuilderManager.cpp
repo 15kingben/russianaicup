@@ -77,7 +77,7 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
 
         // }
 
-        if (!Util::isNeighbor(entity.position, Entity(-1,0,next.buildAction->entityType, next.buildAction->position, 0, false))) {
+        if (!Util::isNeighbor(entity.position, Entity(-1,0,buildAction.entityType, buildAction.position, 0, false))) {
             std::cout << "DETOUR" << std::endl;
             // we must have just detoured to clear the area, return back to build location
             actions.push_front(next);
