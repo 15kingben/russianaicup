@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <random>
+#include <algorithm>
 
 ArmyManager::ArmyManager() {
     
@@ -11,11 +13,32 @@ ArmyManager::ArmyManager() {
 
 CombatUnit::CombatUnit() { };
 
-CombatUnit::CombatUnit(Entity entity, CombatStrat strat) {
+CombatUnit::CombatUnit(Entity entity, CombatStrat strat, Vec2Int target) {
     this->entity = entity;
     this->strat = strat;
     fallback = false;
+    this->target = target;
 }
+
+Vec2Int ArmyManager::getRandomEnemyTarget() {
+    std::default_random_engine generator;
+    std::uniform_int_distribution<int> distribution(0,3);
+    Vec2Int me = Util::getHomeDirection();
+    me.x = std::max(0, me.x); me.y = std::max(0, me.y);
+    while (true) {
+        Vec2Int target;
+        int roll = distribution(generator);
+        if (roll == 0) target = Vec2Int(0, 0);
+        if (roll == 1) target = Vec2Int(1, 0);
+        if (roll == 2) target = Vec2Int(0, 1);
+        if (roll == 3) target = Vec2Int(1, 1);
+
+        // TODO: add more logic for if enemies die
+        if (!(target == me)) {
+            return target;
+        } 
+    }
+}   
 
 int ArmyManager::getMeleeUnitCount() const {
     return melees.size();
@@ -38,7 +61,7 @@ void ArmyManager::updateRanged(const std::unordered_map<int, Entity> & currentRa
         if (ranged.find(pair.first) != ranged.end()) {
             ranged[pair.first].entity = pair.second;
         } else {
-            ranged[pair.first] = CombatUnit(pair.second, DEFEND);
+            ranged[pair.first] = CombatUnit(pair.second, ATTACK, getRandomEnemyTarget());
         }
     }
 }
@@ -56,7 +79,7 @@ void ArmyManager::updateMelee(const std::unordered_map<int, Entity> & currentMel
         if (melees.find(pair.first) != melees.end()) {
             melees[pair.first].entity = pair.second;
         } else {
-            melees[pair.first] = CombatUnit(pair.second, DEFEND);
+            melees[pair.first] = CombatUnit(pair.second, DEFEND, Vec2Int(0,0));
         }
     }
 }
@@ -71,9 +94,11 @@ void ArmyManager::turretActions(std::unordered_map<int, EntityAction> & actions,
 void ArmyManager::combatActions(std::unordered_map<int, EntityAction> & actions) {
     for (auto & pair : ranged) {
         if (pair.second.strat == DEFEND) actions[pair.first] = getDefendAction(pair.second);
+        if (pair.second.strat == ATTACK) actions[pair.first] = getAttackAction(pair.second);
     }
     for (auto & pair : melees) {
         if (pair.second.strat == DEFEND) actions[pair.first] = getDefendAction(pair.second);
+        if (pair.second.strat == ATTACK) actions[pair.first] = getAttackAction(pair.second);
     }
 }
 
@@ -104,5 +129,11 @@ EntityAction ArmyManager::getDefendAction(CombatUnit & unit) {
 
     action.attackAction = std::make_shared<AttackAction>(Util::getAttackAction(nullptr, mapSize/2, defendTargets));
 
+    return action;
+}
+
+EntityAction ArmyManager::getAttackAction(CombatUnit & unit) {
+    EntityAction action = Util::getAction(MoveAction(unit.target, true, true));
+    action.attackAction = std::make_shared<AttackAction>(Util::getAttackAction(nullptr, 10, std::vector<EntityType>()));
     return action;
 }

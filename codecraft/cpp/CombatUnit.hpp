@@ -11,7 +11,7 @@ enum CombatStrat {
 class CombatUnit {
     public:
         CombatUnit();
-        CombatUnit(Entity entity, CombatStrat strat);
+        CombatUnit(Entity entity, CombatStrat strat, Vec2Int target);
         CombatStrat strat;
         Vec2Int target;
         Entity entity;

@@ -4,6 +4,7 @@
 #include <unordered_set>
 #include <iostream>
 #include <string>
+#include <random>
 
 std::unordered_map<EntityType, EntityProperties> Util::entityProperties;
 Economy* Util::economy;
@@ -97,7 +98,7 @@ Vec2Int Util::getBuildPosition(Entity entity, std::vector<std::vector<Square> > 
             return pos;
         }
     }
-    return Vec2Int(entity.position.x + size, entity.position.y + size - 1);
+    return Vec2Int(Util::mapSize / 2, Util::mapSize / 2);;
 }
 
 int Util::dist2(Vec2Int from, Vec2Int to) {
@@ -223,3 +224,9 @@ bool Util::isNeighbor(Vec2Int position, Entity entity) {
     }
     return isNeighbor;
 }
+
+Vec2Int Util::getRandomEnemyTarget() {
+    std::default_random_engine generator;
+    std::uniform_int_distribution<int> distribution(0,4);
+    int dice_roll = distribution(generator);
+}   

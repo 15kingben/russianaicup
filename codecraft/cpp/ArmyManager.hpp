@@ -15,12 +15,14 @@ class ArmyManager {
         void turretActions(std::unordered_map<int, EntityAction> & actions, std::unordered_map<int, Entity> & turrets);
         void combatActions(std::unordered_map<int, EntityAction> & actions);
         void setMaxDistance(int x);
+        Vec2Int getRandomEnemyTarget();
     private:
         std::unordered_map<int, CombatUnit> ranged;
         std::unordered_map<int, CombatUnit> melees;
         int FALLBACK_DISTANCE;
         int RECOVER_DISTANCE;                                                                                                      
         EntityAction getDefendAction(CombatUnit & unit);
+        EntityAction getAttackAction(CombatUnit & unit);
 };
 
 #endif
