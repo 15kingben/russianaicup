@@ -164,6 +164,6 @@ EntityAction ArmyManager::getDefendAction(CombatUnit & unit) {
 
 EntityAction ArmyManager::getAttackAction(CombatUnit & unit) {
     EntityAction action = Util::getAction(MoveAction(unit.target, true, true));
-    action.attackAction = std::make_shared<AttackAction>(Util::getAttackAction(nullptr, 10, std::vector<EntityType>()));
+    // action.attackAction = std::make_shared<AttackAction>(Util::getAttackAction(nullptr, 10, std::vector<EntityType>()));
     return action;
 }
