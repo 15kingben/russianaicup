@@ -154,7 +154,7 @@ void everyTickInitialization() {
         if (pv->players[i].id == pv->myId) 
             break;
 
-    economy.setResources(pv->players[i].resource);
+    economy.setResources(pv->players[pv->myId].resource);
     economy.setPopulation(0);
     Util::entities.clear();
     for (Entity e : pv->entities) {
