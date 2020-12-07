@@ -181,7 +181,8 @@ void BuilderManager::builderActions(std::unordered_map<int, EntityAction> & acti
                 actions[pair.first] = action;
             }
         } else {
-            actions[pair.first] = getMineAction();
+            // actions[pair.first] = getMineAction();
+            actions[pair.first] = Util::getAction(RepairAction(-1));
         }
     }
 }
