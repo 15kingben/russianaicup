@@ -6,7 +6,7 @@
 #include <string>
 
 std::unordered_map<EntityType, EntityProperties> Util::entityProperties;
-Economy Util::economy;
+Economy* Util::economy;
 int Util::myId;
 int Util::mapSize;
 Vec2Int Util::homeBase;
