@@ -122,7 +122,8 @@ void ConstructManager::initHouseLocations() {
 void ConstructManager::updateHouseBuilds(BuilderManager& builderManager, std::vector<std::vector<Square> > & open) {
     for (auto & pair : houseLocations) {
         int id = pair.second;
-        if (id != -1 && id != 0 && builderManager.builders.find(id) == builderManager.builders.end()) {
+        if (id == -1 || id == 0) continue;
+        if (builderManager.builders.find(id) == builderManager.builders.end()) {
             // uh oh builder died before finishing the job
             houseLocations[pair.first] = 0;
         } else if (builderManager.builders.at(id).committed == false) {
