@@ -27,7 +27,7 @@ Vec2Int ArmyManager::getRandomEnemyTarget() {
     
     Vec2Int me = Util::getHomeDirection();
     me.x = std::max(0, me.x); me.y = std::max(0, me.y);
-    if (done.size() >= Util::playerCount - 1) return Vec2Int(Util::mapSize / 2, Util::mapSize / 2);
+    // if (done.size() >= Util::playerCount - 1) return Vec2Int(Util::mapSize / 2, Util::mapSize / 2);
 
     while (true) {
         Vec2Int target;
