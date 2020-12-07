@@ -181,8 +181,7 @@ void BuilderManager::builderActions(std::unordered_map<int, EntityAction> & acti
                 actions[pair.first] = action;
             }
         } else {
-            // actions[pair.first] = getMineAction();
-            actions[pair.first] = Util::getAction(RepairAction(-1));
+            actions[pair.first] = getMineAction();
         }
     }
 }
@@ -243,8 +242,8 @@ int BuilderManager::getCommitted() {
 int MAX_REPAIR_CT = 2;
 
 void BuilderManager::repair(Repairable& entity, std::vector<std::vector<Square> > & open) {
-    for (int i = 0; i < 5; i++) {
-        std::cout << entity.getEntity().entityType << std::endl;
+    if (entity.getEntity().entityType < 0 || entity.getEntity().entityType > 10) {
+        while (true) std::cout << "poop" << std::endl;
     }
     if (entity.getEntity().health == Util::entityProperties[entity.getEntity().entityType].maxHealth) {
         entity.helpers.clear();
