@@ -12,6 +12,7 @@ int Util::myId;
 int Util::mapSize;
 Vec2Int Util::homeBase;
 std::unordered_map<int, Entity> Util::entities;
+int Util::playerCount;
 
 EntityAction Util::getAction(BuildAction action) {
     return EntityAction(

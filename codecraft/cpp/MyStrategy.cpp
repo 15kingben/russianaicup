@@ -188,6 +188,8 @@ void oneTimeInitialization() {
         if (entity.entityType == BUILDER_BASE && *(entity.playerId.get()) == pv->myId) Util::homeBase = entity.position;
     }
 
+    Util::playerCount = pv->players.size();
+
     armyManager.setMaxDistance(pv->mapSize);
 
     constructManager.initHouseLocations();
