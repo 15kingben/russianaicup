@@ -150,11 +150,11 @@ void everyTickInitialization() {
     meleeFactories.clear();
 
     int i = 0;
-    for (int i = 0; i < pv->players.size(); i++) 
+    for (i = 0; i < pv->players.size(); i++) 
         if (pv->players[i].id == pv->myId) 
             break;
 
-    economy.setResources(pv->players[pv->myId].resource);
+    economy.setResources(pv->players[i].resource);
     cout << "resource: " << economy.getResources() << endl;
     economy.setPopulation(0);
     Util::entities.clear();
