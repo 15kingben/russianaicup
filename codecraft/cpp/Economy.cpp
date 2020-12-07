@@ -49,8 +49,10 @@ void Economy::setPopulation(int pop) {
     usedPopulation = 0;
 }
 
-void Economy::updatePopulation(EntityType entityType) {
-    population += Util::entityProperties[entityType].populationProvide;
+void Economy::updatePopulation(Entity entity) {
+    EntityType entityType = entity.entityType;
+    if (entity.health == Util::entityProperties[entityType].maxHealth)
+        population += Util::entityProperties[entityType].populationProvide;
     usedPopulation += Util::entityProperties[entityType].populationUse;
 }
 

@@ -63,7 +63,7 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
         takeUpSpace(entity, open);
 
         if (entity.playerId && *entity.playerId.get() == me) {
-            economy.updatePopulation(entity.entityType);
+            economy.updatePopulation(entity);
 
             switch (entity.entityType) {
                 case BUILDER_UNIT:
