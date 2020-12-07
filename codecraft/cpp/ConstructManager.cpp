@@ -131,7 +131,7 @@ void ConstructManager::initHouseLocations() {
 }
 
 void ConstructManager::updateHouseBuilds(BuilderManager& builderManager, std::vector<std::vector<Square> > & open) {
-    for (auto pair : houseLocations) {
+    for (auto & pair : houseLocations) {
         int id = pair.second;
         if (builderManager.builders.find(id) == builderManager.builders.end()) {
             // uh oh builder died before finishing the job
@@ -139,7 +139,7 @@ void ConstructManager::updateHouseBuilds(BuilderManager& builderManager, std::ve
         } else if (builderManager.builders.at(id).committed == false) {
             // builder actions happen after contruct actions
             // so we are done with this builder
-            houseLocations[pair.first] = -1;
+            pair.second = -1;
         }
     }
 
