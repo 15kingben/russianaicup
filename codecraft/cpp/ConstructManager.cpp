@@ -68,7 +68,6 @@ void ConstructManager::updateBuildings(const std::unordered_map<int, Entity> & b
                     const std::unordered_map<int, Entity> & meleeBases,
                     const std::unordered_map<int, Entity> & houses,
                     const std::unordered_map<int, Entity> & turrets) {
-    meleeFactories.clear();
     fuck(builderBases, builderFactories);
     fuck(rangedBases, rangedFactories);
     fuck(meleeBases, meleeFactories);

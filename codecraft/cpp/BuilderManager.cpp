@@ -247,7 +247,7 @@ void BuilderManager::repair(Repairable& entity, std::vector<std::vector<Square> 
         return;
     }
 
-    int x = (getBuilderCount() / 5) - getCommitted();
+    int x = (getBuilderCount() / 3) - getCommitted();
     for (int helper : entity.helpers) {
         if (Util::entities.find(helper) == Util::entities.end()) {
             entity.helpers.erase(helper);

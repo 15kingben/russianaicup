@@ -225,3 +225,9 @@ bool Util::isNeighbor(Vec2Int position, Entity entity) {
     }
     return isNeighbor;
 }
+
+void Util::debug(std::string s) {
+    if (true) {
+        std::cout << s << std::endl;
+    }
+}

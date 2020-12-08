@@ -54,6 +54,7 @@ MyStrategy::MyStrategy() {}
 
 Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debugInterface)
 {
+    Util::debug("new turn");
     pv = &playerView;
     oneTimeInitialization();
     everyTickInitialization();
@@ -95,13 +96,17 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
         }
     }
 
+    Util::debug("update units");
     builderManager.updateBuilders(builders);
     constructManager.updateBuildings(builderFactories, rangedFactories, meleeFactories, houses, turrets);
     armyManager.updateMelee(melees);
     armyManager.updateRanged(ranged);
 
+    Util::debug("base build");
     constructManager.baseBuildActions(myAction, economy, builderManager, armyManager, open);
+    Util::debug("repair");
     constructManager.repairBuildings(builderManager, open);
+    Util::debug("house builds");
     constructManager.updateHouseBuilds(builderManager, open);
     builderManager.builderActions(myAction, open);
     armyManager.turretActions(myAction, turrets);

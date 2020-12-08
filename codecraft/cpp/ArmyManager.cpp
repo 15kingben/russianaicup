@@ -126,7 +126,7 @@ void ArmyManager::updateMelee(const std::unordered_map<int, Entity> & currentMel
 }
 
 void ArmyManager::turretActions(std::unordered_map<int, EntityAction> & actions, std::unordered_map<int, Entity> & turrets) {
-    int range = Util::entityProperties[TURRET].attack.get()->attackRange;
+    std::cout << "turret actions" << std::endl;
     for (auto pair : turrets) {
         actions[pair.first] = Util::getAction(Util::getAttackAction(nullptr, 0, std::vector<EntityType>()));
     }
@@ -149,6 +149,7 @@ void ArmyManager::setMaxDistance(int mapSize) {
 }
 
 EntityAction ArmyManager::getDefendAction(CombatUnit & unit) {
+    std::cout << "Attack action: " << unit.entity.id << std::endl;
     int mapSize = Util::mapSize;
     EntityAction action = Util::getAction(MoveAction(Vec2Int(22,22), true, false));
     std::vector<EntityType> defendTargets({BUILDER_UNIT, RANGED_UNIT, MELEE_UNIT});
