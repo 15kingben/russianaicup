@@ -188,7 +188,7 @@ void ArmyManager::updateEnemyStatus(const std::vector<std::vector<Square> > & op
 
     this->enemies = currentEnemies;
     // Update new target
-    if (attackerCount() == 0) return;
+    if (attackerCount() < 15) return;
     if (target == -1) {
         target = getWeakestEnemy(enemies);
     } else {
