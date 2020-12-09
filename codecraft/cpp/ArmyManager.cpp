@@ -161,7 +161,6 @@ EntityAction ArmyManager::getDefendAction(CombatUnit & unit) {
         }
     }
 
-
     // If close enough to base add attack action
     if (Util::dist2(unit.entity.position, Util::homeBase) > Util::dist2(Vec2Int(0,0), Vec2Int(FALLBACK_DISTANCE, FALLBACK_DISTANCE))) {
         unit.fallback = true;
