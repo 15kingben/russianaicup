@@ -97,6 +97,7 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
     }
 
     Util::debug("update units");
+    armyManager.updateEnemyStatus(open);
     builderManager.updateBuilders(builders);
     constructManager.updateBuildings(builderFactories, rangedFactories, meleeFactories, houses, turrets);
     armyManager.updateMelee(melees);
