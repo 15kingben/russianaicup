@@ -149,7 +149,6 @@ void ArmyManager::setMaxDistance(int mapSize) {
 }
 
 EntityAction ArmyManager::getDefendAction(CombatUnit & unit) {
-    std::cout << "Attack action: " << unit.entity.id << std::endl;
     int mapSize = Util::mapSize;
     EntityAction action = Util::getAction(MoveAction(Vec2Int(22,22), true, false));
     std::vector<EntityType> defendTargets({BUILDER_UNIT, RANGED_UNIT, MELEE_UNIT});
@@ -176,6 +175,6 @@ EntityAction ArmyManager::getDefendAction(CombatUnit & unit) {
 
 EntityAction ArmyManager::getAttackAction(CombatUnit & unit) {
     EntityAction action = Util::getAction(MoveAction(unit.target, true, true));
-    // action.attackAction = std::make_shared<AttackAction>(Util::getAttackAction(nullptr, 10, std::vector<EntityType>()));
+    action.attackAction = std::make_shared<AttackAction>(Util::getAttackAction(nullptr, 10, std::vector<EntityType>()));
     return action;
 }
