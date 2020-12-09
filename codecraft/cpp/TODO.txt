@@ -1,9 +1,9 @@
-- BuildJob implementation
+- x BuildJob implementation
  x List desired placement of houses, bases
- - check if house exists in location to remove/add to list
- - pick open spot for house so we don't wait to remove resources first
-- Repairable interface // repair is slow, 1pt when bases have 300 hp, soldiers have 10-30
- - necessary for houses
+ - x check if house exists in location to remove/add to list
+ - x pick open spot for house so we don't wait to remove resources first
+- x Repairable interface // repair is slow, 1pt when bases have 300 hp, soldiers have 10-30
+ - x necessary for houses
 - Builder + ranged flee mechanic
 - Team focus enemies mechanic
 - improved defense mechanics
