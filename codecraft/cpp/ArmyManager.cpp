@@ -126,13 +126,14 @@ void ArmyManager::updateMelee(const std::unordered_map<int, Entity> & currentMel
 }
 
 void ArmyManager::turretActions(std::unordered_map<int, EntityAction> & actions, std::unordered_map<int, Entity> & turrets) {
-    std::cout << "turret actions" << std::endl;
+    Util::debug("turret actions");
     for (auto pair : turrets) {
         actions[pair.first] = Util::getAction(Util::getAttackAction(nullptr, 0, std::vector<EntityType>()));
     }
 }
 
 void ArmyManager::combatActions(std::unordered_map<int, EntityAction> & actions) {
+    Util::debug("combat actions");
     for (auto & pair : ranged) {
         if (pair.second.strat == DEFEND) actions[pair.first] = getDefendAction(pair.second);
         if (pair.second.strat == ATTACK) actions[pair.first] = getAttackAction(pair.second);
