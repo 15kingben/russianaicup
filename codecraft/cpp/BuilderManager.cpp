@@ -259,6 +259,8 @@ void BuilderManager::repair(Repairable& entity, std::vector<std::vector<Square> 
         }
     }
 
+    std::cout << "helpers" << std::endl;
+
     while (x > 0 && entity.helpers.size() < MAX_REPAIR_CT) {
         int id = assignNearestWorkerToRepair(entity.getEntity());
         if (id != -1) {
