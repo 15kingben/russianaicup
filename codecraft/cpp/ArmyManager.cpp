@@ -51,7 +51,7 @@ CombatUnit ArmyManager::createNewCombatUnit(Entity entity) {
     int population = std::max(0, Util::economy->getPopulation() - 20);
     int targetDefense = 20;
     int targetOffense = population;
-    if (defenderCount() < targetDefense) {
+    if (entity.entityType != MELEE_UNIT && defenderCount() < targetDefense) {
         return CombatUnit(entity, DEFEND, Vec2Int(0,0));
     } else {
         return CombatUnit(entity, ATTACK, Vec2Int(0,0));
@@ -90,7 +90,7 @@ void ArmyManager::updateMelee(const std::unordered_map<int, Entity> & currentMel
         if (melees.find(pair.first) != melees.end()) {
             melees[pair.first].entity = pair.second;
         } else {
-            melees[pair.first] = CombatUnit(pair.second, DEFEND, Vec2Int(0,0));
+            melees[pair.first] = createNewCombatUnit(pair.second);
         }
         updateTarget(melees[pair.first]);
     }
@@ -211,7 +211,7 @@ int ArmyManager::attackerCount() {
     for (auto & x : ranged) {
         if (x.second.strat == ATTACK) s++;
     }
-    return s;
+    return s + melees.size();
 }
 
 int ArmyManager::getTarget() {

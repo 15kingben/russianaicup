@@ -6,5 +6,5 @@
  - x necessary for houses
 - Builder + ranged flee mechanic
 - Team focus enemies mechanic
-- improved defense mechanics
+- x improved defense mechanics
 - Assault mechanic

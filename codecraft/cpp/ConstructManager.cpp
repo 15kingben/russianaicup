@@ -82,7 +82,7 @@ void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & 
     // all builders if no other factories yet
     int builderTarget = population == 5 ? population : population * .5;
     population -= builderTarget;
-    int rangedTarget = population; // * .5;
+    int rangedTarget = population * .8;
     population -= rangedTarget;
     int meleeTarget = population;
 
