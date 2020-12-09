@@ -119,7 +119,7 @@ void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & 
 
 void ConstructManager::initHouseLocations() {
     std::cout << "homeBase: " << Util::homeBase.x  << " " << Util::homeBase.y << std::endl;
-    Vec2Int d = Util::getHomeDirection(); 
+    Vec2Int d = Util::getHomeDirection(Util::homeBase); 
     std::cout << "homeBase: " << d.x  << " " << d.y << std::endl;
     Vec2Int startPoint(std::max(d.x, 0) * (Util::mapSize - 1), std::max(d.y, 0) * (Util::mapSize - 1)); std::cout << Util::printVec(startPoint) << std::endl;
     d.x *= -1; d.y *= -1;

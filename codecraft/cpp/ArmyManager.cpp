@@ -20,39 +20,16 @@ CombatUnit::CombatUnit(Entity entity, CombatStrat strat, Vec2Int target) {
     this->target = target;
 }
 
-Vec2Int ArmyManager::getRandomEnemyTarget() {
-    std::random_device mch; 
-    std::default_random_engine generator(mch());
-    std::uniform_int_distribution<int> distribution(0,3);
-    
-    Vec2Int me = Util::getHomeDirection();
-    me.x = std::max(0, me.x); me.y = std::max(0, me.y);
-    // if (done.size() >= Util::playerCount - 1) return Vec2Int(Util::mapSize / 2, Util::mapSize / 2);
+Enemy::Enemy() {
 
-    while (true) {
-        Vec2Int target;
-        int roll = distribution(generator);
-        if (roll == 0) target = Vec2Int(0, 0);
-        if (roll == 1) target = Vec2Int(1, 0);
-        if (roll == 2) target = Vec2Int(0, 1);
-        if (roll == 3) target = Vec2Int(1, 1);
+}
 
-        // if (Util::playerCount == 2) {
-        //     if (roll == 1 || roll == 2) continue;
-        // }
-
-        for (auto pair : done) {
-            if (pair == target) continue;
-        }
-
-        // TODO: add more logic for if enemies die
-        if (!(target == me)) {
-            target.x *= Util::mapSize - 1;
-            target.y *= Util::mapSize - 1;
-            return target;
-        } 
-    }
-}   
+Enemy::Enemy(int id) {
+    this->id = id;
+    this->population = 0;
+    this->resources = 0;
+    this->homeBase = Vec2Int(-1,-1);
+} 
 
 int ArmyManager::getMeleeUnitCount() const {
     return melees.size();
@@ -62,24 +39,22 @@ int ArmyManager::getRangedUnitCount() const {
     return ranged.size();
 }
 
-void ArmyManager::checkDone(CombatUnit& unit) {
-    int m = Util::mapSize - 1;
-    Vec2Int v = unit.entity.position;
-    v.x = std::max(v.x, 1);
-    v.y = std::max(v.y, 1);
-    if (unit.entity.position == Vec2Int(0, 0) || unit.entity.position == Vec2Int(m, 0) || unit.entity.position == Vec2Int(0, m) || unit.entity.position == Vec2Int(m, m)) {
-        done.emplace(v);
+void ArmyManager::updateTarget(CombatUnit& unit) {
+    if (target == -1) {
+        unit.target = Vec2Int(Util::mapSize/2, Util::mapSize / 2);
+    } else {
+        unit.target = enemies[target].homeBase;
     }
+}
 
-    v = unit.target;
-    v.x = std::max(v.x, 1);
-    v.y = std::max(v.y, 1);
-
-    for (auto pair : done) {
-        if (pair == v) {
-            unit.target = getRandomEnemyTarget();
-            break;
-        }
+CombatUnit ArmyManager::createNewCombatUnit(Entity entity) {
+    int population = std::max(0, Util::economy->getPopulation() - 20);
+    int targetDefense = 20;
+    int targetOffense = population;
+    if (defenderCount() < targetDefense) {
+        return CombatUnit(entity, DEFEND, Vec2Int(0,0));
+    } else {
+        return CombatUnit(entity, ATTACK, Vec2Int(0,0));
     }
 }
 
@@ -96,13 +71,9 @@ void ArmyManager::updateRanged(const std::unordered_map<int, Entity> & currentRa
         if (ranged.find(pair.first) != ranged.end()) {
             ranged[pair.first].entity = pair.second;
         } else {
-            // if (ranged.size() %3 == 0) {
-            //     ranged[pair.first] = CombatUnit(pair.second, DEFEND, getRandomEnemyTarget());
-            // } else {
-                ranged[pair.first] = CombatUnit(pair.second, ATTACK, getRandomEnemyTarget());
-            // }
+            ranged[pair.first] = createNewCombatUnit(pair.second);
         }
-        checkDone(ranged[pair.first]);
+        updateTarget(ranged[pair.first]);
     }
 }
 
@@ -121,7 +92,7 @@ void ArmyManager::updateMelee(const std::unordered_map<int, Entity> & currentMel
         } else {
             melees[pair.first] = CombatUnit(pair.second, DEFEND, Vec2Int(0,0));
         }
-        checkDone(melees[pair.first]);
+        updateTarget(melees[pair.first]);
     }
 }
 
@@ -178,9 +149,65 @@ EntityAction ArmyManager::getAttackAction(CombatUnit & unit) {
     Util::debug(Util::printVec(unit.target));
     EntityAction action = Util::getAction(MoveAction(unit.target, true, true));
     action.attackAction = std::make_shared<AttackAction>(Util::getAttackAction(nullptr, 10, std::vector<EntityType>()));
+
+    std::cout << Util::printVec(unit.target) << std::endl;
+
     return action;
+}
+
+int getWeakestEnemy(std::unordered_map<int, Enemy> enemies) {
+    int maxPop = 10000; int best = -1;
+    for (auto pair : enemies) {
+        if (pair.second.homeBase.x == -1) continue;
+        if (pair.second.population < maxPop) {
+            maxPop = pair.second.population;
+            best = pair.first;
+        }
+    }
+    return best;
 }
 
 void ArmyManager::updateEnemyStatus(const std::vector<std::vector<Square> > & open) {
     
+    std::unordered_map<int, Enemy> currentEnemies;
+    for (auto & e : Util::entities) {
+        if (!e.second.playerId || *e.second.playerId == Util::myId) continue;
+        int eid = *e.second.playerId;
+        if (currentEnemies.find(eid) == currentEnemies.end()) {
+            currentEnemies[eid] = Enemy(eid);
+        }
+
+        int pop = Util::entityProperties[e.second.entityType].populationProvide;
+        currentEnemies[eid].population += pop;
+
+        if (e.second.entityType == BUILDER_BASE) {
+            currentEnemies[eid].homeBase = e.second.position;
+            currentEnemies[eid].direction = Util::getHomeDirection(e.second.position);
+        }
+    }
+
+    this->enemies = currentEnemies;
+    if (target == -1) {
+        target = getWeakestEnemy(enemies);
+    } else {
+        if (enemies.find(target) == enemies.end() || enemies.find(target)->second.homeBase.x == -1) {
+            target = getWeakestEnemy(enemies);
+        }
+    }
+}
+
+int ArmyManager::defenderCount() {
+    int s = 0;
+    for (auto & x : ranged) {
+        if (x.second.strat == DEFEND) s++;
+    }
+    return s;
+}
+
+int ArmyManager::attackerCount() {
+    int s = 0;
+    for (auto & x : ranged) {
+        if (x.second.strat == ATTACK) s++;
+    }
+    return s;
 }

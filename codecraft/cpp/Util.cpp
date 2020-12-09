@@ -113,8 +113,7 @@ int Util::getUnitCost(EntityType type, int count) {
 }
 
 // Direction of home base, [-1,-1], [-1,1], [1,-1] or [1,1]
-Vec2Int Util::getHomeDirection() {
-    Vec2Int hb = Util::homeBase;
+Vec2Int Util::getHomeDirection(Vec2Int hb) {
     int ms = Util::mapSize;
     int x = hb.x < ms / 2 ? -1 : 1;
     int y = hb.y < ms / 2 ? -1 : 1;
@@ -227,7 +226,7 @@ bool Util::isNeighbor(Vec2Int position, Entity entity) {
 }
 
 void Util::debug(std::string s) {
-    if (true) {
+    if (false) {
         std::cout << s << std::endl;
     }
 }

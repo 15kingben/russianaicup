@@ -26,7 +26,7 @@ public:
     static AttackAction getAttackAction(std::shared_ptr<int> target, int pathfindRange, std::vector<EntityType> validTargets);
     static int dist2(Vec2Int from, Vec2Int to);
     static int getUnitCost(EntityType type, int number);
-    static Vec2Int getHomeDirection();
+    static Vec2Int getHomeDirection(Vec2Int homebase);
     static MoveAction getFlee(Entity entity, const std::vector<std::vector<Square> > & map);
     static std::unordered_set<int> getClear(BuildAction action, std::vector<std::vector<Square> > & map);
     static bool isAdjacent(Vec2Int a, Vec2Int b);

@@ -6,6 +6,7 @@
 #include "model/Model.hpp"
 #include <unordered_set>
 #include "Square.hpp"
+#include "Enemy.hpp"
 
 class ArmyManager {
     public:
@@ -26,8 +27,12 @@ class ArmyManager {
         int RECOVER_DISTANCE;                                                                                                      
         EntityAction getDefendAction(CombatUnit & unit);
         EntityAction getAttackAction(CombatUnit & unit);
-        std::unordered_set<Vec2Int> done;
-        void checkDone(CombatUnit& unit);
+        std::unordered_map<int, Enemy> enemies;
+        void updateTarget(CombatUnit& unit);
+        int defenderCount();
+        int attackerCount();
+        int target = -1;
+        CombatUnit createNewCombatUnit(Entity entity);
 };
 
 #endif
