@@ -174,7 +174,13 @@ EntityAction ArmyManager::getDefendAction(CombatUnit & unit) {
 }
 
 EntityAction ArmyManager::getAttackAction(CombatUnit & unit) {
+    Util::debug(std::to_string(unit.strat));
+    Util::debug(Util::printVec(unit.target));
     EntityAction action = Util::getAction(MoveAction(unit.target, true, true));
     action.attackAction = std::make_shared<AttackAction>(Util::getAttackAction(nullptr, 10, std::vector<EntityType>()));
     return action;
+}
+
+void ArmyManager::updateEnemyStatus(const std::vector<std::vector<Square> > & open) {
+    
 }

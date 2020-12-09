@@ -5,6 +5,7 @@
 #include "CombatUnit.hpp"
 #include "model/Model.hpp"
 #include <unordered_set>
+#include "Square.hpp"
 
 class ArmyManager {
     public:
@@ -17,6 +18,7 @@ class ArmyManager {
         void combatActions(std::unordered_map<int, EntityAction> & actions);
         void setMaxDistance(int x);
         Vec2Int getRandomEnemyTarget();
+        void updateEnemyStatus(const std::vector<std::vector<Square> > & open);
     private:
         std::unordered_map<int, CombatUnit> ranged;
         std::unordered_map<int, CombatUnit> melees;
