@@ -261,6 +261,7 @@ void BuilderManager::repair(Repairable& entity, std::vector<std::vector<Square> 
         if (Util::entities.find(helper) == Util::entities.end()) {
             std::cout << "b" << std::endl;
             entity.helpers.erase(helper);
+            std::cout << "c" << std::endl;
         }
     }
 
