@@ -251,7 +251,7 @@ void BuilderManager::repair(Repairable& entity, std::vector<std::vector<Square> 
 
     for (auto it = entity.helpers.begin(); it != entity.helpers.end();) {
         if (Util::entities.find(*it) == Util::entities.end()) {
-            entity.helpers.erase(*it);
+            it = entity.helpers.erase(it);
         } else {
             it++;
         }
