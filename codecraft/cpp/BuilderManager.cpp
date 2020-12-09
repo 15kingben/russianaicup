@@ -257,7 +257,7 @@ void BuilderManager::repair(Repairable& entity, std::vector<std::vector<Square> 
     std::cout << "bc" << std::endl;
 
     for (int helper : entity.helpers) {
-        std::cout << "a" << std::endl;
+        std::cout << helper << std::endl;
         if (Util::entities.find(helper) == Util::entities.end()) {
             std::cout << "b" << std::endl;
             entity.helpers.erase(helper);
