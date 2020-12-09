@@ -211,3 +211,7 @@ int ArmyManager::attackerCount() {
     }
     return s;
 }
+
+int ArmyManager::getTarget() {
+    return target;
+}

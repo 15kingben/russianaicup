@@ -163,7 +163,10 @@ EntityAction getMineAction() {
     if (Util::economy->getPopulation() == 5) {
         mineTargets.push_back(BUILDER_UNIT);
     }
-    return Util::getAction(AttackAction(nullptr, std::make_shared<AutoAttack>(AutoAttack(1000, mineTargets))));
+    EntityAction moveAction = Util::getAction(MoveAction(Vec2Int(Util::mapSize / 2, Util::mapSize / 2), true, true));
+    moveAction.attackAction = std::make_shared<AttackAction>(AttackAction(nullptr, std::make_shared<AutoAttack>(AutoAttack(1000, mineTargets))));
+
+    return moveAction;
 }
 
 void BuilderManager::builderActions(std::unordered_map<int, EntityAction> & actions, std::vector<std::vector<Square> > & open) {

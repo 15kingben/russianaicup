@@ -20,6 +20,7 @@ class ArmyManager {
         void setMaxDistance(int x);
         Vec2Int getRandomEnemyTarget();
         void updateEnemyStatus(const std::vector<std::vector<Square> > & open);
+        int getTarget();
     private:
         std::unordered_map<int, CombatUnit> ranged;
         std::unordered_map<int, CombatUnit> melees;
