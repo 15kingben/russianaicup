@@ -242,11 +242,6 @@ int BuilderManager::getCommitted() {
 int MAX_REPAIR_CT = 2;
 
 void BuilderManager::repair(Repairable& entity, std::vector<std::vector<Square> > & open) {
-    Util::debug(std::to_string(entity.getEntity().health));
-    Util::debug(std::to_string(entity.getEntity().id));
-    Util::debug(std::to_string(entity.getEntity().entityType));
-    Util::debug(std::to_string(entity.helpers.size()));
-
     if (entity.getEntity().health == Util::entityProperties[entity.getEntity().entityType].maxHealth) {
         entity.helpers.clear();
         return;
@@ -254,18 +249,11 @@ void BuilderManager::repair(Repairable& entity, std::vector<std::vector<Square> 
 
     int x = (getBuilderCount() / 3) - getCommitted();
 
-    std::cout << "bc" << std::endl;
-
-    for (int helper : entity.helpers) {
-        std::cout << helper << std::endl;
-        if (Util::entities.find(helper) == Util::entities.end()) {
-            std::cout << "b" << std::endl;
-            entity.helpers.erase(helper);
-            std::cout << "c" << std::endl;
+    for (auto it = entity.helpers.begin(); it != entity.helpers.end();) {
+        if (Util::entities.find(*it) == Util::entities.end()) {
+            entity.helpers.erase(*it);
         }
     }
-
-    std::cout << "helpers" << std::endl;
 
     while (x > 0 && entity.helpers.size() < MAX_REPAIR_CT) {
         int id = assignNearestWorkerToRepair(entity.getEntity());
