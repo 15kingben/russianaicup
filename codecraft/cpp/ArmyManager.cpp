@@ -40,7 +40,7 @@ int ArmyManager::getRangedUnitCount() const {
 }
 
 void ArmyManager::updateTarget(CombatUnit& unit) {
-    if (target == -1) {
+    if (target == -1 || enemies[target].homeBase.x == -1) {
         unit.target = Vec2Int(Util::mapSize/2, Util::mapSize / 2);
     } else {
         unit.target = enemies[target].homeBase;
