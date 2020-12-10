@@ -173,7 +173,7 @@ EntityAction getMineAction() {
 
 EntityAction BuilderManager::getFleeAction(Builder b, std::vector<std::vector<Square> > & open) {
     Vec2Int pos = b.entity.position;
-    return Util::getAction(MoveAction(Util::getClosestSafeSpace(pos, open), true, true));
+    return Util::getAction(MoveAction(Util::getClosestSafeSpace(pos, open), true, false));
 }
 
 void BuilderManager::builderActions(std::unordered_map<int, EntityAction> & actions, std::vector<std::vector<Square> > & open) {
