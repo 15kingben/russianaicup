@@ -21,6 +21,7 @@ class BuilderManager {
         void repair(Repairable& entity, std::vector<std::vector<Square> > & open);
         int getCommitted();
         int getClosestWorker(Vec2Int location) ;
+        EntityAction getFleeAction(Builder builder, std::vector<std::vector<Square> > & open);
 };
 
 #endif

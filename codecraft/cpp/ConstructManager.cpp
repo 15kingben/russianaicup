@@ -11,11 +11,13 @@ Square::Square() {
     entity = Entity();
     entity.id = -1;
     occupied = false;
+    danger = false;
 }
 
 Square::Square(Entity entity) {
     this->entity = entity;
     occupied = true;
+    danger = false;
 }
 
 void Square::setEntity(Entity entity) {

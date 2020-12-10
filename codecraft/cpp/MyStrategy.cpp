@@ -94,6 +94,12 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
                     break;
             }
         }
+
+        if (entity.playerId && *entity.playerId.get() != me) {
+            if (entity.entityType == RANGED_UNIT || entity.entityType == MELEE_UNIT) {
+                Util::markDanger(entity, open);
+            }
+        }
     }
 
     Util::debug("update units");

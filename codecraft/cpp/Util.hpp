@@ -40,6 +40,8 @@ public:
     static std::pair<int, int> pair(Vec2Int);
     static bool isNeighbor(Vec2Int pos, Entity target);
     static void debug(std::string s);
+    static void markDanger(Entity entity, std::vector<std::vector<Square> > & open);
+    static Vec2Int getClosestSafeSpace(Vec2Int v, std::vector<std::vector<Square> > & open);
 };
 
 #endif

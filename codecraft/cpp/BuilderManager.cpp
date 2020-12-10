@@ -171,6 +171,11 @@ EntityAction getMineAction() {
     return moveAction;
 }
 
+EntityAction BuilderManager::getFleeAction(Builder b, std::vector<std::vector<Square> > & open) {
+    Vec2Int pos = b.entity.position;
+    return Util::getAction(MoveAction(Util::getClosestSafeSpace(pos, open), true, true));
+}
+
 void BuilderManager::builderActions(std::unordered_map<int, EntityAction> & actions, std::vector<std::vector<Square> > & open) {
     for (auto & pair : builders) {
         if (pair.second.committed) {
@@ -186,7 +191,12 @@ void BuilderManager::builderActions(std::unordered_map<int, EntityAction> & acti
                 actions[pair.first] = action;
             }
         } else {
-            actions[pair.first] = getMineAction();
+            Vec2Int pos = pair.second.entity.position;
+            if (open[pos.x][pos.y].danger) {
+                actions[pair.first] = getFleeAction(pair.second, open);
+            } else {
+                actions[pair.first] = getMineAction();
+            }
         }
     }
 }

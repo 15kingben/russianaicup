@@ -10,6 +10,7 @@ public:
     void setEntity(Entity entity);
     bool isOccupied();
     Entity getEntity();
+    bool danger;
 
    bool operator<(const Square& rhs) const noexcept
    {

@@ -231,3 +231,25 @@ void Util::debug(std::string s) {
         std::cout << s << std::endl;
     }
 }
+
+void Util::markDanger(Entity entity, std::vector<std::vector<Square> > & open) {
+    Vec2Int pos = entity.position;
+    int RANGE = 7;
+    for (int x = pos.x - RANGE; x < pos.x + RANGE + 1; x++) {
+        for (int y = pos.y - RANGE; y < pos.y + RANGE + 1; y++) {
+            if (!inb(x, y)) continue;
+            open[x][y].danger = true;
+        }
+    }
+}
+
+Vec2Int Util::getClosestSafeSpace(Vec2Int pos, std::vector<std::vector<Square> > & open) {
+    int RANGE = 1;
+    for (int x = pos.x - RANGE; x < pos.x + RANGE + 1; x++) {
+        for (int y = pos.y - RANGE; y < pos.y + RANGE + 1; y++) {
+            if (!inb(x, y) || open[x][y].danger) continue;
+            return Vec2Int(x, y);
+        }
+    }
+    return Vec2Int(Util::mapSize / 2, Util::mapSize / 2);
+}
