@@ -205,7 +205,7 @@ void ArmyManager::updateEnemyStatus(const std::vector<std::vector<Square> > & op
     this->enemies = currentEnemies;
     // Update new target
     
-    for (auto it = enemies.begin(); it != enemies.end(); it++) {
+    for (auto it = enemies.begin(); it != enemies.end();) {
         if (it->second.homeBase.x == -1) {
             enemies.erase(it);
         } else {
@@ -214,7 +214,7 @@ void ArmyManager::updateEnemyStatus(const std::vector<std::vector<Square> > & op
     }
 
     // don't target across if all up
-    for (auto it = enemies.begin(); it != enemies.end(); it++) {
+    for (auto it = enemies.begin(); it != enemies.end();) {
         if (it->second.direction == Vec2Int(1, 1) && enemies.size() == 3) {
             enemies.erase(it);
         } else {
