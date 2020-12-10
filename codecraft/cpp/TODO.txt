@@ -8,3 +8,4 @@
 - Team focus enemies mechanic
 - x improved defense mechanics
 - Assault mechanic
+- cheeky attackers
