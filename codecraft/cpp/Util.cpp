@@ -234,7 +234,7 @@ void Util::debug(std::string s) {
 
 void Util::markDanger(Entity entity, std::vector<std::vector<Square> > & open) {
     Vec2Int pos = entity.position;
-    int RANGE = Util::entityProperties[entity.entityType].attack.get()->attackRange;
+    int RANGE = Util::entityProperties[entity.entityType].attack.get()->attackRange + 2;
     for (int x = pos.x - RANGE; x < pos.x + RANGE + 1; x++) {
         for (int y = pos.y - RANGE; y < pos.y + RANGE + 1; y++) {
             if (!inb(x, y)) continue;
