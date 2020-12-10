@@ -149,7 +149,7 @@ EntityAction ArmyManager::getDefendAction(CombatUnit & unit, std::vector<std::ve
     return action;
 }
 
-EntityAction ArmyManager::getAttackAction(CombatUnit & unit) {
+EntityAction ArmyManager::getAttackAction(CombatUnit & unit, std::vector<std::vector<Square> > & open) {
     Util::debug(std::to_string(unit.strat));
     Util::debug(Util::printVec(unit.target));
     EntityAction action = Util::getAction(MoveAction(unit.target, true, true));
