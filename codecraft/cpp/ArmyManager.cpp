@@ -139,7 +139,7 @@ EntityAction ArmyManager::getDefendAction(CombatUnit & unit) {
         return action;
     }
 
-    action.attackAction = std::make_shared<AttackAction>(Util::getAttackAction(nullptr, mapSize/2, defendTargets));
+    if (!pacifist) action.attackAction = std::make_shared<AttackAction>(Util::getAttackAction(nullptr, mapSize/2, defendTargets));
 
     return action;
 }
@@ -148,7 +148,7 @@ EntityAction ArmyManager::getAttackAction(CombatUnit & unit) {
     Util::debug(std::to_string(unit.strat));
     Util::debug(Util::printVec(unit.target));
     EntityAction action = Util::getAction(MoveAction(unit.target, true, true));
-    action.attackAction = std::make_shared<AttackAction>(Util::getAttackAction(nullptr, 10, std::vector<EntityType>()));
+    if (!pacifist) action.attackAction = std::make_shared<AttackAction>(Util::getAttackAction(nullptr, 10, std::vector<EntityType>()));
 
     std::cout << Util::printVec(unit.target) << std::endl;
 
