@@ -4,8 +4,8 @@
  - x pick open spot for house so we don't wait to remove resources first
 - x Repairable interface // repair is slow, 1pt when bases have 300 hp, soldiers have 10-30
  - x necessary for houses
-- Builder + ranged flee mechanic
+x Builder + ranged flee mechanic
 - Team focus enemies mechanic
 - x improved defense mechanics
 - Assault mechanic
-- cheeky attackers
+o cheeky attackers
