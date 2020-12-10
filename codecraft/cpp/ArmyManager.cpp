@@ -51,7 +51,13 @@ CombatUnit ArmyManager::createNewCombatUnit(Entity entity) {
     int population = std::max(0, Util::economy->getPopulation() - 20);
     int targetDefense = 20;
     int targetOffense = population;
-    if (entity.entityType != MELEE_UNIT && defenderCount() < targetDefense) {
+    if (!cheekyLeft) {
+        cheekyLeft = true;
+        return CombatUnit(entity, CHEEKY, Vec2Int(0,Util::mapSize - 1));
+    } else if (!cheekyRight) {
+        cheekyRight = true;
+        return CombatUnit(entity, CHEEKY, Vec2Int(Util::mapSize - 1,0));
+    } else if (entity.entityType != MELEE_UNIT && defenderCount() < targetDefense) {
         return CombatUnit(entity, DEFEND, Vec2Int(0,0));
     } else {
         return CombatUnit(entity, ATTACK, Vec2Int(0,0));
@@ -108,10 +114,12 @@ void ArmyManager::combatActions(std::unordered_map<int, EntityAction> & actions)
     for (auto & pair : ranged) {
         if (pair.second.strat == DEFEND) actions[pair.first] = getDefendAction(pair.second);
         if (pair.second.strat == ATTACK) actions[pair.first] = getAttackAction(pair.second);
+        if (pair.second.strat == CHEEKY) actions[pair.first] = getCheekyAction(pair.second);
     }
     for (auto & pair : melees) {
         if (pair.second.strat == DEFEND) actions[pair.first] = getDefendAction(pair.second);
         if (pair.second.strat == ATTACK) actions[pair.first] = getAttackAction(pair.second);
+        if (pair.second.strat == CHEEKY) actions[pair.first] = getCheekyAction(pair.second);
     }
 }
 
@@ -151,6 +159,15 @@ EntityAction ArmyManager::getAttackAction(CombatUnit & unit) {
     action.attackAction = std::make_shared<AttackAction>(Util::getAttackAction(nullptr, 10, std::vector<EntityType>()));
 
     std::cout << Util::printVec(unit.target) << std::endl;
+
+    return action;
+}
+
+EntityAction ArmyManager::getCheekyAction(CombatUnit & unit) {
+    Util::debug(std::to_string(unit.strat));
+    
+    Vec2Int currentPosition = unit.entity.position;
+    
 
     return action;
 }

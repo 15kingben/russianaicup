@@ -80,7 +80,7 @@ void ConstructManager::baseBuildActions(std::unordered_map<int, EntityAction> & 
     // Build targets for each type
     int population = economy.getPopulation();
     // all builders if no other factories yet
-    int builderTarget = population <= 15 ? 13 : population * .5;
+    int builderTarget = population <= 15 ? population - 2 : population * .5;
     population -= builderTarget;
     int rangedTarget = population * .8;
     population -= rangedTarget;

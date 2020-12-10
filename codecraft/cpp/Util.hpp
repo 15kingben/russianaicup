@@ -17,6 +17,7 @@ public:
     static Vec2Int homeBase;
     static Economy * economy;
     static int playerCount;
+    static int tickCount;
     static EntityAction getAction(BuildAction action);
     static EntityAction getAction(AttackAction action);
     static EntityAction getAction(MoveAction action);

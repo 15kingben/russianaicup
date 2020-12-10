@@ -13,6 +13,7 @@ int Util::mapSize;
 Vec2Int Util::homeBase;
 std::unordered_map<int, Entity> Util::entities;
 int Util::playerCount;
+int Util::tickCount;
 
 EntityAction Util::getAction(BuildAction action) {
     return EntityAction(

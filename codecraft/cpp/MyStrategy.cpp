@@ -105,11 +105,11 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
 
     Util::debug("base build");
     constructManager.baseBuildActions(myAction, economy, builderManager, armyManager, open);
+    builderManager.builderActions(myAction, open);
     Util::debug("repair");
     constructManager.repairBuildings(builderManager, open);
     Util::debug("house builds");
     constructManager.updateHouseBuilds(builderManager, open);
-    builderManager.builderActions(myAction, open);
     armyManager.turretActions(myAction, turrets);
     armyManager.combatActions(myAction);
 
@@ -167,6 +167,7 @@ void everyTickInitialization() {
         Util::entities[e.id] = e;
     }
     Util::economy = &economy;
+    Util::tickCount = pv->currentTick;
 
     int oldTotalResources = totalResources;
     totalResources = totalResourcesOnMap();

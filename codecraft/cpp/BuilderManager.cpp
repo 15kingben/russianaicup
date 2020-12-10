@@ -110,6 +110,8 @@ EntityAction Job::getAction(std::vector<std::vector<Square> > & open) {
         if (!Util::isNeighbor(entity.position, target)) {
             return Util::getAction(MoveAction(Util::getBuildPosition(target.position, target.entityType, open), false, true));
         }
+
+        this->step--;
  
         return next;
     }

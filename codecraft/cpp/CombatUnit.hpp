@@ -5,7 +5,8 @@
 
 enum CombatStrat {
     DEFEND,
-    ATTACK
+    ATTACK,
+    CHEEKY
 };
 
 class CombatUnit {
