@@ -51,7 +51,7 @@ CombatUnit ArmyManager::createNewCombatUnit(Entity entity) {
     int population = std::max(0, Util::economy->getPopulation() - 20);
     int targetDefense = 20;
     int targetOffense = population;
-    if (entity.entityType != MELEE_UNIT && defenderCount() < targetDefense) {
+    if (defenderCount() < targetDefense) {
         return CombatUnit(entity, DEFEND, Vec2Int(0,0));
     } else {
         return CombatUnit(entity, ATTACK, Vec2Int(0,0));
