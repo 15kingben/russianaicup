@@ -106,7 +106,7 @@ void ArmyManager::turretActions(std::unordered_map<int, EntityAction> & actions,
 void ArmyManager::combatActions(std::unordered_map<int, EntityAction> & actions, std::vector<std::vector<Square> > & open) {
     Util::debug("combat actions");
     if (defenderCount() > 17) {
-        if (!Util::getDanger()) {
+        if (!Util::getDanger(open)) {
             for (auto & pair : ranged) {
                 pair.second.strat = ATTACK;
                 updateTarget(pair.second);
