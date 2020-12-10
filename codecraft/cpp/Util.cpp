@@ -262,7 +262,7 @@ Vec2Int Util::getClosestSafeSpace(Vec2Int pos, std::vector<std::vector<Square> >
             return Vec2Int(x, y);
         }
     }
-    return Vec2Int(Util::mapSize / 2, Util::mapSize / 2);
+    return Vec2Int(0, 0);
 }
 
 bool Util::getDanger(std::vector<std::vector<Square> > & open) {
