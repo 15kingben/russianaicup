@@ -43,6 +43,7 @@ public:
     static void markDanger(Entity entity, std::vector<std::vector<Square> > & open);
     static void markSupport(Entity entity, std::vector<std::vector<Square> > & open);
     static Vec2Int getClosestSafeSpace(Vec2Int v, std::vector<std::vector<Square> > & open);
+    static bool getDanger(std::vector<std::vector<Square> > & open);
 };
 
 #endif
