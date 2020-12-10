@@ -150,8 +150,6 @@ EntityAction ArmyManager::getAttackAction(CombatUnit & unit) {
     EntityAction action = Util::getAction(MoveAction(unit.target, true, true));
     if (!pacifist) action.attackAction = std::make_shared<AttackAction>(Util::getAttackAction(nullptr, 10, std::vector<EntityType>()));
 
-    std::cout << Util::printVec(unit.target) << std::endl;
-
     return action;
 }
 
