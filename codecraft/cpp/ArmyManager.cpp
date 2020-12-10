@@ -130,7 +130,7 @@ EntityAction ArmyManager::getDefendAction(CombatUnit & unit, std::vector<std::ve
     if (unit.fallback) {
         if (Util::dist2(unit.entity.position, Util::homeBase) < Util::dist2(Vec2Int(0,0), Vec2Int(RECOVER_DISTANCE, RECOVER_DISTANCE))) {
             unit.fallback = false;
-        } else if (open[p.x][p.y].danger && open[p.x][p.y].support < 2){
+        } else if (unit.entity.entityType == RANGED_UNIT && open[p.x][p.y].danger && open[p.x][p.y].support < 2){
             // hold ground
             return Util::getAction(Util::getAttackAction(nullptr, 0, defendTargets));
         } else {   
