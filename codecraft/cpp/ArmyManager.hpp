@@ -28,15 +28,12 @@ class ArmyManager {
         int RECOVER_DISTANCE;                                                                                                      
         EntityAction getDefendAction(CombatUnit & unit);
         EntityAction getAttackAction(CombatUnit & unit);
-        EntityAction getCheekyAction(CombatUnit & unit);
         std::unordered_map<int, Enemy> enemies;
         void updateTarget(CombatUnit& unit);
         int defenderCount();
         int attackerCount();
         int target = -1;
         CombatUnit createNewCombatUnit(Entity entity);
-        bool cheekyLeft = false;
-        bool cheekyRight = false;
 };
 
 #endif
