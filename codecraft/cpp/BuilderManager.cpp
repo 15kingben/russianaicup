@@ -161,7 +161,7 @@ void BuilderManager::updateBuilders(const std::unordered_map<int, Entity> & curr
 }
 
 EntityAction getMineAction() {
-    std::vector<EntityType> mineTargets({RESOURCE});
+    std::vector<EntityType> mineTargets({RESOURCE, BUILDER_UNIT});
     if (Util::economy->getPopulation() == 5) {
         mineTargets.push_back(BUILDER_UNIT);
     }
