@@ -243,6 +243,17 @@ void Util::markDanger(Entity entity, std::vector<std::vector<Square> > & open) {
     }
 }
 
+void Util::markSupport(Entity entity, std::vector<std::vector<Square> > & open) {
+    Vec2Int pos = entity.position;
+    int RANGE = 3;
+    for (int x = pos.x - RANGE; x < pos.x + RANGE + 1; x++) {
+        for (int y = pos.y - RANGE; y < pos.y + RANGE + 1; y++) {
+            if (!inb(x, y)) continue;
+            open[x][y].support++;
+        }
+    }
+}
+
 Vec2Int Util::getClosestSafeSpace(Vec2Int pos, std::vector<std::vector<Square> > & open) {
     int RANGE = 1;
     for (int x = pos.x - RANGE; x < pos.x + RANGE + 1; x++) {

@@ -117,7 +117,7 @@ Action MyStrategy::getAction(const PlayerView& playerView, DebugInterface* debug
     Util::debug("house builds");
     constructManager.updateHouseBuilds(builderManager, open);
     armyManager.turretActions(myAction, turrets);
-    armyManager.combatActions(myAction);
+    armyManager.combatActions(myAction, open);
 
     return Action(myAction);
 }

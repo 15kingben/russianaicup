@@ -11,6 +11,7 @@ public:
     bool isOccupied();
     Entity getEntity();
     bool danger;
+    int support;
 
    bool operator<(const Square& rhs) const noexcept
    {

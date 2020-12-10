@@ -103,15 +103,15 @@ void ArmyManager::turretActions(std::unordered_map<int, EntityAction> & actions,
     }
 }
 
-void ArmyManager::combatActions(std::unordered_map<int, EntityAction> & actions) {
+void ArmyManager::combatActions(std::unordered_map<int, EntityAction> & actions, std::vector<std::vector<Square> > & open) {
     Util::debug("combat actions");
     for (auto & pair : ranged) {
-        if (pair.second.strat == DEFEND) actions[pair.first] = getDefendAction(pair.second);
-        if (pair.second.strat == ATTACK) actions[pair.first] = getAttackAction(pair.second);
+        if (pair.second.strat == DEFEND) actions[pair.first] = getDefendAction(pair.second, open);
+        if (pair.second.strat == ATTACK) actions[pair.first] = getAttackAction(pair.second, open);
     }
     for (auto & pair : melees) {
-        if (pair.second.strat == DEFEND) actions[pair.first] = getDefendAction(pair.second);
-        if (pair.second.strat == ATTACK) actions[pair.first] = getAttackAction(pair.second);
+        if (pair.second.strat == DEFEND) actions[pair.first] = getDefendAction(pair.second, open);
+        if (pair.second.strat == ATTACK) actions[pair.first] = getAttackAction(pair.second, open);
     }
 }
 
@@ -120,15 +120,20 @@ void ArmyManager::setMaxDistance(int mapSize) {
     RECOVER_DISTANCE = mapSize / 4;
 }
 
-EntityAction ArmyManager::getDefendAction(CombatUnit & unit) {
+EntityAction ArmyManager::getDefendAction(CombatUnit & unit, std::vector<std::vector<Square> > & open) {
     int mapSize = Util::mapSize;
     EntityAction action = Util::getAction(MoveAction(Vec2Int(22,22), true, false));
     std::vector<EntityType> defendTargets({BUILDER_UNIT, RANGED_UNIT, MELEE_UNIT});
 
+    Vec2Int p = unit.entity.position;
+
     if (unit.fallback) {
         if (Util::dist2(unit.entity.position, Util::homeBase) < Util::dist2(Vec2Int(0,0), Vec2Int(RECOVER_DISTANCE, RECOVER_DISTANCE))) {
             unit.fallback = false;
-        } else {
+        } else if (open[p.x][p.y].danger && open[p.x][p.y].support < 2){
+            // hold ground
+            return Util::getAction(Util::getAttackAction(nullptr, 0, defendTargets));
+        } else {   
             return action;
         }
     }
