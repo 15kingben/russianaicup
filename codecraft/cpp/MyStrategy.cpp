@@ -131,6 +131,7 @@ void takeUpSpace(const Entity& entity, std::vector<std::vector<Square> > &open) 
             open[i][j].setEntity(entity);
         }
     }
+    Util::markSupport(entity, open);
 }
 
 int totalResourcesOnMap() {

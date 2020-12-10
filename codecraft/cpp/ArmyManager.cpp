@@ -129,7 +129,7 @@ void ArmyManager::combatActions(std::unordered_map<int, EntityAction> & actions,
 }
 
 void ArmyManager::setMaxDistance(int mapSize) {
-    FALLBACK_DISTANCE = mapSize / 3;
+    FALLBACK_DISTANCE = mapSize / 2;
     RECOVER_DISTANCE = mapSize / 4;
 }
 
