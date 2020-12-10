@@ -34,7 +34,7 @@ class ArmyManager {
         int attackerCount();
         int target = -1;
         CombatUnit createNewCombatUnit(Entity entity);
-        pacifist = true;
+        bool pacifist = true;
 };
 
 #endif
